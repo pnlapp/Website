@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Emotional Trading Journal — Track the Feelings Behind Every Trade | PnL App</title>
+<meta name="description" content="An emotional trading journal logs the feeling behind every entry and exit, not just the P&L. See what it looks like and how PnL App automates it." />
+<link rel="canonical" href="https://pnlapp.co/emotional-trading-journal" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Emotional Trading Journal | PnL App" />
+<meta property="og:description" content="Track the feelings behind every trade, not just the P&L." />
+<meta property="og:url" content="https://pnlapp.co/emotional-trading-journal" />
+<meta property="og:image" content="https://pnlapp.co/assets/logo-black.png" />
+<meta name="twitter:card" content="summary" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is an emotional trading journal?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An emotional trading journal logs the state you were in when you entered and exited a trade, calm, anxious, revenge-driven, bored, alongside the usual entry, size, and result. Over time it turns a vague sense of losing into a specific, fixable pattern."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why should I track emotions when trading?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because two trades that look identical on a broker statement can mean opposite things. A calm, planned loss is a clean trade, while an anxious, oversized win is a bad decision that got lucky. Only an emotional log tells them apart."
+      }
+    }
+  ]
+}
+</script>
+<link rel="icon" type="image/png" href="/assets/favicon.png" />
+<link rel="apple-touch-icon" href="/assets/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
+<link href="https://fonts.cdnfonts.com/css/neue-montreal" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="/" class="nav__logo" aria-label="PnL App home"><img src="/assets/logo-black.png" alt="PnL App" /></a>
+  <div class="nav__links">
+    <a href="/#ethos">Ethos</a>
+    <a href="/#system">System</a>
+    <a href="/#pnlee">Pnlee</a>
+    <a href="/quiz">Diagnostic</a>
+  </div>
+  <div class="nav__cta">
+    <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn">App Store</a>
+    <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn btn--fill">Play Store</a>
+    <button class="nav__burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<header class="funnel-hero wrap">
+  <div class="eyebrow"><span class="num">00</span> Guide</div>
+  <h1>Emotional trading journal</h1>
+  <p class="sub">Your broker statement shows what happened. An emotional trading journal shows why — and why is the part you can actually fix.</p>
+  <div class="answer-box">
+    <span class="lbl">Short answer</span>
+    <p>An emotional trading journal logs the state you were in when you entered and exited a trade — calm, anxious, revenge-driven, bored — alongside the usual entry, size, and result. Over time it turns "I keep losing" into "I lose specifically when I trade angry after 2pm," which is a problem you can actually solve.</p>
+  </div>
+</header>
+
+<section class="fsec wrap" id="what">
+  <div class="fsec__head">
+    <div class="eyebrow"><span class="num">01</span> Why P&amp;L alone isn't enough</div>
+    <h2>Two trades can look identical and mean opposite things</h2>
+    <p>A losing trade taken calmly, on plan, with defined risk, is a clean trade that lost. A winning trade taken angry, oversized, off-plan, is a bad decision that got lucky. A P&amp;L column can't tell them apart. An emotional log can.</p>
+  </div>
+</section>
+
+<section class="fsec wrap" id="report" style="padding-top:0">
+  <div class="fsec__head">
+    <div class="eyebrow"><span class="num">02</span> What PnL App would show</div>
+    <h2>A sample behavioral report</h2>
+    <p>Emotion tagged automatically at entry and exit, then mapped against results.</p>
+  </div>
+  <div class="report-mock">
+    <div class="report-mock__tag">Emotion → P&amp;L map, last 30 days</div>
+    <h4>Which feeling costs you most</h4>
+    <div class="ebar">
+      <div class="ebar__row"><span class="ebar__lab">Calm</span><span class="ebar__track"><span class="ebar__fill" style="width:58%;background:var(--lime)"></span></span><span class="ebar__val">+58%</span></div>
+      <div class="ebar__row"><span class="ebar__lab">Focused</span><span class="ebar__track"><span class="ebar__fill" style="width:46%;background:#9bd400"></span></span><span class="ebar__val">+41%</span></div>
+      <div class="ebar__row"><span class="ebar__lab">FOMO</span><span class="ebar__track"><span class="ebar__fill" style="width:78%;background:#ff5b4c"></span></span><span class="ebar__val">&minus;64%</span></div>
+      <div class="ebar__row"><span class="ebar__lab">Revenge</span><span class="ebar__track"><span class="ebar__fill" style="width:88%;background:#ff5b4c"></span></span><span class="ebar__val">&minus;71%</span></div>
+    </div>
+    <p class="report-mock__note">Pnlee's read: calm trades aren't the problem. FOMO entries win 23% of the time and account for 64% of monthly losses.</p>
+  </div>
+</section>
+
+<section class="fsec wrap" id="example" style="padding-top:0">
+  <div class="fsec__head">
+    <div class="eyebrow"><span class="num">03</span> A real pattern</div>
+    <h2>What this looks like on an actual account</h2>
+  </div>
+  <div class="example-block">
+    <div class="eyebrow">Composite example, from PnL App usage patterns</div>
+    <p>Same setup, tagged over three weeks: taken calm, it won 61% of the time. Taken tagged "anxious" or "rushed," it won 24% of the time on the exact same criteria. The strategy was never the variable. The trader's state was.</p>
+    <p class="quote">&ldquo;The edge only shows up when the <span class="u">trader</span> does too.&rdquo;</p>
+  </div>
+</section>
+
+<section class="fsec wrap" style="padding-top:0">
+  <div class="funnel-cta">
+    <div class="eyebrow" style="justify-content:center;color:var(--ink-faint);margin-bottom:20px">Journaling that writes itself</div>
+    <h2>Auto-journaling, <span class="u">built in.</span></h2>
+    <p>PnL App captures emotion, context, and decisions automatically at entry and exit — no separate notebook, no forgetting to log the trade that actually mattered.</p>
+    <div class="btnrow">
+      <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn btn--lime">Download on App Store</a>
+      <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn" style="border-color:rgba(255,255,255,.3);color:var(--cream)">Get it on Google Play</a>
+    </div>
+  </div>
+</section>
+
+<section class="fsec wrap" style="padding-top:0;padding-bottom:90px">
+  <div class="fsec__head">
+    <div class="eyebrow"><span class="num">04</span> Related</div>
+    <h2>More on trading psychology</h2>
+  </div>
+  <div class="related__list">
+    <a href="/trading-psychology-assessment">Trading Psychology Assessment</a>
+    <a href="/revenge-trading-test">Revenge Trading Test</a>
+    <a href="/how-to-review-losing-trades">How to Review Losing Trades</a>
+    <a href="/prop-trader-journal">Prop Trader Journal</a>
+    <a href="/quiz">Full 20-Question Diagnostic</a>
+    <a href="https://blog.pnlapp.co/trading-psychology/why-youre-losing-number-one-trading-mistake" target="_blank" rel="noopener">Blog: The #1 Trading Mistake</a>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div>
+        <div class="foot__logo"><img src="/assets/logo-white.png" alt="PnL App" /></div>
+        <p class="foot__tag">Trading psychology, engineered. Built to make discipline your default.</p>
+      </div>
+      <div class="foot__col">
+        <h5>Product</h5>
+        <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340">iOS App</a>
+        <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en">Android App</a>
+        <a href="https://pnlapp.co/privatetradingclub">Private Trading Club</a>
+        <a href="/quiz">Trading Psychology Quiz</a>
+        <a href="https://blog.pnlapp.co">Blog</a>
+      </div>
+      <div class="foot__col">
+        <h5>Company</h5>
+        <a href="/#ethos">About</a>
+        <a href="/#team">Team</a>
+        <a href="/termsandconditions">Terms &amp; Conditions</a>
+        <a href="/privacypolicy">Privacy Policy</a>
+        <a href="/request-delete-account">Delete Account</a>
+      </div>
+      <div class="foot__col">
+        <h5>Follow</h5>
+        <a href="https://instagram.com/pnlapp">Instagram</a>
+        <a href="https://x.com/pnlapp_official">X / Twitter</a>
+        <a href="https://www.linkedin.com/company/108309261/">LinkedIn</a>
+        <a href="https://www.reddit.com/r/thetradingcommunity/">Reddit</a>
+        <a href="https://t.me/pnlappofficial">Telegram</a>
+      </div>
+      <div class="foot__col foot__col--more" id="footMore">
+        <button type="button" class="foot__col__toggle" id="footMoreToggle"><h5>Other</h5><span class="foot__col__caret"></span></button>
+        <div class="foot__col__links">
+          <a href="/revenge-trading-test">Revenge Trading Test</a>
+          <a href="/overtrading-calculator">Overtrading Calculator</a>
+          <a href="/trading-discipline-score">Trading Discipline Score</a>
+          <a href="/trading-psychology-assessment">Psychology Assessment</a>
+          <a href="/emotional-trading-journal">Emotional Trading Journal</a>
+          <a href="/prop-trader-journal">Prop Trader Journal</a>
+          <a href="/why-traders-move-their-stop-loss">Why Traders Move Stop Loss</a>
+          <a href="/how-to-review-losing-trades">Review Losing Trades</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot__bot">
+      <p>&copy; 2026 Breiterman LLC — Dubai, UAE. All rights reserved.</p>
+      <p class="dis">PnL App does not provide financial advice. It helps you understand your trading behavior. Control your mind &middot; Mindful trading &middot; Grow together.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav=document.getElementById('nav');
+  const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>12);
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+  document.getElementById('burger').addEventListener('click',()=>{ window.location.href='/#ethos'; });
+  document.getElementById('footMoreToggle').addEventListener('click',()=>{ document.getElementById('footMore').classList.toggle('open'); });
+</script>
+</body>
+</html>

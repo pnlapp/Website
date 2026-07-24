@@ -3,10 +3,55 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>PnL App — Trading Psychology, Engineered</title>
-<meta name="description" content="Your PnL tells the result. Pnlee tells the reason. An AI powered behavioral trading journal that helps you understand the emotions behind your trades." />
+<title>PnL App | Unlock Trading Performance &amp; Psychology</title>
+<meta name="description" content="PnL App is the leading app that turns comprehensive trading and mental health insights into daily trading action." />
+<meta name="google-site-verification" content="379Oyyek0k_UgPg8fXiEOYiMX2ZyZ_eZxQtB4OBiedg" />
+<link rel="canonical" href="https://pnlapp.co/" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="PnL App | Unlock Trading Performance & Psychology" />
+<meta property="og:description" content="PnL App is the leading app that turns comprehensive trading and mental health insights into daily trading action." />
+<meta property="og:url" content="https://pnlapp.co/" />
+<meta property="og:image" content="https://pnlapp.co/assets/logo-black.png" />
+<meta name="twitter:card" content="summary" />
 <link rel="icon" type="image/png" href="/assets/favicon.png" />
 <link rel="apple-touch-icon" href="/assets/favicon.png" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "PnL App",
+  "url": "https://pnlapp.co",
+  "logo": "https://pnlapp.co/assets/logo-black.png",
+  "sameAs": [
+    "https://instagram.com/pnlapp",
+    "https://x.com/pnlapp_official",
+    "https://www.linkedin.com/company/108309261/",
+    "https://www.reddit.com/r/thetradingcommunity/",
+    "https://t.me/pnlappofficial"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "PnL App",
+  "url": "https://pnlapp.co",
+  "operatingSystem": "iOS, Android",
+  "applicationCategory": "FinanceApplication",
+  "description": "PnL App is the leading app that turns comprehensive trading and mental health insights into daily trading action.",
+  "downloadUrl": [
+    "https://apps.apple.com/ae/app/pnl-app/id6756570340",
+    "https://play.google.com/store/apps/details?id=co.pnlapp&hl=en"
+  ],
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VLSDP1DHQ8"></script>
@@ -20,6 +65,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
 <link href="https://fonts.cdnfonts.com/css/neue-montreal" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <style>
@@ -101,6 +147,16 @@
   .btn--lime:hover{background:var(--ink);border-color:var(--ink);color:var(--cream)}
   .nav__burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
   .nav__burger span{width:22px;height:2px;background:var(--ink);border-radius:2px}
+  .nav__more{position:relative}
+  .nav__more>button{display:inline-flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.02em;color:var(--ink-soft);padding:4px 0}
+  .nav__more>button:hover{color:var(--ink)}
+  .nav__more__caret{width:8px;height:8px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .2s}
+  .nav__more:hover .nav__more__caret{transform:translateY(0) rotate(225deg)}
+  .nav__more__menu{position:absolute;top:100%;left:50%;transform:translate(-50%,-6px);margin-top:14px;background:var(--paper);border:1px solid var(--line-soft);border-radius:14px;padding:8px;min-width:250px;box-shadow:0 24px 44px -24px rgba(20,20,20,.3);opacity:0;pointer-events:none;transition:opacity .18s var(--ease),transform .18s var(--ease);z-index:1001}
+  .nav__more:hover .nav__more__menu{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
+  .nav__more__menu a{display:block;padding:10px 12px;border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink-soft)}
+  .nav__more__menu a:hover{background:var(--cream);color:var(--ink)}
+  @media(max-width:720px){.nav__more{display:none}}
 
   /* ---------- HERO ---------- */
   .hero{padding:150px 0 60px;position:relative}
@@ -343,12 +399,18 @@
 
   /* ---------- FOOTER ---------- */
   .foot{background:var(--ink-block);color:var(--cream);padding:70px 0 34px;margin-top:16px}
-  .foot__top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .foot__top{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr 1fr;gap:32px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.1)}
   .foot__logo img{height:26px;width:auto;margin-bottom:18px}
   .foot__tag{color:#b7b4aa;font-size:15px;line-height:1.5;max-width:32ch}
   .foot__col h5{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:16px}
   .foot__col a{display:block;color:#c9c6bc;font-size:14.5px;padding:5px 0;transition:color .2s}
   .foot__col a:hover{color:var(--lime)}
+  .foot__col__toggle{display:flex;align-items:center;gap:8px;background:none;border:none;cursor:pointer;padding:0;margin-bottom:16px}
+  .foot__col__toggle h5{margin-bottom:0}
+  .foot__col__caret{width:7px;height:7px;border-right:1.5px solid var(--ink-faint);border-bottom:1.5px solid var(--ink-faint);transform:rotate(45deg);transition:transform .2s;flex:0 0 auto}
+  .foot__col--more.open .foot__col__caret{transform:rotate(225deg)}
+  .foot__col__links{display:none;flex-direction:column}
+  .foot__col--more.open .foot__col__links{display:flex}
   .foot__bot{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-top:26px;flex-wrap:wrap}
   .foot__bot p{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#6f6c62;letter-spacing:.02em}
   .foot__bot .dis{max-width:52ch;line-height:1.5}
@@ -411,6 +473,15 @@
     <a href="#pnlee">Pnlee</a>
     <a href="#press">Press</a>
     <a href="#team">Team</a>
+    <div class="nav__more">
+      <button type="button">Tools<span class="nav__more__caret"></span></button>
+      <div class="nav__more__menu">
+        <a href="/trading-psychology-assessment">Trading Psychology Assessment</a>
+        <a href="/revenge-trading-test">Revenge Trading Test</a>
+        <a href="/trading-discipline-score">Trading Discipline Score</a>
+        <a href="/overtrading-calculator">Overtrading Calculator</a>
+      </div>
+    </div>
   </div>
   <div class="nav__cta">
     <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn">App Store</a>
@@ -859,6 +930,19 @@
         <a href="https://www.reddit.com/r/thetradingcommunity/">Reddit</a>
         <a href="https://t.me/pnlappofficial">Telegram</a>
       </div>
+      <div class="foot__col foot__col--more" id="footMore">
+        <button type="button" class="foot__col__toggle" id="footMoreToggle"><h5>Other</h5><span class="foot__col__caret"></span></button>
+        <div class="foot__col__links">
+          <a href="/revenge-trading-test">Revenge Trading Test</a>
+          <a href="/overtrading-calculator">Overtrading Calculator</a>
+          <a href="/trading-discipline-score">Trading Discipline Score</a>
+          <a href="/trading-psychology-assessment">Psychology Assessment</a>
+          <a href="/emotional-trading-journal">Emotional Trading Journal</a>
+          <a href="/prop-trader-journal">Prop Trader Journal</a>
+          <a href="/why-traders-move-their-stop-loss">Why Traders Move Stop Loss</a>
+          <a href="/how-to-review-losing-trades">Review Losing Trades</a>
+        </div>
+      </div>
     </div>
     <div class="foot__bot">
       <p>© 2026 Breiterman LLC — Dubai, UAE. All rights reserved.</p>
@@ -882,6 +966,11 @@
   // burger (simple in-page scroll list)
   document.getElementById('burger').addEventListener('click',()=>{
     document.querySelector('#ethos').scrollIntoView({behavior:'smooth'});
+  });
+
+  // footer "Other" dropdown
+  document.getElementById('footMoreToggle').addEventListener('click',()=>{
+    document.getElementById('footMore').classList.toggle('open');
   });
 
   // ---- Lead form -> Google Sheets (Apps Script) ----
