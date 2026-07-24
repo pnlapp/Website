@@ -63,6 +63,17 @@
   </div>
 </nav>
 
+<div class="nav__mobile" id="navMobile">
+  <a href="/#ethos">Ethos</a>
+  <a href="/#system">System</a>
+  <a href="/#pnlee">Pnlee</a>
+  <a href="/quiz">Diagnostic</a>
+  <div class="nav__mobile__cta">
+    <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn btn--fill">Download on App Store</a>
+    <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn">Get it on Google Play</a>
+  </div>
+</div>
+
 <header class="funnel-hero wrap">
   <div class="eyebrow"><span class="num">00</span> Guide</div>
   <h1>Why traders move their stop loss</h1>
@@ -199,7 +210,18 @@
   const nav=document.getElementById('nav');
   const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>12);
   onScroll();window.addEventListener('scroll',onScroll,{passive:true});
-  document.getElementById('burger').addEventListener('click',()=>{ window.location.href='/#ethos'; });
+  const burgerBtn=document.getElementById('burger');
+  const navMobile=document.getElementById('navMobile');
+  burgerBtn.addEventListener('click',()=>{
+    burgerBtn.classList.toggle('open');
+    navMobile.classList.toggle('open');
+  });
+  navMobile.querySelectorAll('a').forEach(a=>{
+    a.addEventListener('click',()=>{
+      burgerBtn.classList.remove('open');
+      navMobile.classList.remove('open');
+    });
+  });
   document.getElementById('footMoreToggle').addEventListener('click',()=>{ document.getElementById('footMore').classList.toggle('open'); });
 </script>
 </body>
