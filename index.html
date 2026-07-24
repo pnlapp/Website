@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PnL App — Trading Psychology, Engineered</title>
+<meta name="description" content="Your PnL tells the result. Pnlee tells the reason. An AI powered behavioral trading journal that helps you understand the emotions behind your trades." />
+<link rel="icon" type="image/png" href="/assets/favicon.png" />
+<link rel="apple-touch-icon" href="/assets/favicon.png" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VLSDP1DHQ8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VLSDP1DHQ8');
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.cdnfonts.com/css/neue-montreal" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#F8F6F0;
+    --paper:#FFFFFF;
+    --ink:#141414;
+    --ink-soft:#57544C;
+    --ink-faint:#8A867B;
+    --lime:#C6FF00;
+    --lime-ink:#1B2200;
+    --line:rgba(20,20,20,.14);
+    --line-soft:rgba(20,20,20,.08);
+    --ink-block:#131311;
+    --r:22px;
+    --maxw:1240px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+    font-synthesis:none;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Neue Montreal','Helvetica Neue',Arial,sans-serif;
+    font-size:18px;line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  /* subtle paper grain */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);
+    display:inline-flex;align-items:center;gap:9px;
+  }
+  .eyebrow .num{color:var(--ink)}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--lime);flex:0 0 auto}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 32px;
+    background:rgba(248,246,240,.72);
+    backdrop-filter:saturate(150%) blur(14px);
+    -webkit-backdrop-filter:saturate(150%) blur(14px);
+    border-bottom:1px solid transparent;transition:border-color .3s,background .3s;
+  }
+  .nav.scrolled{border-bottom-color:var(--line-soft)}
+  .nav__logo img{height:26px;width:auto;display:block}
+  .nav__links{display:flex;gap:30px;align-items:center}
+  .nav__links a{
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.02em;
+    color:var(--ink-soft);position:relative;padding:4px 0;transition:color .2s;
+  }
+  .nav__links a::after{content:"";position:absolute;left:0;bottom:-1px;width:0;height:2px;background:var(--lime);transition:width .25s var(--ease)}
+  .nav__links a:hover{color:var(--ink)}
+  .nav__links a:hover::after{width:100%}
+  .nav__cta{display:flex;gap:10px;align-items:center}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:500;letter-spacing:.02em;
+    padding:11px 18px;border-radius:100px;border:1.5px solid var(--ink);
+    background:transparent;color:var(--ink);cursor:pointer;transition:all .22s var(--ease);white-space:nowrap;
+  }
+  .btn:hover{background:var(--ink);color:var(--cream)}
+  .btn--fill{background:var(--ink);color:var(--cream)}
+  .btn--fill:hover{background:var(--lime);color:var(--lime-ink);border-color:var(--lime)}
+  .btn--lime{background:var(--lime);border-color:var(--lime);color:var(--lime-ink)}
+  .btn--lime:hover{background:var(--ink);border-color:var(--ink);color:var(--cream)}
+  .nav__burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
+  .nav__burger span{width:22px;height:2px;background:var(--ink);border-radius:2px}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:150px 0 60px;position:relative}
+  .hero__grid{display:grid;grid-template-columns:1.35fr .9fr;gap:56px;align-items:end}
+  .hero__eyebrow{margin-bottom:30px}
+  .hero h1{
+    font-size:clamp(42px,6.6vw,88px);line-height:.98;font-weight:500;letter-spacing:-.03em;
+    margin-bottom:28px;
+  }
+  .hero h1 em{font-style:normal;position:relative;white-space:nowrap}
+  .hero h1 .mark{
+    background:linear-gradient(transparent 62%,var(--lime) 62%);padding:0 .04em;
+  }
+  .hero h1 .dim{color:var(--ink-faint)}
+  .hero__sub{font-size:19px;line-height:1.55;color:var(--ink-soft);max-width:33ch;margin-bottom:34px}
+  .hero__actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  .hero__note{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink-faint);margin-top:18px;letter-spacing:.03em}
+
+  /* hero mirror card (signature) */
+  .mirror{
+    background:var(--ink-block);border-radius:var(--r);padding:28px;color:var(--cream);
+    position:relative;overflow:hidden;box-shadow:0 30px 60px -30px rgba(20,20,20,.4);
+  }
+  .mirror__tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);display:flex;justify-content:space-between;margin-bottom:22px}
+  .mirror__tag b{color:var(--lime);font-weight:500}
+  .mirror__row{display:flex;gap:12px;align-items:baseline;padding:14px 0;border-top:1px solid rgba(255,255,255,.1)}
+  .mirror__k{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-faint);width:64px;flex:0 0 64px;letter-spacing:.05em}
+  .mirror__v{font-size:15px;color:#EDEBE3}
+  .mirror__v .red{color:#FF6B5E}
+  .mirror__reveal{
+    margin-top:20px;padding:18px;border-radius:14px;
+    background:rgba(198,255,0,.1);border:1px solid rgba(198,255,0,.28);
+  }
+  .mirror__reveal .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--lime);display:flex;align-items:center;gap:8px;margin-bottom:9px}
+  .mirror__reveal .lbl::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--lime);animation:pulse 1.8s infinite}
+  .mirror__reveal p{font-size:14.5px;line-height:1.5;color:#F4F3EC}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+  /* ---------- STATS ---------- */
+  .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:64px}
+  .stats__grid{display:grid;grid-template-columns:repeat(4,1fr)}
+  .stat{padding:38px 28px;border-right:1px solid var(--line-soft)}
+  .stat:last-child{border-right:none}
+  .stat__n{font-size:clamp(40px,5vw,58px);font-weight:500;letter-spacing:-.03em;line-height:1}
+  .stat__n .u{color:var(--lime);-webkit-text-stroke:.5px var(--ink-soft)}
+  .stat__l{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-soft);margin-top:12px;letter-spacing:.01em;line-height:1.4}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{position:relative}
+  .sec{padding:112px 0}
+  .sec__head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:56px}
+  .sec__head h2{font-size:clamp(32px,4.4vw,56px);line-height:1.02;font-weight:500;letter-spacing:-.025em}
+  .sec__head h2 em{font-style:normal;color:var(--ink-faint)}
+  .sec__head h2 .u{background:linear-gradient(transparent 64%,var(--lime) 64%);padding:0 .03em}
+  .sec__lead{color:var(--ink-soft);font-size:18px;line-height:1.55;align-self:end}
+
+  /* ---------- ETHOS ---------- */
+  .ethos__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px}
+  .ethos__body p{font-size:20px;line-height:1.6;color:var(--ink);margin-bottom:22px;max-width:52ch}
+  .ethos__body p.soft{color:var(--ink-soft);font-size:18px}
+  .meta{border-top:1px solid var(--line);margin-top:8px}
+  .meta__row{display:flex;justify-content:space-between;gap:20px;padding:15px 0;border-bottom:1px solid var(--line-soft)}
+  .meta__k{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-faint);letter-spacing:.05em;text-transform:uppercase}
+  .meta__v{font-weight:500;text-align:right}
+
+  /* ---------- PROBLEM (enemies) ---------- */
+  .enemy-band{background:var(--ink-block);color:var(--cream);border-radius:34px;padding:64px 0;margin:0 0}
+  .enemy-band .eyebrow{color:var(--ink-faint)}
+  .enemy-band .sec__head h2{color:var(--cream)}
+  .enemy-band .sec__head h2 em{color:#6f6c62}
+  .enemy-band .sec__lead{color:#b7b4aa}
+  .enemy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .enemy{
+    border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:22px;
+    transition:border-color .25s,background .25s,transform .25s var(--ease);
+  }
+  .enemy:hover{border-color:rgba(198,255,0,.5);background:rgba(198,255,0,.05);transform:translateY(-3px)}
+  .enemy__n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--lime);letter-spacing:.1em}
+  .enemy__t{font-size:18px;font-weight:500;margin:12px 0 8px}
+  .enemy__d{font-size:13.5px;color:#a9a69c;line-height:1.5}
+
+  /* ---------- SYSTEM (pillars) ---------- */
+  .pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .pillar{
+    background:var(--paper);border:1px solid var(--line-soft);border-radius:var(--r);
+    padding:32px;transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s;
+    position:relative;overflow:hidden;
+  }
+  .pillar:hover{transform:translateY(-5px);box-shadow:0 24px 44px -28px rgba(20,20,20,.28);border-color:var(--line)}
+  .pillar__top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:70px}
+  .pillar__idx{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink-faint)}
+  .pillar__ico{width:44px;height:44px;border-radius:12px;background:var(--cream);display:grid;place-items:center;border:1px solid var(--line-soft)}
+  .pillar__ico svg{width:22px;height:22px}
+  .pillar__verb{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--lime-deep,#7a9c00);color:#6f8c00;margin-bottom:6px}
+  .pillar h3{font-size:24px;font-weight:500;letter-spacing:-.02em;margin-bottom:12px}
+  .pillar p{font-size:15px;line-height:1.55;color:var(--ink-soft)}
+
+  /* ---------- PNLEE ---------- */
+  .pnlee{display:grid;grid-template-columns:.95fr 1.05fr;gap:56px;align-items:center}
+  .pnlee__copy h2{font-size:clamp(32px,4.4vw,54px);line-height:1.02;font-weight:500;letter-spacing:-.025em;margin-bottom:22px}
+  .pnlee__copy h2 .u{background:linear-gradient(transparent 62%,var(--lime) 62%)}
+  .pnlee__copy>p{font-size:18px;line-height:1.6;color:var(--ink-soft);margin-bottom:20px;max-width:46ch}
+  .pnlee__list{list-style:none;margin-top:26px;border-top:1px solid var(--line)}
+  .pnlee__list li{display:flex;gap:14px;padding:15px 0;border-bottom:1px solid var(--line-soft);align-items:flex-start}
+  .pnlee__list .dot{width:8px;height:8px;border-radius:50%;background:var(--lime);margin-top:8px;flex:0 0 auto}
+  .pnlee__list b{font-weight:500}
+  .pnlee__list span{color:var(--ink-soft);font-size:15.5px}
+  /* chat mock */
+  .chat{background:var(--paper);border:1px solid var(--line-soft);border-radius:26px;padding:24px;box-shadow:0 30px 60px -34px rgba(20,20,20,.3)}
+  .chat__bar{display:flex;align-items:center;gap:10px;padding-bottom:18px;border-bottom:1px solid var(--line-soft);margin-bottom:20px}
+  .chat__ava{width:34px;height:34px;border-radius:50%;background:var(--ink-block);display:grid;place-items:center}
+  .chat__ava i{width:11px;height:11px;border-radius:50%;background:var(--lime);display:block}
+  .chat__who b{font-size:14px;font-weight:500;display:block;line-height:1.1}
+  .chat__who span{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ink-faint);letter-spacing:.06em}
+  .msg{max-width:82%;padding:13px 16px;border-radius:16px;font-size:14.5px;line-height:1.5;margin-bottom:12px}
+  .msg--u{background:var(--ink-block);color:var(--cream);margin-left:auto;border-bottom-right-radius:5px}
+  .msg--p{background:var(--cream);border:1px solid var(--line-soft);border-bottom-left-radius:5px}
+  .msg--p .flag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#a15b00;display:flex;align-items:center;gap:7px;margin-bottom:7px}
+  .msg--p .flag::before{content:"";width:6px;height:6px;border-radius:50%;background:#ff8a00}
+  .chat__foot{display:flex;gap:8px;align-items:center;margin-top:8px;padding:11px 14px;border:1px solid var(--line-soft);border-radius:100px;color:var(--ink-faint);font-size:13.5px}
+  .chat__send{margin-left:auto;width:30px;height:30px;border-radius:50%;background:var(--lime);display:grid;place-items:center;flex:0 0 auto}
+
+  /* ---------- ANALYTICS FEATURES ---------- */
+  .feat{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .fcard{background:var(--paper);border:1px solid var(--line-soft);border-radius:var(--r);padding:26px;transition:transform .3s var(--ease),border-color .3s}
+  .fcard:hover{transform:translateY(-4px);border-color:var(--line)}
+  .fcard__tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:18px}
+  .fcard h4{font-size:19px;font-weight:500;margin-bottom:10px;letter-spacing:-.01em}
+  .fcard p{font-size:14.5px;line-height:1.55;color:var(--ink-soft)}
+  /* mini score ring */
+  .ring{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+  .ring svg{width:58px;height:58px;transform:rotate(-90deg)}
+  .ring__c{fill:none;stroke-width:7}
+  .ring__bg{stroke:var(--line)}
+  .ring__fg{stroke:var(--lime);stroke-linecap:round}
+  .ring__num{font-size:22px;font-weight:500}
+  .ring__num small{font-size:12px;color:var(--ink-faint)}
+  /* emotion bars */
+  .ebar{display:flex;flex-direction:column;gap:10px;margin-bottom:6px}
+  .ebar__row{display:flex;align-items:center;gap:10px;font-size:12.5px}
+  .ebar__lab{font-family:'JetBrains Mono',monospace;width:64px;color:var(--ink-soft);flex:0 0 64px}
+  .ebar__track{flex:1;height:8px;background:var(--line);border-radius:100px;overflow:hidden}
+  .ebar__fill{height:100%;border-radius:100px}
+  .ebar__val{font-family:'JetBrains Mono',monospace;color:var(--ink-faint);width:42px;text-align:right;flex:0 0 42px}
+  /* revenge meter */
+  .meter{margin-bottom:16px}
+  .meter__track{height:10px;border-radius:100px;background:linear-gradient(90deg,var(--lime),#ffd400 55%,#ff5b4c);position:relative}
+  .meter__pin{position:absolute;top:50%;width:16px;height:16px;border-radius:50%;background:var(--ink);border:3px solid var(--cream);transform:translate(-50%,-50%);box-shadow:0 2px 6px rgba(0,0,0,.25)}
+  .meter__scale{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-faint);margin-top:8px;letter-spacing:.06em}
+
+  /* ---------- MARQUEE ---------- */
+  .marq{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;overflow:hidden;white-space:nowrap}
+  .marq__track{display:inline-flex;gap:0;animation:scroll 34s linear infinite;will-change:transform}
+  .marq span{font-size:26px;font-weight:500;letter-spacing:-.02em;padding:0 26px;display:inline-flex;align-items:center;gap:26px}
+  .marq span::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--lime)}
+  .marq em{font-style:normal;color:var(--ink-faint)}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  /* ---------- ARCHETYPES ---------- */
+  .arch-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .arch{border:1px solid var(--line);border-radius:14px;padding:16px 14px;transition:all .22s var(--ease);cursor:default;background:var(--paper)}
+  .arch:hover{background:var(--ink-block);border-color:var(--ink-block);transform:translateY(-3px)}
+  .arch:hover .arch__t,.arch:hover .arch__n{color:var(--cream)}
+  .arch:hover .arch__n{color:var(--lime)}
+  .arch__n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-faint);transition:color .22s}
+  .arch__t{font-size:15px;font-weight:500;margin-top:6px;letter-spacing:-.01em;transition:color .22s}
+
+  /* ---------- PRESS ---------- */
+  .press__list{border-top:1px solid var(--line)}
+  .press__count{
+    display:inline-flex;align-items:center;gap:9px;margin-top:16px;
+    font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.06em;color:var(--ink-soft);
+    padding:7px 14px;border:1px solid var(--line);border-radius:100px;
+  }
+  .press__count b{color:var(--ink);font-weight:500}
+  .press__count::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--lime)}
+  .pullquote{
+    background:var(--ink-block);color:var(--cream);border-radius:var(--r);
+    padding:44px 46px;margin-top:16px;display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center;
+  }
+  .pullquote blockquote{font-size:clamp(22px,2.6vw,30px);line-height:1.28;font-weight:500;letter-spacing:-.02em}
+  .pullquote blockquote .u{background:linear-gradient(transparent 62%,rgba(198,255,0,.28) 62%);padding:0 .03em}
+  .pullquote__by{border-left:2px solid var(--lime);padding-left:18px}
+  .pullquote__by b{display:block;font-size:16px;font-weight:500}
+  .pullquote__by span{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink-faint);letter-spacing:.04em;line-height:1.5;display:block;margin-top:5px}
+  .press__item{
+    display:grid;grid-template-columns:170px 1fr auto;gap:28px;align-items:center;
+    padding:26px 0;border-bottom:1px solid var(--line-soft);transition:padding .25s var(--ease);
+  }
+  .press__item:hover{padding-left:12px;padding-right:12px}
+  .press__src{font-weight:500;font-size:17px}
+  .press__q{color:var(--ink-soft);font-size:15.5px;line-height:1.5;max-width:60ch}
+  .press__go{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.04em;color:var(--ink-faint);white-space:nowrap;display:flex;align-items:center;gap:7px;transition:color .2s}
+  .press__item:hover .press__go{color:var(--ink)}
+  .press__item:hover .press__go .arr{transform:translate(3px,-3px)}
+  .press__go .arr{transition:transform .2s var(--ease)}
+
+  /* ---------- COMMUNITY ---------- */
+  .comm{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .comm__card{border-radius:var(--r);padding:38px;position:relative;overflow:hidden}
+  .comm__card--dark{background:var(--ink-block);color:var(--cream)}
+  .comm__card--lime{background:var(--lime);color:var(--lime-ink)}
+  .comm__card h3{font-size:26px;font-weight:500;letter-spacing:-.02em;margin-bottom:14px}
+  .comm__card p{font-size:16px;line-height:1.55;margin-bottom:26px;max-width:42ch}
+  .comm__card--dark p{color:#b7b4aa}
+  .comm__card--lime p{color:#3a4a00}
+  .comm__btns{display:flex;gap:10px;flex-wrap:wrap}
+  .cbtn{display:inline-flex;padding:11px 20px;border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:500;transition:all .22s var(--ease)}
+  .comm__card--dark .cbtn{background:var(--cream);color:var(--ink)}
+  .comm__card--dark .cbtn:hover{background:var(--lime);color:var(--lime-ink)}
+  .comm__card--lime .cbtn{background:var(--lime-ink);color:var(--lime)}
+  .comm__card--lime .cbtn:hover{background:var(--ink);color:var(--cream)}
+
+  /* ---------- TEAM ---------- */
+  .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .tm{border-top:2px solid var(--ink);padding-top:16px}
+  .tm__n{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-faint);margin-bottom:60px}
+  .tm__name{font-size:20px;font-weight:500;letter-spacing:-.01em}
+  .tm__role{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink-soft);margin-top:6px;letter-spacing:.02em}
+
+  /* ---------- CTA ---------- */
+  .cta{background:var(--ink-block);color:var(--cream);border-radius:34px;padding:74px 48px;text-align:center;position:relative;overflow:hidden}
+  .cta__eyebrow{justify-content:center;color:var(--ink-faint);margin-bottom:26px}
+  .cta h2{font-size:clamp(38px,5.6vw,72px);font-weight:500;letter-spacing:-.03em;line-height:1;margin-bottom:20px}
+  .cta h2 .u{background:linear-gradient(transparent 60%,var(--lime) 60%);color:var(--cream);padding:0 .04em}
+  .cta p{color:#b7b4aa;font-size:18px;max-width:44ch;margin:0 auto 36px}
+  .signup{display:flex;gap:10px;max-width:460px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+  .signup input{
+    flex:1;min-width:220px;padding:15px 20px;border-radius:100px;border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.04);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:14px;
+  }
+  .signup input::placeholder{color:#7d7a70}
+  .signup input:focus{outline:none;border-color:var(--lime)}
+  .signup button{padding:15px 26px;border-radius:100px;border:none;background:var(--lime);color:var(--lime-ink);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14px;cursor:pointer;transition:transform .2s var(--ease)}
+  .signup button:hover{transform:scale(1.04)}
+  .cta__fine{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#6f6c62;margin-top:18px;letter-spacing:.03em;transition:color .25s}
+  .cta__fine.ok{color:var(--lime)}
+  .cta__fine.err{color:#ff6b5e}
+  .signup button:disabled{opacity:.6;cursor:not-allowed}
+
+  /* ---------- FOOTER ---------- */
+  .foot{background:var(--ink-block);color:var(--cream);padding:70px 0 34px;margin-top:16px}
+  .foot__top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .foot__logo img{height:26px;width:auto;margin-bottom:18px}
+  .foot__tag{color:#b7b4aa;font-size:15px;line-height:1.5;max-width:32ch}
+  .foot__col h5{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:16px}
+  .foot__col a{display:block;color:#c9c6bc;font-size:14.5px;padding:5px 0;transition:color .2s}
+  .foot__col a:hover{color:var(--lime)}
+  .foot__bot{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-top:26px;flex-wrap:wrap}
+  .foot__bot p{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#6f6c62;letter-spacing:.02em}
+  .foot__bot .dis{max-width:52ch;line-height:1.5}
+
+  /* reveal anim */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:1020px){
+    .hero__grid{grid-template-columns:1fr;gap:44px}
+    .pnlee{grid-template-columns:1fr;gap:40px}
+    .ethos__grid{grid-template-columns:1fr;gap:36px}
+    .enemy-grid{grid-template-columns:repeat(2,1fr)}
+    .feat{grid-template-columns:1fr 1fr}
+    .arch-grid{grid-template-columns:repeat(3,1fr)}
+    .foot__top{grid-template-columns:1fr 1fr}
+    .team-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:720px){
+    .wrap{padding:0 20px}
+    .nav{padding:14px 20px}
+    .nav__links{display:none}
+    .nav__cta .btn:not(.btn--fill){display:none}
+    .nav__burger{display:flex}
+    .hero{padding:120px 0 40px}
+    .sec{padding:78px 0}
+    .sec__head{grid-template-columns:1fr;gap:16px;margin-bottom:38px}
+    .stats__grid{grid-template-columns:1fr 1fr}
+    .stat{border-bottom:1px solid var(--line-soft)}
+    .stat:nth-child(even){border-right:none}
+    .pillars{grid-template-columns:1fr}
+    .pillar__top{margin-bottom:40px}
+    .enemy-grid{grid-template-columns:1fr}
+    .feat{grid-template-columns:1fr}
+    .arch-grid{grid-template-columns:1fr 1fr}
+    .press__item{grid-template-columns:1fr;gap:8px}
+    .pullquote{grid-template-columns:1fr;gap:24px;padding:32px 26px}
+    .comm{grid-template-columns:1fr}
+    .team-grid{grid-template-columns:1fr}
+    .foot__top{grid-template-columns:1fr;gap:28px}
+    .cta{padding:54px 24px}
+    .enemy-band{border-radius:22px}
+    .marq span{font-size:20px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#top" class="nav__logo" aria-label="PnL App home"><img src="/assets/logo-black.png" alt="PnL App" /></a>
+  <div class="nav__links">
+    <a href="#ethos">Ethos</a>
+    <a href="#system">System</a>
+    <a href="#pnlee">Pnlee</a>
+    <a href="#press">Press</a>
+    <a href="#team">Team</a>
+  </div>
+  <div class="nav__cta">
+    <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn">App Store</a>
+    <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn btn--fill">Play Store</a>
+    <button class="nav__burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div id="top"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero__grid">
+      <div>
+        <div class="hero__eyebrow eyebrow"><span class="num">00</span> Psychology · Discipline · P&amp;L</div>
+        <h1><span class="mark">95% of traders</span> <span class="dim">lose money.</span><br />The charts aren't the problem — <em>you are.</em></h1>
+        <p class="hero__sub">PnL turns trading into a practice of self-mastery. Built on behavioral science and an AI that learns how you think — it catches the mistake before you make it.</p>
+        <div class="hero__actions">
+          <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn btn--fill">Download on App Store</a>
+          <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn">Get it on Google Play</a>
+        </div>
+        <p class="hero__note">/ Your PnL tells the result. Pnlee tells the reason.</p>
+      </div>
+
+      <!-- signature: the mirror -->
+      <div class="mirror reveal" id="mirror">
+        <div class="mirror__tag"><span>Trade #0412 · BTC</span><b>PNLEE READING…</b></div>
+        <div class="mirror__row"><div class="mirror__k">RESULT</div><div class="mirror__v"><span class="red">−$420</span> · loss closed</div></div>
+        <div class="mirror__row"><div class="mirror__k">SIZE</div><div class="mirror__v">1.8× your average</div></div>
+        <div class="mirror__row"><div class="mirror__k">TIMING</div><div class="mirror__v">18 min after last loss</div></div>
+        <div class="mirror__reveal">
+          <div class="lbl">Pattern found — recovery trading</div>
+          <p>This isn't a market problem first. You increased size within 18 minutes of a loss. That's not a setup — that's your pain looking for a way out.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="wrap">
+      <div class="stats__grid">
+        <div class="stat reveal"><div class="stat__n">95<span class="u">%</span></div><div class="stat__l">of traders lose money</div></div>
+        <div class="stat reveal"><div class="stat__n">4</div><div class="stat__l">systems, working as one</div></div>
+        <div class="stat reveal"><div class="stat__n">24/7</div><div class="stat__l">AI learning your patterns</div></div>
+        <div class="stat reveal"><div class="stat__n">0</div><div class="stat__l">impulsive trades, by design</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ETHOS -->
+<section class="sec" id="ethos">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <div>
+        <div class="eyebrow" style="margin-bottom:22px"><span class="num">01</span> Ethos</div>
+        <h2>Trading is never just about <em>numbers.</em> It's about understanding <span class="u">yourself.</span></h2>
+      </div>
+      <p class="sec__lead">We help traders grow into consistent, disciplined individuals — turning trading into a journey of personal mastery rather than a chase for quick results.</p>
+    </div>
+    <div class="ethos__grid reveal">
+      <div class="ethos__body">
+        <p>Using behavioral science and artificial intelligence, our system learns how you think and act, then guides you with clarity, structure, and emotional balance.</p>
+        <p class="soft">Our mission is to give traders the environment and accountability most people lose as they grow older — so you build long-term confidence in both your mindset and your results. Not more signals. A mirror.</p>
+      </div>
+      <div class="meta">
+        <div class="meta__row"><span class="meta__k">Method</span><span class="meta__v">Behavioral science + AI</span></div>
+        <div class="meta__row"><span class="meta__k">Focus</span><span class="meta__v">Mindset over outcomes</span></div>
+        <div class="meta__row"><span class="meta__k">Built for</span><span class="meta__v">Serious retail traders</span></div>
+        <div class="meta__row"><span class="meta__k">Outcome</span><span class="meta__v">Discipline, made default</span></div>
+        <div class="meta__row"><span class="meta__k">Where</span><span class="meta__v">Breiterman LLC · UAE</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM / ENEMIES -->
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="enemy-band">
+      <div class="wrap">
+        <div class="sec__head reveal" style="margin-bottom:44px">
+          <div>
+            <div class="eyebrow" style="margin-bottom:22px"><span class="num">02</span> The real enemy</div>
+            <h2>You already know the strategy. <em>That was never the problem.</em></h2>
+          </div>
+          <p class="sec__lead">The enemy isn't a lack of market knowledge. It's the state you're in when you click. PnL makes these visible — one pattern at a time.</p>
+        </div>
+        <div class="enemy-grid">
+          <div class="enemy reveal"><div class="enemy__n">01</div><div class="enemy__t">Revenge trading</div><div class="enemy__d">Re-entering to erase the pain of the last loss, not to take a setup.</div></div>
+          <div class="enemy reveal"><div class="enemy__n">02</div><div class="enemy__t">FOMO entries</div><div class="enemy__d">Chasing the candle because missing it feels worse than losing.</div></div>
+          <div class="enemy reveal"><div class="enemy__n">03</div><div class="enemy__t">Emotional sizing</div><div class="enemy__d">Size that swells after a win or a loss instead of following the rule.</div></div>
+          <div class="enemy reveal"><div class="enemy__n">04</div><div class="enemy__t">Overconfidence</div><div class="enemy__d">A win streak quietly changing your size, frequency, and stops.</div></div>
+          <div class="enemy reveal"><div class="enemy__n">05</div><div class="enemy__t">Late-night trading</div><div class="enemy__d">Fatigue plus a red day — the window where your rules always break.</div></div>
+          <div class="enemy reveal"><div class="enemy__n">06</div><div class="enemy__t">Moving the stop</div><div class="enemy__d">Your invalidation quietly turning into a suggestion once price moves.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SYSTEM -->
+<section class="sec" id="system" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <div>
+        <div class="eyebrow" style="margin-bottom:22px"><span class="num">03</span> The System</div>
+        <h2>One system. <em>Four</em> mirrors for the way you <span class="u">trade.</span></h2>
+      </div>
+      <p class="sec__lead">Capture, understand, control, grow. Each layer feeds the next — turning every trade into feedback you can actually use.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar reveal">
+        <div class="pillar__top"><div class="pillar__idx">01</div>
+          <div class="pillar__ico"><svg viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="1.6"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 9v11"/></svg></div>
+        </div>
+        <div class="pillar__verb">Capture</div>
+        <h3>Auto Journaling</h3>
+        <p>See beyond the chart. PnL captures emotion, market context, and decisions in one place — so each entry becomes a mirror of your mindset, not just a row of numbers.</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar__top"><div class="pillar__idx">02</div>
+          <div class="pillar__ico"><svg viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg></div>
+        </div>
+        <div class="pillar__verb">Understand</div>
+        <h3>AI Insights — Pnlee</h3>
+        <p>A mirror that learns from you. Pnlee studies your behavior — from time of day to emotional notes — and offers precise nudges that grow sharper the more you trade.</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar__top"><div class="pillar__idx">03</div>
+          <div class="pillar__ico"><svg viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="1.6"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
+        </div>
+        <div class="pillar__verb">Control</div>
+        <h3>Discipline Mode</h3>
+        <p>Locks trading apps when emotions spike or risky windows repeat. Not punishment — your wiser self stepping in, built from the moments you've historically lost focus.</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar__top"><div class="pillar__idx">04</div>
+          <div class="pillar__ico"><svg viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="1.6"><circle cx="9" cy="9" r="3.2"/><path d="M15.5 8a3 3 0 0 1 0 5M4 20c0-3 2.5-5 5-5s5 2 5 5M15 15c2.5.3 4 2.2 4 5"/></svg></div>
+        </div>
+        <div class="pillar__verb">Grow</div>
+        <h3>Community</h3>
+        <p>Traders share their journeys — not just their profits. A space to be honest, rebuild confidence after losses, and find accountability partners who get it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PNLEE -->
+<section class="sec" id="pnlee">
+  <div class="wrap">
+    <div class="eyebrow reveal" style="margin-bottom:44px"><span class="num">04</span> Meet Pnlee</div>
+    <div class="pnlee">
+      <div class="pnlee__copy reveal">
+        <h2>Your journal says you lost. <span class="u">Pnlee</span> tells you why.</h2>
+        <p>Pnlee is the behavioral mentor inside PnL. It doesn't sell signals or predict the market — it diagnoses the trader first, turning your history into one clear insight and one next action.</p>
+        <ul class="pnlee__list">
+          <li><span class="dot"></span><span><b>Facts first, support second.</b> If the data shows revenge trading, Pnlee says it — calmly, without shame.</span></li>
+          <li><span class="dot"></span><span><b>Process over outcome.</b> A winning trade can still be a bad trade. A losing trade can still be clean.</span></li>
+          <li><span class="dot"></span><span><b>Protective when it counts.</b> After a loss, Pnlee blocks the recovery trade and starts a cooldown.</span></li>
+          <li><span class="dot"></span><span><b>Speaks your language.</b> Coaching that meets you where you are — in the words you actually use.</span></li>
+        </ul>
+      </div>
+
+      <div class="chat reveal">
+        <div class="chat__bar">
+          <div class="chat__ava"><i></i></div>
+          <div class="chat__who"><b>Pnlee</b><span>BEHAVIORAL MENTOR · ONLINE</span></div>
+        </div>
+        <div class="msg msg--u">I lost twice. I need to make it back today.</div>
+        <div class="msg msg--p">
+          <div class="flag">Recovery impulse detected</div>
+          That sentence is the risk signal — you're talking about emotional recovery, not a setup. Don't open another trade right now. Take a 30-minute cooldown and journal the last loss first.
+        </div>
+        <div class="msg msg--u">but the setup looks clean</div>
+        <div class="msg msg--p">Maybe it is. But your last three same-symbol re-entries after a loss all broke your stop. The idea isn't the risk — whether you respect invalidation is. Prove it on paper first.</div>
+        <div class="chat__foot"><span>Message Pnlee…</span><span class="chat__send"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1B2200" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marq" aria-hidden="true">
+  <div class="marq__track">
+    <span>Control your mind <em>·</em></span><span>Stop unconscious mistakes <em>·</em></span><span>Mindful trading <em>·</em></span><span>Grow together <em>·</em></span>
+    <span>Control your mind <em>·</em></span><span>Stop unconscious mistakes <em>·</em></span><span>Mindful trading <em>·</em></span><span>Grow together <em>·</em></span>
+  </div>
+</div>
+
+<!-- ANALYTICS -->
+<section class="sec" id="analytics">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <div>
+        <div class="eyebrow" style="margin-bottom:22px"><span class="num">05</span> Behavioral analytics</div>
+        <h2>Not another dashboard. A <span class="u">diagnosis.</span></h2>
+      </div>
+      <p class="sec__lead">Win rate tells you almost nothing. PnL scores the <em>process</em> — the discipline, the emotion, and the moments right before you break your own rules.</p>
+    </div>
+    <div class="feat">
+      <div class="fcard reveal">
+        <div class="ring">
+          <svg viewBox="0 0 60 60"><circle class="ring__c ring__bg" cx="30" cy="30" r="24"/><circle class="ring__c ring__fg" cx="30" cy="30" r="24" stroke-dasharray="150.8" stroke-dashoffset="45"/></svg>
+          <div class="ring__num">70<small>/100</small></div>
+        </div>
+        <div class="fcard__tag">Discipline score</div>
+        <h4>Scored on process, not profit</h4>
+        <p>You made money, but discipline was 42. That means profit came from a poor process — don't let the outcome teach the wrong lesson.</p>
+      </div>
+
+      <div class="fcard reveal">
+        <div class="ebar">
+          <div class="ebar__row"><span class="ebar__lab">Calm</span><span class="ebar__track"><span class="ebar__fill" style="width:58%;background:var(--lime)"></span></span><span class="ebar__val">+58%</span></div>
+          <div class="ebar__row"><span class="ebar__lab">Focused</span><span class="ebar__track"><span class="ebar__fill" style="width:46%;background:#9bd400"></span></span><span class="ebar__val">+41%</span></div>
+          <div class="ebar__row"><span class="ebar__lab">FOMO</span><span class="ebar__track"><span class="ebar__fill" style="width:78%;background:#ff5b4c"></span></span><span class="ebar__val">−64%</span></div>
+          <div class="ebar__row"><span class="ebar__lab">Revenge</span><span class="ebar__track"><span class="ebar__fill" style="width:88%;background:#ff5b4c"></span></span><span class="ebar__val">−71%</span></div>
+        </div>
+        <div class="fcard__tag">Emotion → PnL map</div>
+        <h4>Which feeling costs you most</h4>
+        <p>Your calm trades aren't the problem. FOMO wins 23% of the time and drives 64% of your monthly losses.</p>
+      </div>
+
+      <div class="fcard reveal">
+        <div class="meter">
+          <div class="meter__track"><span class="meter__pin" style="left:78%"></span></div>
+          <div class="meter__scale"><span>LOW</span><span>MEDIUM</span><span>HIGH</span><span>CRITICAL</span></div>
+        </div>
+        <div class="fcard__tag">Revenge risk score</div>
+        <h4>Caught before the click</h4>
+        <p>Loss 8 min ago · same symbol · size up 2.1×. This looks like recovery, not execution. No new trade for 30 minutes.</p>
+      </div>
+
+      <div class="fcard reveal">
+        <div class="fcard__tag">Pre-trade gate</div>
+        <h4>Reflection before the trade</h4>
+        <p>Ten questions before entry: What's your invalidation? Are you recovering a loss? Would you take this if the last trade had won? If it's not ready, it's not approved.</p>
+      </div>
+      <div class="fcard reveal">
+        <div class="fcard__tag">Session &amp; symbol profile</div>
+        <h4>When and what breaks you</h4>
+        <p>Late New York isn't your edge — it's where your rules weaken. BTC isn't just a symbol; it's a trigger. Your size and frequency change when you trade it.</p>
+      </div>
+      <div class="fcard reveal">
+        <div class="fcard__tag">Personal rules</div>
+        <h4>Your rules, enforced</h4>
+        <p>Insights become if-then rules you own: “If I lose two in a row, I stop.” Pnlee remembers them — and flags the moment you break one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ CTA -->
+<section class="sec" style="padding-top:0" id="diagnostic">
+  <div class="wrap">
+    <div class="cta reveal" style="text-align:left;padding:56px 48px;">
+      <div class="eyebrow" style="color:var(--ink-faint);margin-bottom:20px"><span class="num">05.1</span> Free diagnostic</div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;">
+        <div>
+          <h2 style="text-align:left;font-size:clamp(28px,3.6vw,44px);margin-bottom:10px;">Why am I still losing money trading?</h2>
+          <p style="text-align:left;margin:0;max-width:52ch;">Answer 20 questions and get a scored breakdown of your trading psychology — discipline, risk habits, and where your process leaks.</p>
+        </div>
+        <a href="/quiz" class="btn btn--lime">Take the diagnostic →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHETYPES -->
+<section class="sec" style="padding-top:0" id="archetypes">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <div>
+        <div class="eyebrow" style="margin-bottom:22px"><span class="num">06</span> Trader archetypes</div>
+        <h2>Every week, PnL tells you <em>who you became.</em></h2>
+      </div>
+      <p class="sec__lead">A memorable identity built from real behavior — with the trigger, the evidence, and the one rule that fixes it. Which one were you this week?</p>
+    </div>
+    <div class="arch-grid reveal">
+      <div class="arch"><div class="arch__n">A/01</div><div class="arch__t">Calm Executor</div></div>
+      <div class="arch"><div class="arch__n">A/02</div><div class="arch__t">Patient Sniper</div></div>
+      <div class="arch"><div class="arch__n">A/03</div><div class="arch__t">Revenge Trader</div></div>
+      <div class="arch"><div class="arch__n">A/04</div><div class="arch__t">FOMO Chaser</div></div>
+      <div class="arch"><div class="arch__n">A/05</div><div class="arch__t">Oversizer</div></div>
+      <div class="arch"><div class="arch__n">A/06</div><div class="arch__t">Early Exiter</div></div>
+      <div class="arch"><div class="arch__n">A/07</div><div class="arch__t">Late Cutter</div></div>
+      <div class="arch"><div class="arch__n">A/08</div><div class="arch__t">News Reactor</div></div>
+      <div class="arch"><div class="arch__n">A/09</div><div class="arch__t">Hope Holder</div></div>
+      <div class="arch"><div class="arch__n">A/10</div><div class="arch__t">Fatigue Trader</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS -->
+<section class="sec" id="press" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <div>
+        <div class="eyebrow" style="margin-bottom:22px"><span class="num">07</span> Press</div>
+        <h2>Our founder, <span class="u">featured</span> in</h2>
+        <div class="press__count"><b>6&times;</b> Minwoo Lim quoted across The Guardian &amp; Business Insider</div>
+      </div>
+      <p class="sec__lead">A commodity trader with a neuroscience degree from King's College London, PnL's founder Minwoo Lim has been quoted on the Gen-Z mindset gap, the discipline behind serious trading clubs, and why psychology — not signals — decides who lasts.</p>
+    </div>
+    <div class="press__list reveal">
+      <a class="press__item" href="https://www.theguardian.com/business/2026/may/02/gen-z-investors-crypto-boom" target="_blank" rel="noopener">
+        <div class="press__src">The Guardian</div>
+        <div class="press__q">Most Gen-Z traders aren't profitable because they underestimate human behavior — Minwoo Lim on the strategy, discipline and psychology behind lasting in the markets.</div>
+        <div class="press__go">Read <span class="arr">↗</span></div>
+      </a>
+      <a class="press__item" href="https://www.businessinsider.com/stock-market-volatility-trading-iran-war-sell-off-retail-investors-2026-4" target="_blank" rel="noopener">
+        <div class="press__src">Business Insider</div>
+        <div class="press__q">As the Iran war whipsawed oil and equities, a crude-oil trader's view on why retail investors get burned chasing volatility instead of a plan — Minwoo Lim.</div>
+        <div class="press__go">Read <span class="arr">↗</span></div>
+      </a>
+      <a class="press__item" href="https://www.businessinsider.com/dating-problems-full-time-day-traders-stock-market-2026-4" target="_blank" rel="noopener">
+        <div class="press__src">Business Insider</div>
+        <div class="press__q">Trading can consume a person's whole life — but strong relationships help restore the balance and discipline that performance depends on.</div>
+        <div class="press__go">Read <span class="arr">↗</span></div>
+      </a>
+      <a class="press__item" href="https://www.businessinsider.com/private-market-analysis-outlook-equity-credit-ipo-acces-capitalism-openai-2026-2" target="_blank" rel="noopener">
+        <div class="press__src">Business Insider</div>
+        <div class="press__q">Retail investors often reach private markets only after institutions have captured much of the upside — Minwoo Lim on access and timing.</div>
+        <div class="press__go">Read <span class="arr">↗</span></div>
+      </a>
+      <a class="press__item" href="https://www.businessinsider.com/how-to-invest-in-spacex-ipo-etfs-mutual-funds-shares-2026-5" target="_blank" rel="noopener">
+        <div class="press__src">Business Insider</div>
+        <div class="press__q">On the rush toward a SpaceX IPO — how everyday investors weigh ETFs, funds and shares, and why hype rarely rewards those who arrive last. Featuring Minwoo Lim.</div>
+        <div class="press__go">Read <span class="arr">↗</span></div>
+      </a>
+      <a class="press__item" href="https://www.businessinsider.com/day-trading-private-clubs-trading-group-gen-z-millennials-investing-2025-11" target="_blank" rel="noopener">
+        <div class="press__src">Business Insider</div>
+        <div class="press__q">Serious trading clubs are built around discipline, ambition, networking, and shared values — the foundation behind PnL's Private Trading Community.</div>
+        <div class="press__go">Read <span class="arr">↗</span></div>
+      </a>
+    </div>
+
+    <div class="pullquote reveal">
+      <blockquote>&ldquo;First is strategy, then discipline, and last is <span class="u">psychology.</span>&rdquo; The whole product is built on that order.</blockquote>
+      <div class="pullquote__by">
+        <b>Minwoo Lim</b>
+        <span>Founder &amp; CEO, PnL<br />Commodity trader · Neuroscience, King's College London</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section class="sec" id="community" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <div>
+        <div class="eyebrow" style="margin-bottom:22px"><span class="num">08</span> Community</div>
+        <h2>You don't fix <span class="u">psychology</span> alone.</h2>
+      </div>
+      <p class="sec__lead">Honest conversations about losses, accountability partners, and free webinars — a place to rebuild confidence with people who get it.</p>
+    </div>
+    <div class="comm reveal">
+      <div class="comm__card comm__card--dark">
+        <h3>The PnL Community</h3>
+        <p>Honest talk about losses, accountability partners, and free webinars — trade alongside people who share the process, not just the wins.</p>
+        <div class="comm__btns">
+          <a class="cbtn" href="https://chat.whatsapp.com/HmWqeI4hbu7LDVVZBd2T8h?mode=wwt" target="_blank" rel="noopener">Join WhatsApp</a>
+          <a class="cbtn" href="https://discord.gg/tguJGq6YH4" target="_blank" rel="noopener">Join Discord</a>
+          <a class="cbtn" href="https://t.me/pnlappofficial" target="_blank" rel="noopener">Join Telegram</a>
+        </div>
+      </div>
+      <div class="comm__card comm__card--lime">
+        <h3>Private Trading Club</h3>
+        <p>For traders who want structure, ambition, and a serious network. Discipline and shared values, not hype — the inner circle behind PnL.</p>
+        <div class="comm__btns">
+          <a class="cbtn" href="https://pnlapp.co/privatetradingclub" target="_blank" rel="noopener">Explore the Club ↗</a>
+          <a class="cbtn" href="https://blog.pnlapp.co" target="_blank" rel="noopener">Read the Blog</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="sec" id="team" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <div>
+        <div class="eyebrow" style="margin-bottom:22px"><span class="num">09</span> Team</div>
+        <h2>United by vision, growing <span class="u">together.</span></h2>
+      </div>
+      <p class="sec__lead">A small team obsessed with the space between a trader's plan and what they actually do when money is on the line.</p>
+    </div>
+    <div class="team-grid reveal">
+      <div class="tm"><div class="tm__n">/01</div><div class="tm__name">Minwoo Lim</div><div class="tm__role">Founder &amp; CEO</div></div>
+      <div class="tm"><div class="tm__n">/02</div><div class="tm__name">Anastasiia Breiterman</div><div class="tm__role">CMO</div></div>
+      <div class="tm"><div class="tm__n">/03</div><div class="tm__name">Minhyuk (Eric) Lim</div><div class="tm__role">CGO</div></div>
+      <div class="tm"><div class="tm__n">/04</div><div class="tm__name">Muhtasim Wahid</div><div class="tm__role">CTO</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta reveal">
+      <div class="cta__eyebrow eyebrow">Early bird · up to 25% off your first subscription</div>
+      <h2>Trade <span class="u">smarter.</span></h2>
+      <p>Pause, and l'earn. Share your email and get up to 25% off your first subscription when PnL launches.</p>
+      <form class="signup" id="signupForm" novalidate>
+        <input type="email" id="signupEmail" name="email" placeholder="you@email.com" aria-label="Email" autocomplete="email" required />
+        <button type="submit" id="signupBtn">Sign up</button>
+      </form>
+      <p class="cta__fine" id="signupStatus">No spam. Just early access and your discount.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div>
+        <div class="foot__logo"><img src="/assets/logo-white.png" alt="PnL App" /></div>
+        <p class="foot__tag">Trading psychology, engineered. Built to make discipline your default.</p>
+      </div>
+      <div class="foot__col">
+        <h5>Product</h5>
+        <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340">iOS App</a>
+        <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en">Android App</a>
+        <a href="https://pnlapp.co/privatetradingclub">Private Trading Club</a>
+        <a href="/quiz">Trading Psychology Quiz</a>
+        <a href="https://blog.pnlapp.co">Blog</a>
+      </div>
+      <div class="foot__col">
+        <h5>Company</h5>
+        <a href="#ethos">About</a>
+        <a href="#team">Team</a>
+        <a href="/termsandconditions">Terms &amp; Conditions</a>
+        <a href="/privacypolicy">Privacy Policy</a>
+        <a href="/request-delete-account">Delete Account</a>
+      </div>
+      <div class="foot__col">
+        <h5>Follow</h5>
+        <a href="https://instagram.com/pnlapp">Instagram</a>
+        <a href="https://x.com/pnlapp_official">X / Twitter</a>
+        <a href="https://www.linkedin.com/company/108309261/">LinkedIn</a>
+        <a href="https://www.reddit.com/r/thetradingcommunity/">Reddit</a>
+        <a href="https://t.me/pnlappofficial">Telegram</a>
+      </div>
+    </div>
+    <div class="foot__bot">
+      <p>© 2026 Breiterman LLC — Dubai, UAE. All rights reserved.</p>
+      <p class="dis">PnL App does not provide financial advice. It helps you understand your trading behavior. Control your mind · Mindful trading · Grow together.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // nav shadow on scroll
+  const nav=document.getElementById('nav');
+  const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>12);
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+
+  // reveal on scroll
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i%6,5)*40)+'ms';io.observe(el);});
+
+  // burger (simple in-page scroll list)
+  document.getElementById('burger').addEventListener('click',()=>{
+    document.querySelector('#ethos').scrollIntoView({behavior:'smooth'});
+  });
+
+  // ---- Lead form -> Google Sheets (Apps Script) ----
+  const SHEETS_ENDPOINT="https://script.google.com/macros/s/AKfycbx6nArFmR9xA8iTrTgL_Xt0dERzCHthcYYC19qzzCg4P4CPDWi-tLvVKH9jJK1ZRwI7/exec";
+  const form=document.getElementById('signupForm');
+  const emailEl=document.getElementById('signupEmail');
+  const btn=document.getElementById('signupBtn');
+  const status=document.getElementById('signupStatus');
+  const DEFAULT_MSG="No spam. Just early access and your discount.";
+  const validEmail=v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+  function setStatus(msg,type){
+    status.textContent=msg;
+    status.classList.remove('ok','err');
+    if(type)status.classList.add(type);
+  }
+
+  form.addEventListener('submit',async(e)=>{
+    e.preventDefault();
+    const email=(emailEl.value||'').trim();
+    if(!validEmail(email)){
+      setStatus("Please enter a valid email address.","err");
+      emailEl.focus();
+      return;
+    }
+    btn.disabled=true;
+    const label=btn.textContent;
+    btn.textContent="Sending…";
+    setStatus("Adding you to the early-access list…",null);
+
+    // Apps Script web apps don't send CORS headers, so we submit with
+    // no-cors (opaque response). The row still lands in the sheet.
+    const body=new FormData();
+    body.append('email',email);
+    body.append('source','pnlapp landing — trade smarter');
+    body.append('timestamp',new Date().toISOString());
+
+    try{
+      await fetch(SHEETS_ENDPOINT,{method:'POST',mode:'no-cors',body});
+      setStatus("You're on the list. Check your inbox for your discount. ✓","ok");
+      form.reset();
+    }catch(err){
+      setStatus("Something went wrong. Please try again.","err");
+    }finally{
+      btn.disabled=false;
+      btn.textContent=label;
+      setTimeout(()=>{ if(!status.classList.contains('err'))setStatus(DEFAULT_MSG,null); },6000);
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Why Am I Still Losing Money Trading? — PnL App Diagnostic</title>
+<meta name="description" content="Answer 20 questions to get a scored breakdown of your trading psychology — discipline, risk habits, and where your process leaks." />
+<link rel="icon" type="image/png" href="/assets/favicon.png" />
+<link rel="apple-touch-icon" href="/assets/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.cdnfonts.com/css/neue-montreal" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="/" class="nav__logo" aria-label="PnL App home"><img src="/assets/logo-black.png" alt="PnL App" /></a>
+  <div class="nav__links">
+    <a href="/#ethos">Ethos</a>
+    <a href="/#system">System</a>
+    <a href="/#pnlee">Pnlee</a>
+    <a href="/#press">Press</a>
+    <a href="/#team">Team</a>
+  </div>
+  <div class="nav__cta">
+    <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn">App Store</a>
+    <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn btn--fill">Play Store</a>
+    <button class="nav__burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div id="pnlDiagnostic"></div>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div>
+        <div class="foot__logo"><img src="/assets/logo-white.png" alt="PnL App" /></div>
+        <p class="foot__tag">Trading psychology, engineered. Built to make discipline your default.</p>
+      </div>
+      <div class="foot__col">
+        <h5>Product</h5>
+        <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340">iOS App</a>
+        <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en">Android App</a>
+        <a href="https://pnlapp.co/privatetradingclub">Private Trading Club</a>
+        <a href="/quiz">Trading Psychology Quiz</a>
+        <a href="https://blog.pnlapp.co">Blog</a>
+      </div>
+      <div class="foot__col">
+        <h5>Company</h5>
+        <a href="/#ethos">About</a>
+        <a href="/#team">Team</a>
+        <a href="/termsandconditions">Terms &amp; Conditions</a>
+        <a href="/privacypolicy">Privacy Policy</a>
+        <a href="/request-delete-account">Delete Account</a>
+      </div>
+      <div class="foot__col">
+        <h5>Follow</h5>
+        <a href="https://instagram.com/pnlapp">Instagram</a>
+        <a href="https://x.com/pnlapp_official">X / Twitter</a>
+        <a href="https://www.linkedin.com/company/108309261/">LinkedIn</a>
+        <a href="https://www.reddit.com/r/thetradingcommunity/">Reddit</a>
+        <a href="https://t.me/pnlappofficial">Telegram</a>
+      </div>
+    </div>
+    <div class="foot__bot">
+      <p>&copy; 2026 Breiterman LLC — Dubai, UAE. All rights reserved.</p>
+      <p class="dis">PnL App does not provide financial advice. It helps you understand your trading behavior. Control your mind &middot; Mindful trading &middot; Grow together.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav=document.getElementById('nav');
+  const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>12);
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+  document.getElementById('burger').addEventListener('click',()=>{ window.location.href='/#ethos'; });
+</script>
+
+<script>
+const PNL_APP_LINK = "https://pnlapp.co";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwdpkH9Yim4rMwCjA-TP6ilKJTrMHItddLbY1tnCk3hylQKBkPOkibEiQZrnWoFxEQ/exec";
+
+const questions = [
+{
+q:"Do you have a clearly defined, written trading plan that outlines your specific entry, exit, and risk management rules?",
+category:"Trading Plan and Process",
+key:"clearly defined, written trading plan",
+yes:5,
+no:1,
+good:"You have a written trading plan that gives your trading structure.",
+bad:"No clearly defined written trading plan.",
+explain:"Without a written plan, entries, exits, and risk decisions become easier to change during live market pressure."
+},
+{
+q:"Are your trading rules objective and specific enough that someone else could execute them exactly as you intend?",
+category:"Trading Plan and Process",
+key:"objective and specific",
+yes:5,
+no:1,
+good:"Your trading rules are objective enough to be repeated.",
+bad:"Your trading rules are too subjective.",
+explain:"Subjective rules create inconsistent execution because every setup depends on mood, confidence, and interpretation."
+},
+{
+q:"Before trading your strategy with real money, did you test it on historical market data?",
+category:"Trading Plan and Process",
+key:"historical market data",
+yes:5,
+no:1,
+good:"You tested your strategy before risking real capital.",
+bad:"You trade without proper testing.",
+explain:"Without testing, confidence usually comes from hope, screenshots, or recent wins rather than evidence."
+},
+{
+q:"When facing trading losses, do you stick to your current trading strategy instead of immediately switching systems?",
+category:"Trading Plan and Process",
+key:"stick to your current trading strategy",
+yes:5,
+no:1,
+good:"You can stay with one system long enough to evaluate it properly.",
+bad:"You switch strategy after losses.",
+explain:"Constantly changing systems prevents statistical consistency and makes it hard to know what actually works."
+},
+{
+q:"Do you always define your maximum risk before entering any trade?",
+category:"Risk Management Habits",
+key:"maximum risk",
+yes:5,
+no:1,
+good:"You define your risk before entering trades.",
+bad:"You enter trades without predefined risk.",
+explain:"Entering without predefined risk makes it easier to stay in bad trades, resize emotionally, or accept larger losses."
+},
+{
+q:"Do you use a protective stop loss for every trade?",
+category:"Risk Management Habits",
+key:"protective stop loss",
+yes:5,
+no:1,
+good:"You use stop losses consistently.",
+bad:"You use stop losses inconsistently.",
+explain:"Inconsistent stop loss use creates unpredictable drawdowns and can turn one mistake into serious account damage."
+},
+{
+q:"Do you calculate position size based on risk and stop distance?",
+category:"Risk Management Habits",
+key:"position size",
+yes:5,
+no:1,
+good:"You calculate position size using risk and stop distance.",
+bad:"Your position sizing is not properly calculated.",
+explain:"Poor position sizing creates inconsistent risk exposure and can make one trade much more dangerous than another."
+},
+{
+q:"After a losing trade, do you increase risk to recover losses faster?",
+category:"Risk Management Habits",
+key:"recover losses faster",
+yes:1,
+no:5,
+good:"You keep your risk stable after losses.",
+bad:"You increase risk after losses.",
+explain:"Increasing risk after losses is often emotional recovery behavior and can accelerate drawdowns."
+},
+{
+q:"Do you move your stop loss further away after entering a trade?",
+category:"Risk Management Habits",
+key:"move your stop loss",
+yes:1,
+no:5,
+good:"You respect your original stop loss.",
+bad:"You move your stop loss further away.",
+explain:"Moving stops increases risk after entry and often delays a larger loss."
+},
+{
+q:"Do you take trades that do not perfectly match your setup criteria?",
+category:"Trade Execution and Discipline",
+key:"perfectly match",
+yes:1,
+no:5,
+good:"You only take trades that match your setup criteria.",
+bad:"You take unplanned trades.",
+explain:"Trades outside your criteria add randomness and weaken your statistical edge."
+},
+{
+q:"Do you always have a predefined profit target before entering a trade?",
+category:"Trade Execution and Discipline",
+key:"predefined profit target",
+yes:5,
+no:1,
+good:"You define profit targets before entering.",
+bad:"You enter without a predefined profit target.",
+explain:"Without a target, exits become emotional and the risk reward profile becomes unclear."
+},
+{
+q:"Do you close profitable trades too early because you are afraid of giving back unrealized profit?",
+category:"Trade Execution and Discipline",
+key:"close profitable trades too early",
+yes:1,
+no:5,
+good:"You allow trades to reach planned targets.",
+bad:"You close winners too early.",
+explain:"Fear based exits reduce your average reward and make it harder to recover from normal losing trades."
+},
+{
+q:"During a live trade, do real time profit and loss movements affect your decision to close the trade early?",
+category:"Trading Mindset and Emotions",
+key:"profit and loss movements",
+yes:1,
+no:5,
+good:"You can follow the plan despite live profit and loss movement.",
+bad:"Live profit and loss controls your exits.",
+explain:"Reacting to every price fluctuation shifts control from your plan to your emotions."
+},
+{
+q:"Do you avoid valid setups after recent losses because you are afraid of losing again?",
+category:"Trading Mindset and Emotions",
+key:"afraid of losing again",
+yes:1,
+no:5,
+good:"You can take valid setups even after losses.",
+bad:"Fear after losses blocks valid trades.",
+explain:"Avoiding valid setups after losses means fear is interfering with your system."
+},
+{
+q:"Do you enter trades because of fear of missing out on market movement?",
+category:"Trading Mindset and Emotions",
+key:"fear of missing out",
+yes:1,
+no:5,
+good:"You avoid FOMO entries.",
+bad:"You enter FOMO trades.",
+explain:"FOMO entries usually happen after emotional pressure, not after planned confirmation."
+},
+{
+q:"After a loss, do you feel anger, frustration, or an urge to jump back in and make it back?",
+category:"Trading Mindset and Emotions",
+key:"make it back",
+yes:1,
+no:5,
+good:"You stay emotionally stable after losses.",
+bad:"You feel revenge trading urges.",
+explain:"The urge to recover quickly is one of the clearest signs of emotional trading risk."
+},
+{
+q:"Do market news headlines or social media hype influence your trading decisions?",
+category:"External Influence",
+key:"social media hype",
+yes:1,
+no:5,
+good:"You can ignore external hype and follow your own plan.",
+bad:"External noise influences your trading.",
+explain:"News and social media can pull you away from your system and into reactive decision making."
+},
+{
+q:"Do you change your market bias during live movement because price suddenly moves fast?",
+category:"External Influence",
+key:"change your market bias",
+yes:1,
+no:5,
+good:"You maintain structured market bias.",
+bad:"You change bias emotionally during live movement.",
+explain:"Rapid bias changes often come from fear, greed, or short term price pressure."
+},
+{
+q:"Do you skip important trading checklist steps because your process takes too long?",
+category:"Time Pressure and Routine",
+key:"skip important trading checklist",
+yes:1,
+no:5,
+good:"You complete your trading process even under time pressure.",
+bad:"You skip key trading steps.",
+explain:"Skipping confirmation, sizing, or review steps creates weak execution and inconsistent results."
+},
+{
+q:"Do you journal your trades consistently and review your mistakes?",
+category:"Time Pressure and Routine",
+key:"journal your trades",
+yes:5,
+no:1,
+good:"You journal trades and review mistakes.",
+bad:"You do not review your trades consistently.",
+explain:"Without journaling, the same emotional and technical mistakes repeat without being measured."
+}
+];
+
+let current = 0;
+let selected = null;
+let answers = [];
+let lead = { name:"", email:"" };
+
+const root = document.getElementById("pnlDiagnostic");
+
+document.head.insertAdjacentHTML("beforeend", `
+<style>
+#pnlDiagnostic{
+font-family:'Neue Montreal','Helvetica Neue',Arial,sans-serif;
+background:var(--cream);
+color:var(--ink);
+padding:150px 0 80px;
+}
+#pnlDiagnostic *{box-sizing:border-box}
+.pnlCard,.pnlResultCard{
+max-width:880px;
+margin:0 auto;
+padding:0 32px;
+animation:fade .25s ease;
+}
+.pnlCardInner,.pnlResultCardInner{
+background:var(--paper);
+border:1px solid var(--line-soft);
+border-radius:var(--r);
+padding:44px;
+box-shadow:0 30px 60px -34px rgba(20,20,20,.28);
+}
+.pnlTitle{
+font-size:clamp(28px,4vw,40px);
+font-weight:500;
+letter-spacing:-.02em;
+text-align:center;
+margin:0 0 10px;
+line-height:1.08;
+}
+.pnlSub{
+text-align:center;
+color:var(--ink-soft);
+line-height:1.6;
+margin-bottom:34px;
+font-size:15px;
+}
+.pnlLine{
+height:1px;
+background:var(--line-soft);
+margin:28px 0;
+}
+.pnlProgress{
+height:8px;
+background:var(--line);
+border-radius:999px;
+overflow:hidden;
+margin-bottom:30px;
+}
+.pnlProgressFill{
+height:100%;
+background:var(--lime);
+border-radius:999px;
+transition:.25s ease;
+}
+.pnlCount{
+text-align:center;
+color:var(--ink-faint);
+margin-bottom:30px;
+font-family:'JetBrains Mono',monospace;
+font-size:11.5px;
+letter-spacing:.1em;
+text-transform:uppercase;
+}
+.pnlQuestion{
+font-size:23px;
+font-weight:500;
+letter-spacing:-.01em;
+line-height:1.4;
+margin-bottom:30px;
+}
+.pnlQuestion span{
+background:linear-gradient(transparent 62%,var(--lime) 62%);
+padding:0 .04em;
+}
+.pnlOption{
+width:100%;
+padding:18px 20px;
+margin-bottom:12px;
+background:var(--cream);
+border:1.5px solid var(--line);
+border-radius:14px;
+color:var(--ink);
+font-family:'Neue Montreal','Helvetica Neue',Arial,sans-serif;
+font-size:16px;
+font-weight:500;
+cursor:pointer;
+transition:.18s ease;
+text-align:left;
+}
+.pnlOption:hover{
+border-color:var(--ink);
+background:var(--paper);
+}
+.pnlOption:active{transform:scale(.99)}
+.pnlOption.active{
+background:var(--lime);
+border-color:var(--lime);
+color:var(--lime-ink);
+font-weight:600;
+}
+.pnlNav{
+display:flex;
+justify-content:space-between;
+margin-top:28px;
+gap:16px;
+}
+.pnlBtn{
+padding:15px 30px;
+border-radius:100px;
+border:1.5px solid var(--ink);
+cursor:pointer;
+font-family:'JetBrains Mono',monospace;
+font-size:13px;
+font-weight:500;
+letter-spacing:.02em;
+transition:all .22s cubic-bezier(.22,.61,.36,1);
+background:var(--ink);
+color:var(--cream);
+}
+.pnlBtn:hover{
+background:var(--lime);
+color:var(--lime-ink);
+border-color:var(--lime);
+}
+.pnlBtn:disabled{opacity:.4;cursor:not-allowed}
+.pnlBtn:disabled:hover{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.pnlBtn.gray{
+background:transparent;
+color:var(--ink);
+border-color:var(--line);
+}
+.pnlBtn.gray:hover{
+background:var(--ink);
+color:var(--cream);
+border-color:var(--ink);
+}
+.pnlInput{
+width:100%;
+padding:16px 18px;
+border-radius:12px;
+border:1.5px solid var(--line);
+background:var(--cream);
+color:var(--ink);
+margin-bottom:14px;
+font-family:'Neue Montreal','Helvetica Neue',Arial,sans-serif;
+font-size:15.5px;
+}
+.pnlInput:focus{outline:none;border-color:var(--ink)}
+.pnlInput::placeholder{color:var(--ink-faint)}
+.pnlResultTitle{
+text-align:center;
+font-size:clamp(26px,3.6vw,36px);
+font-weight:500;
+letter-spacing:-.02em;
+margin-bottom:30px;
+}
+.pnlCircleWrap{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:40px;
+margin-bottom:34px;
+}
+.pnlGrade{
+font-size:80px;
+font-weight:500;
+letter-spacing:-.02em;
+}
+.pnlCircle{
+width:140px;
+height:140px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+.pnlCircleInner{
+width:106px;
+height:106px;
+background:var(--paper);
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+font-weight:500;
+}
+.pnlHealth{
+text-align:center;
+color:var(--ink-faint);
+font-family:'JetBrains Mono',monospace;
+font-size:11.5px;
+letter-spacing:.12em;
+text-transform:uppercase;
+margin-bottom:28px;
+}
+.pnlSection{
+margin-top:16px;
+padding:28px;
+border-radius:16px;
+background:var(--cream);
+border:1px solid var(--line-soft);
+}
+.pnlSection h3{
+margin-top:0;
+font-size:19px;
+font-weight:500;
+letter-spacing:-.01em;
+}
+.pnlCategory{
+margin-bottom:22px;
+}
+.pnlCategoryTop{
+display:flex;
+justify-content:space-between;
+gap:18px;
+font-weight:500;
+margin-bottom:8px;
+font-size:14.5px;
+}
+.pnlBarBg{
+height:10px;
+background:var(--line);
+border-radius:999px;
+overflow:hidden;
+}
+.pnlBarFill{
+height:100%;
+border-radius:999px;
+}
+.red{background:#e2432e}
+.yellow{background:#e0ac1f}
+.green{background:var(--lime)}
+.pnlExplain{
+line-height:1.7;
+color:var(--ink-soft);
+margin-bottom:18px;
+font-size:14.5px;
+}
+.pnlGood{
+color:#4c7a2e;
+margin-bottom:12px;
+line-height:1.55;
+font-size:14.5px;
+}
+.pnlBad{
+color:#c1442e;
+margin-bottom:10px;
+font-weight:500;
+line-height:1.55;
+font-size:14.5px;
+}
+.pnlFactor{
+padding:18px;
+border-radius:14px;
+background:var(--paper);
+border:1px solid var(--line-soft);
+margin-bottom:16px;
+}
+.pnlAlert{
+background:rgba(198,255,0,.12);
+border:1px solid rgba(198,255,0,.35);
+color:var(--ink);
+border-radius:16px;
+padding:22px;
+line-height:1.65;
+margin-top:20px;
+font-size:15px;
+}
+.pnlMiniGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+}
+.pnlMiniBox{
+padding:18px;
+border-radius:14px;
+background:var(--paper);
+border:1px solid var(--line-soft);
+}
+@keyframes fade{
+from{opacity:0;transform:translateY(10px)}
+to{opacity:1;transform:translateY(0)}
+}
+@media(max-width:700px){
+#pnlDiagnostic{padding:120px 0 50px}
+.pnlCardInner,.pnlResultCardInner{padding:26px}
+.pnlTitle{font-size:26px}
+.pnlQuestion{font-size:19px}
+.pnlCircleWrap{flex-direction:column;gap:20px}
+.pnlGrade{font-size:64px}
+.pnlMiniGrid{grid-template-columns:1fr}
+.pnlNav{flex-direction:column}
+.pnlBtn{width:100%}
+}
+</style>
+`);
+
+function highlight(text,key){
+return text.replace(key,"<span>"+key+"</span>");
+}
+
+function renderQuestion(){
+const q = questions[current];
+const progress = Math.round(((current + 1) / questions.length) * 100);
+
+root.innerHTML = `
+<div class="pnlCard"><div class="pnlCardInner">
+<div class="eyebrow" style="justify-content:center;margin-bottom:18px;"><span class="num">00</span> Free diagnostic</div>
+<h1 class="pnlTitle">Why Am I Still Losing Money Trading?</h1>
+<div class="pnlSub">
+PnL App Trading Psychology Diagnostic
+<br>
+Answer 20 questions to analyze your trading behavior.
+</div>
+
+<div class="pnlProgress">
+<div class="pnlProgressFill" style="width:${progress}%"></div>
+</div>
+
+<div class="pnlLine"></div>
+
+<div class="pnlCount">Question ${current + 1} of ${questions.length}</div>
+
+<div class="pnlQuestion">${highlight(q.q,q.key)}</div>
+
+<button class="pnlOption ${selected==="yes"?"active":""}" onclick="selectAnswer('yes')">Yes</button>
+<button class="pnlOption ${selected==="no"?"active":""}" onclick="selectAnswer('no')">No</button>
+
+<div class="pnlNav">
+<button class="pnlBtn gray" onclick="prevQuestion()">Previous</button>
+<button class="pnlBtn" onclick="nextQuestion()">${current===questions.length-1?"See Results":"Next"}</button>
+</div>
+</div></div>
+`;
+}
+
+function selectAnswer(v){
+selected=v;
+document.querySelectorAll(".pnlOption").forEach(el=>el.classList.remove("active"));
+if(v==="yes"){
+document.querySelectorAll(".pnlOption")[0].classList.add("active");
+}else{
+document.querySelectorAll(".pnlOption")[1].classList.add("active");
+}
+}
+
+function nextQuestion(){
+if(!selected){
+alert("Please select an answer.");
+return;
+}
+answers[current]=selected;
+selected=null;
+if(current<questions.length-1){
+current++;
+selected=answers[current] || null;
+renderQuestion();
+}else{
+showLeadForm();
+}
+}
+
+function prevQuestion(){
+if(current>0){
+current--;
+selected=answers[current];
+renderQuestion();
+}
+}
+
+function showLeadForm(){
+root.innerHTML=`
+<div class="pnlCard"><div class="pnlCardInner">
+<h1 class="pnlTitle">Reveal Your Trading Results</h1>
+<div class="pnlSub">
+Enter your name and email to unlock your full trading psychology breakdown.
+</div>
+
+<input id="leadName" class="pnlInput" placeholder="Your Name">
+<input id="leadEmail" class="pnlInput" placeholder="Your Email">
+
+<button class="pnlBtn" style="width:100%;margin-top:10px;" onclick="submitLead()">
+Reveal My Results
+</button>
+</div></div>
+`;
+}
+
+function submitLead(){
+const name=document.getElementById("leadName").value.trim();
+const email=document.getElementById("leadEmail").value.trim();
+
+if(!name){
+alert("Please enter your name.");
+return;
+}
+
+if(!email.includes("@")){
+alert("Please enter valid email.");
+return;
+}
+
+lead.name=name;
+lead.email=email;
+
+showResults();
+}
+
+function getColor(p){
+if(p<40)return "red";
+if(p<70)return "yellow";
+return "green";
+}
+
+function getColorHex(p){
+if(p<40)return "#e2432e";
+if(p<70)return "#e0ac1f";
+return "#8fb800";
+}
+
+function getGrade(p){
+if(p>=90)return "A";
+if(p>=80)return "B";
+if(p>=70)return "C+";
+if(p>=60)return "C";
+if(p>=40)return "D";
+return "F";
+}
+
+function getTraderType(percent, worstCategory){
+if(percent>=80)return "The Structured Trader";
+if(worstCategory==="Risk Management Habits")return "The Risk Leaker";
+if(worstCategory==="Trading Mindset and Emotions")return "The Emotional Executor";
+if(worstCategory==="Trade Execution and Discipline")return "The Inconsistent Executor";
+if(worstCategory==="Trading Plan and Process")return "The Unstructured Trader";
+if(worstCategory==="Time Pressure and Routine")return "The Under Reviewed Trader";
+return "The Reactive Trader";
+}
+
+function buildResult(){
+let total = 0;
+let cats = {};
+
+questions.forEach((q,i)=>{
+let answer = answers[i];
+let score = answer==="yes" ? q.yes : q.no;
+total += score;
+
+if(!cats[q.category]){
+cats[q.category] = {score:0,count:0,good:[],bad:[]};
+}
+
+cats[q.category].score += score;
+cats[q.category].count += 1;
+
+if(score===5){
+cats[q.category].good.push(q.good);
+}else{
+cats[q.category].bad.push({bad:q.bad,explain:q.explain});
+}
+});
+
+let percent = Math.round((total / (questions.length * 5)) * 100);
+
+let rows = Object.keys(cats).map(name=>{
+return {
+name:name,
+percent:Math.round((cats[name].score / (cats[name].count * 5)) * 100),
+good:cats[name].good,
+bad:cats[name].bad
+};
+}).sort((a,b)=>a.percent-b.percent);
+
+return {percent,rows};
+}
+
+function showResults(){
+const data = buildResult();
+const percent = data.percent;
+const grade = getGrade(percent);
+const colorHex = getColorHex(percent);
+const worst = data.rows[0];
+const best = data.rows[data.rows.length - 1];
+const traderType = getTraderType(percent,worst.name);
+const issueCount = data.rows.reduce((sum,row)=>sum + row.bad.length,0);
+
+fetch(GOOGLE_SCRIPT_URL,{
+method:"POST",
+mode:"no-cors",
+headers:{"Content-Type":"text/plain"},
+body:JSON.stringify({
+name:lead.name,
+email:lead.email,
+result:percent,
+grade:grade,
+traderType:traderType,
+answers:answers,
+breakdown:data.rows
+})
+});
+
+const categoryHtml = data.rows.map(row=>`
+<div class="pnlCategory">
+<div class="pnlCategoryTop">
+<span>${row.name}</span>
+<span>${row.percent}%</span>
+</div>
+<div class="pnlBarBg">
+<div class="pnlBarFill ${getColor(row.percent)}" style="width:${row.percent}%"></div>
+</div>
+</div>
+`).join("");
+
+const goodHtml = data.rows.flatMap(row=>row.good).slice(0,10).map(item=>`
+<div class="pnlGood">✅ ${item}</div>
+`).join("") || `<div class="pnlExplain">No major strength was detected yet. Your first goal should be building a simple repeatable process.</div>`;
+
+const badHtml = data.rows.filter(row=>row.bad.length).map(row=>`
+<div class="pnlFactor">
+<h3>${row.name} (${row.percent}%)</h3>
+${row.bad.map(item=>`
+<div class="pnlBad">⚠️ ${item.bad}</div>
+<div class="pnlExplain">${item.explain}</div>
+`).join("")}
+</div>
+`).join("");
+
+root.innerHTML=`
+<div class="pnlResultCard"><div class="pnlResultCardInner">
+
+<div class="pnlResultTitle">Your Trading Diagnostic Results</div>
+
+<div class="pnlCircleWrap">
+<div class="pnlGrade" style="color:${colorHex}">${grade}</div>
+<div class="pnlCircle" style="background:conic-gradient(${colorHex} ${percent*3.6}deg,var(--line) 0deg)">
+<div class="pnlCircleInner" style="color:${colorHex}">${percent}%</div>
+</div>
+</div>
+
+<div class="pnlHealth">Overall Trading Health</div>
+
+<div class="pnlAlert">
+${lead.name}, your answers highlight ${issueCount} key area(s) that may be hurting your consistency. Your profile looks like: <strong>${traderType}</strong>.
+</div>
+
+<div class="pnlSection">
+<h3>Performance by Category</h3>
+${categoryHtml}
+</div>
+
+<div class="pnlSection">
+<h3>Your Trading Profile</h3>
+<div class="pnlMiniGrid">
+<div class="pnlMiniBox">
+<div class="pnlGood">Strongest Area</div>
+<div class="pnlExplain">${best.name} is currently your most stable area. This is the part of your process you should protect and repeat.</div>
+</div>
+<div class="pnlMiniBox">
+<div class="pnlBad">Biggest Weakness</div>
+<div class="pnlExplain">${worst.name} is your lowest scoring area. This is likely where the biggest performance leak is happening.</div>
+</div>
+</div>
+</div>
+
+<div class="pnlSection">
+<h3>Areas You Are Doing Well</h3>
+${goodHtml}
+</div>
+
+<div class="pnlSection">
+<h3>Key Factors To Address</h3>
+${badHtml}
+</div>
+
+<div class="pnlSection">
+<h3>What This Means</h3>
+<div class="pnlExplain">
+Your score does not mean you cannot trade. It means your trading results may be affected by repeated behavioral leaks. The goal is not to become emotionless. The goal is to create a system that catches emotional decisions before they turn into larger losses.
+</div>
+<div class="pnlExplain">
+Based on your results, your next improvement should come from tracking your trades, reviewing emotional triggers, measuring mistakes, and identifying which days or setups create the worst decisions.
+</div>
+</div>
+
+<div class="pnlSection">
+<h3>PnL App Recommendation</h3>
+<div class="pnlExplain">
+PnL App was built for traders who want to understand not only their profit and loss, but also the behavior behind it. You can journal trades, track emotions, review statistics, analyze repeated mistakes, and use AI reports to improve execution over time.
+</div>
+<button class="pnlBtn" style="width:100%;" onclick="window.open('${PNL_APP_LINK}','_blank')">
+Improve This With PnL App
+</button>
+</div>
+
+</div></div>
+`;
+}
+
+renderQuestion();
+</script>
+</body>
+</html>
