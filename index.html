@@ -150,10 +150,10 @@
   .nav__burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
   .nav__burger.open span:nth-child(2){opacity:0}
   .nav__burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-  .nav__mobile{display:none;flex-direction:column;position:fixed;top:0;left:0;right:0;bottom:0;z-index:1001;background:var(--cream);padding:96px 24px 32px;overflow-y:auto}
+  .nav__mobile{display:none;flex-direction:column;position:fixed;top:0;left:0;right:0;height:100vh;height:100dvh;z-index:1001;background:var(--cream);padding:96px 24px calc(40px + env(safe-area-inset-bottom,0px));overflow-y:auto;box-sizing:border-box}
   .nav__mobile.open{display:flex}
-  .nav__mobile a{font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--ink);padding:16px 0;border-bottom:1px solid var(--line-soft)}
-  .nav__mobile__cta{display:flex;flex-direction:column;gap:10px;margin-top:24px}
+  .nav__mobile a{font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--ink);padding:16px 0;border-bottom:1px solid var(--line-soft);flex:0 0 auto}
+  .nav__mobile__cta{display:flex;flex-direction:column;gap:10px;margin-top:24px;flex:0 0 auto}
   .nav__mobile__cta a.btn{width:100%;justify-content:center;padding:14px 18px;border-bottom:none}
   .nav__mobile__cta a.btn--fill{color:var(--cream)}
   .nav__mobile__cta a.btn:not(.btn--fill){color:var(--ink)}
@@ -447,6 +447,10 @@
     .nav__links{display:none}
     .nav__cta .btn:not(.btn--fill){display:none}
     .nav__burger{display:flex}
+    html.os-ios #navApp{display:inline-flex;background:var(--ink);color:var(--cream);border-color:var(--ink)}
+    html.os-ios #navPlay{display:none}
+    html.os-android #navPlay{display:inline-flex}
+    html.os-android #navApp{display:none}
     .hero{padding:120px 0 40px}
     .sec{padding:78px 0}
     .sec__head{grid-template-columns:1fr;gap:16px;margin-bottom:38px}
@@ -486,8 +490,8 @@
     <a href="#team">Team</a>
   </div>
   <div class="nav__cta">
-    <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn">App Store</a>
-    <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn btn--fill">Play Store</a>
+    <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn" id="navApp">App Store</a>
+    <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn btn--fill" id="navPlay">Play Store</a>
     <button class="nav__burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -978,6 +982,12 @@
   document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i%6,5)*40)+'ms';io.observe(el);});
 
   // mobile menu
+  // OS detection for the mobile store button
+  (function(){
+    var ua=navigator.userAgent||'';
+    if(/iPhone|iPad|iPod/.test(ua)) document.documentElement.classList.add('os-ios');
+    else if(/Android/.test(ua)) document.documentElement.classList.add('os-android');
+  })();
   const burgerBtn=document.getElementById('burger');
   const navMobile=document.getElementById('navMobile');
   burgerBtn.addEventListener('click',()=>{

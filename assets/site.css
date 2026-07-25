@@ -82,16 +82,18 @@ img{display:block;max-width:100%}
 /* ---------- MOBILE MENU ---------- */
 .nav__mobile{
   display:none;flex-direction:column;
-  position:fixed;top:0;left:0;right:0;bottom:0;z-index:1001;
-  background:var(--cream);padding:96px 24px 32px;
+  position:fixed;top:0;left:0;right:0;height:100vh;height:100dvh;z-index:1001;
+  background:var(--cream);padding:96px 24px calc(40px + env(safe-area-inset-bottom,0px));
   overflow-y:auto;
+  box-sizing:border-box;
 }
 .nav__mobile.open{display:flex}
 .nav__mobile a{
   font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--ink);
   padding:16px 0;border-bottom:1px solid var(--line-soft);
+  flex:0 0 auto;
 }
-.nav__mobile__cta{display:flex;flex-direction:column;gap:10px;margin-top:24px}
+.nav__mobile__cta{display:flex;flex-direction:column;gap:10px;margin-top:24px;flex:0 0 auto}
 .nav__mobile__cta a.btn{width:100%;justify-content:center;padding:14px 18px;border-bottom:none}
 .nav__mobile__cta a.btn--fill{color:var(--cream)}
 .nav__mobile__cta a.btn:not(.btn--fill){color:var(--ink)}
@@ -294,4 +296,9 @@ img{display:block;max-width:100%}
   .pagehead{padding:120px 0 40px}
   .legal__body{padding:26px}
   .foot__top{grid-template-columns:1fr;gap:28px}
+  /* store button: default is Play Store; JS swaps based on detected OS */
+  html.os-ios #navApp{display:inline-flex;background:var(--ink);color:var(--cream);border-color:var(--ink)}
+  html.os-ios #navPlay{display:none}
+  html.os-android #navPlay{display:inline-flex}
+  html.os-android #navApp{display:none}
 }
