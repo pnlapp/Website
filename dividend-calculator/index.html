@@ -3,39 +3,15 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>PnL App vs a Spreadsheet: What a DIY Journal Can't Do | PnL App</title>
-<meta name="description" content="A spreadsheet is free and fully customizable, but it depends entirely on the discipline it's meant to help build. Here's an honest look at the tradeoff." />
-<link rel="canonical" href="https://pnlapp.co/pnl-app-vs-spreadsheet" />
+<title>Dividend Calculator | PnL App</title>
+<meta name="description" content="A simple dividend income calculator: shares, price, and yield in, projected annual and compounded dividend income out." />
+<link rel="canonical" href="https://pnlapp.co/dividend-calculator" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="PnL App vs a Spreadsheet | PnL App" />
-<meta property="og:description" content="What a free, DIY trading journal can and can't do, compared honestly." />
-<meta property="og:url" content="https://pnlapp.co/pnl-app-vs-spreadsheet" />
+<meta property="og:title" content="Dividend Calculator | PnL App" />
+<meta property="og:description" content="Estimate annual dividend income and compounding growth from a position." />
+<meta property="og:url" content="https://pnlapp.co/dividend-calculator" />
 <meta property="og:image" content="https://pnlapp.co/assets/logo-black.png" />
 <meta name="twitter:card" content="summary" />
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Is a spreadsheet good enough for a trading journal?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A spreadsheet can work well for a trader who is highly consistent about logging every trade and reviewing it regularly. Its main limitation isn't features, it's that maintaining it depends entirely on the same discipline that inconsistent traders are usually trying to build in the first place."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What can PnL App do that a spreadsheet cannot?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "PnL App can automatically capture trade context, flag risky behavioral patterns as they happen, and lock trading during a cooldown after a loss. A spreadsheet is a passive record that only reflects what you choose to enter, with no way to intervene in the moment."
-      }
-    }
-  ]
-}
-</script>
 <link rel="icon" type="image/png" href="/assets/favicon.png" />
 <link rel="apple-touch-icon" href="/assets/favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -44,7 +20,18 @@
 <link href="https://fonts.cdnfonts.com/css/neue-montreal" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/site.css" />
-<style>.olist{max-width:640px;margin-top:8px}.olist li{font-size:15.5px;line-height:1.65;color:var(--ink-soft);margin-bottom:14px;padding-left:2px}.olist li b{color:var(--ink);font-weight:500}</style>
+<style>
+  .calc{max-width:640px;background:var(--cream);border:1.5px solid var(--line);border-radius:24px;padding:36px}
+  .calc__row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  .calc__field label{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px}
+  .calc__field input{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--ink);background:var(--cream)}
+  .calc__field input:focus{outline:none;border-color:var(--ink)}
+  .calc__results{margin-top:24px;padding-top:24px;border-top:1px solid var(--line)}
+  .calc__result{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0}
+  .calc__result .lab{color:var(--ink-soft);font-size:14.5px}
+  .calc__result .val{font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:500}
+  .calc__note{margin-top:20px;font-size:13px;color:var(--ink-faint);line-height:1.6}
+</style>
 </head>
 <body>
 
@@ -77,62 +64,62 @@
 </div>
 
 <header class="funnel-hero wrap">
-  <div class="eyebrow"><span class="num">00</span> Compare</div>
-  <h1>PnL App vs a spreadsheet</h1>
-  <p class="sub">Plenty of disciplined traders built their process in a spreadsheet first. The honest question isn't whether it can work, it's what it depends on to keep working.</p>
-  <div class="answer-box">
-    <span class="lbl">Short answer</span>
-    <p>A spreadsheet is free, fully customizable, and can absolutely work for a trader who is already consistent about logging and reviewing every trade. Its limitation isn't a lack of features, it's that it's entirely passive: it only shows what you choose to enter, on the days you choose to enter it, with nothing built in to catch a risky decision as it's happening. PnL App automates the capture and adds real-time behavioral flags a static sheet simply can't provide.</p>
-  </div>
+  <div class="eyebrow"><span class="num">00</span> Tool</div>
+  <h1>Dividend calculator</h1>
+  <p class="sub">Shares, price, and yield in. Projected annual income and compounded growth out.</p>
 </header>
 
-<section class="fsec wrap" id="why">
-  <div class="fsec__head">
-    <div class="eyebrow"><span class="num">01</span> Where they differ</div>
-    <h2>A record vs. an active system</h2>
-  </div>
-  <ol class="olist">
-    <li><b>A spreadsheet depends on the discipline it's meant to build.</b> The traders who struggle most with consistency are often the same traders who stop updating a spreadsheet the moment things get emotionally difficult, which is exactly when the data would be most useful.</li>
-    <li><b>Nothing happens automatically.</b> A spreadsheet doesn't notice that size crept up after a loss or that a stop got moved twice this week. It only shows that if you specifically go looking for it.</li>
-    <li><b>No real-time intervention is possible.</b> A cell can't lock your broker app for twenty minutes after a loss. That kind of in-the-moment circuit breaker requires something built for it.</li>
-    <li><b>A spreadsheet's real advantage is total control.</b> For a trader who wants to design their own exact tracking system and is confident they'll maintain it, that flexibility is genuinely valuable, and building one for a month is a reasonable way to learn what a journal should even capture.</li>
-  </ol>
-</section>
-
-<section class="fsec wrap" id="example" style="padding-top:0">
-  <div class="fsec__head">
-    <div class="eyebrow"><span class="num">02</span> Who each one fits</div>
-    <h2>Matching the tool to the actual problem</h2>
-  </div>
-  <div class="example-block">
-    <div class="eyebrow">A practical way to decide</div>
-    <p>If you've maintained a spreadsheet consistently for months and it's working, there's no urgent reason to switch. If your spreadsheet has three weeks of entries followed by a gap, followed by another three weeks, that gap pattern is itself useful information, and it's usually a sign the tracking needs to require less willpower to keep up, not more.</p>
-    <p class="quote">&ldquo;The best tracking system is the one you actually <span class="u">keep using</span> after a bad week.&rdquo;</p>
-  </div>
-</section>
-
-<section class="fsec wrap" style="padding-top:0">
-  <div class="funnel-cta">
-    <div class="eyebrow" style="justify-content:center;color:var(--ink-faint);margin-bottom:20px">Less friction, more intervention</div>
-    <h2>A journal that <span class="u">acts</span>, not just records.</h2>
-    <p>PnL App captures trade context automatically and flags risky patterns in real time, so the tracking survives the exact weeks a spreadsheet usually gets abandoned.</p>
-    <div class="btnrow">
-      <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn btn--lime">Download on App Store</a>
-      <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn">Get it on Google Play</a>
+<section class="fsec wrap">
+  <div class="calc">
+    <div class="calc__row">
+      <div class="calc__field">
+        <label for="shares">Number of shares</label>
+        <input type="number" id="shares" value="100" min="0" step="1" />
+      </div>
+      <div class="calc__field">
+        <label for="price">Price per share ($)</label>
+        <input type="number" id="price" value="50" min="0" step="0.01" />
+      </div>
     </div>
+    <div class="calc__row">
+      <div class="calc__field">
+        <label for="yieldpct">Dividend yield (%)</label>
+        <input type="number" id="yieldpct" value="3" min="0" step="0.01" />
+      </div>
+      <div class="calc__field">
+        <label for="years">Years to project</label>
+        <input type="number" id="years" value="10" min="1" step="1" />
+      </div>
+    </div>
+    <div class="calc__row">
+      <div class="calc__field">
+        <label for="growth">Annual dividend growth (%)</label>
+        <input type="number" id="growth" value="5" min="0" step="0.1" />
+      </div>
+      <div class="calc__field">
+        <label for="drip">Reinvest dividends (DRIP)</label>
+        <input type="checkbox" id="drip" checked style="width:auto;margin-top:12px" />
+      </div>
+    </div>
+    <div class="calc__results">
+      <div class="calc__result"><span class="lab">Position value</span><span class="val" id="outValue">$0</span></div>
+      <div class="calc__result"><span class="lab">Estimated annual income (year 1)</span><span class="val" id="outAnnual">$0</span></div>
+      <div class="calc__result"><span class="lab">Estimated annual income (final year)</span><span class="val" id="outFinal">$0</span></div>
+      <div class="calc__result"><span class="lab">Total dividends over the period</span><span class="val" id="outTotal">$0</span></div>
+    </div>
+    <p class="calc__note">This is a simple estimate based on the numbers entered, assuming a constant growth rate and no price change. It is not a projection of any specific stock's actual future dividend, and it is not financial advice. Real dividend growth and reinvestment returns vary and are never guaranteed.</p>
   </div>
 </section>
 
 <section class="fsec wrap" style="padding-top:0;padding-bottom:90px">
   <div class="fsec__head">
-    <div class="eyebrow"><span class="num">03</span> Related</div>
-    <h2>More comparisons and tools</h2>
+    <div class="eyebrow"><span class="num">01</span> Related</div>
+    <h2>More tools and guides</h2>
   </div>
   <div class="related__list">
-    <a href="/pnl-app-vs-edgewonk">PnL App vs Edgewonk</a>
-    <a href="/pnl-app-vs-tradersync">PnL App vs TraderSync</a>
-    <a href="/pnl-app-vs-tradervue">PnL App vs Tradervue</a>
-    <a href="/emotional-trading-journal">Emotional Trading Journal</a>
+    <a href="/psychology-of-dividend-investing">The Psychology of Dividend Investing</a>
+    <a href="/portfolio-tracker">Portfolio Tracker</a>
+    <a href="/overtrading-calculator">Overtrading Calculator</a>
     <a href="/quiz">Full 20-Question Diagnostic</a>
   </div>
 </section>
@@ -249,6 +236,7 @@
   </div>
 </footer>
 
+
 <script>
   const nav=document.getElementById('nav');
   const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>12);
@@ -275,6 +263,41 @@
       btn.closest('.foot__col--more').classList.toggle('open');
     });
   });
+
+  const fmt = n => '$' + n.toLocaleString(undefined, {maximumFractionDigits: 2});
+  function recalc() {
+    const shares = parseFloat(document.getElementById('shares').value) || 0;
+    const price = parseFloat(document.getElementById('price').value) || 0;
+    const yieldPct = parseFloat(document.getElementById('yieldpct').value) || 0;
+    const years = parseInt(document.getElementById('years').value) || 1;
+    const growthPct = parseFloat(document.getElementById('growth').value) || 0;
+    const drip = document.getElementById('drip').checked;
+
+    const positionValue = shares * price;
+    let currentShares = shares;
+    let currentYieldAmount = price * (yieldPct / 100);
+    let totalDividends = 0;
+    let annualIncomeYear1 = currentShares * currentYieldAmount;
+
+    for (let y = 0; y < years; y++) {
+      const annualIncome = currentShares * currentYieldAmount;
+      totalDividends += annualIncome;
+      if (drip && price > 0) {
+        currentShares += annualIncome / price;
+      }
+      currentYieldAmount *= (1 + growthPct / 100);
+    }
+    const finalAnnualIncome = currentShares * currentYieldAmount / (1 + growthPct / 100);
+
+    document.getElementById('outValue').textContent = fmt(positionValue);
+    document.getElementById('outAnnual').textContent = fmt(annualIncomeYear1);
+    document.getElementById('outFinal').textContent = fmt(finalAnnualIncome);
+    document.getElementById('outTotal').textContent = fmt(totalDividends);
+  }
+  ['shares','price','yieldpct','years','growth','drip'].forEach(id => {
+    document.getElementById(id).addEventListener('input', recalc);
+  });
+  recalc();
 </script>
 </body>
 </html>
