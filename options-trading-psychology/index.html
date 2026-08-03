@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Trading Discipline Score — Rate Your Process in 60 Seconds | PnL App</title>
-<meta name="description" content="Get your trading discipline score in six quick questions. See how process, not profit, predicts whether your edge survives contact with the market." />
-<link rel="canonical" href="https://pnlapp.co/trading-discipline-score" />
+<title>Options Trading Psychology: The Decay Clock | PnL App</title>
+<meta name="description" content="Options add leverage and a ticking clock to every normal trading bias. Here's why options trading psychology is uniquely intense, and what helps." />
+<link rel="canonical" href="https://pnlapp.co/options-trading-psychology" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Trading Discipline Score — Rate Your Process | PnL App" />
-<meta property="og:description" content="Get your trading discipline score in six quick questions." />
-<meta property="og:url" content="https://pnlapp.co/trading-discipline-score" />
+<meta property="og:title" content="Options Trading Psychology | PnL App" />
+<meta property="og:description" content="Why leverage and time decay make options psychology harder than trading shares." />
+<meta property="og:url" content="https://pnlapp.co/options-trading-psychology" />
 <meta property="og:image" content="https://pnlapp.co/assets/logo-black.png" />
 <meta name="twitter:card" content="summary" />
 <script type="application/ld+json">
@@ -19,18 +19,18 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is trading discipline?",
+      "name": "Why does options trading feel more emotionally intense than trading shares?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Trading discipline is how consistently you follow your own predefined rules, entry criteria, position size, and exit plan, regardless of how the last trade went. It's measured by adherence, not by profit and loss."
+        "text": "Leverage magnifies both gains and losses, so the same percentage move in the underlying produces a much larger swing in the position's value. Time decay adds a second pressure on top of that: a losing options position isn't just underwater, it's actively losing value from time passing alone."
       }
     },
     {
       "@type": "Question",
-      "name": "How is a trading discipline score calculated?",
+      "name": "What is a common options trading psychology mistake?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "It's scored on process, not profit: whether you followed your plan, defined risk before entry, and kept your stop where you set it, regardless of whether the trade won or lost."
+        "text": "Averaging down on a decaying position, adding more contracts to lower the average cost as a losing option loses value, which increases the total amount at risk on a position that time decay is actively working against."
       }
     }
   ]
@@ -44,6 +44,7 @@
 <link href="https://fonts.cdnfonts.com/css/neue-montreal" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/site.css" />
+<style>.olist{max-width:640px;margin-top:8px}.olist li{font-size:15.5px;line-height:1.65;color:var(--ink-soft);margin-bottom:14px;padding-left:2px}.olist li b{color:var(--ink);font-weight:500}</style>
 </head>
 <body>
 
@@ -76,85 +77,44 @@
 </div>
 
 <header class="funnel-hero wrap">
-  <div class="eyebrow"><span class="num">00</span> Free score · 60 seconds</div>
-  <h1>What's your trading discipline score?</h1>
-  <p class="sub">Six questions about process, not profit. A winning trade can still be a bad trade — this scores the part that actually repeats.</p>
+  <div class="eyebrow"><span class="num">00</span> Guide</div>
+  <h1>Options trading psychology</h1>
+  <p class="sub">Leverage magnifies every normal bias. Time decay adds a clock that keeps running even when you do nothing. Together, they make options uniquely hard to sit with calmly.</p>
   <div class="answer-box">
     <span class="lbl">Short answer</span>
-    <p>Trading discipline is how consistently you follow your own predefined rules — entry criteria, position size, and exit plan — regardless of how the last trade went. It's measured by adherence, not by P&amp;L. The score below is a quick read on yours.</p>
+    <p>Options add two pressures that shares don't have: leverage, which magnifies the emotional swing of every price move, and time decay, which means a losing position is quietly worth less every day even if the underlying doesn't move at all. That combination makes normal biases like loss aversion and revenge trading show up faster and hit harder.</p>
   </div>
 </header>
 
-<section class="fsec wrap" id="test">
+<section class="fsec wrap" id="why">
   <div class="fsec__head">
-    <div class="eyebrow"><span class="num">01</span> The score</div>
-    <h2>Six questions, scored 0–100</h2>
+    <div class="eyebrow"><span class="num">01</span> The core problem</div>
+    <h2>Two clocks are running, not one</h2>
   </div>
-
-  <form class="assess" id="assessForm">
-    <div class="assess__q" data-q="0">
-      <div class="assess__qtext">1. Do you have a written entry, exit, and risk rule set you actually follow?</div>
-      <div class="assess__opts"><button type="button" class="assess__opt" data-val="1">Yes</button><button type="button" class="assess__opt" data-val="0">No</button></div>
-    </div>
-    <div class="assess__q" data-q="1">
-      <div class="assess__qtext">2. Do you define your risk before entering, every time, without exception?</div>
-      <div class="assess__opts"><button type="button" class="assess__opt" data-val="1">Yes</button><button type="button" class="assess__opt" data-val="0">No</button></div>
-    </div>
-    <div class="assess__q" data-q="2">
-      <div class="assess__qtext">3. Do you only take trades that match your setup criteria?</div>
-      <div class="assess__opts"><button type="button" class="assess__opt" data-val="1">Yes</button><button type="button" class="assess__opt" data-val="0">No</button></div>
-    </div>
-    <div class="assess__q" data-q="3">
-      <div class="assess__qtext">4. Do you keep your stop loss where you originally set it?</div>
-      <div class="assess__opts"><button type="button" class="assess__opt" data-val="1">Yes</button><button type="button" class="assess__opt" data-val="0">No</button></div>
-    </div>
-    <div class="assess__q" data-q="4">
-      <div class="assess__qtext">5. Does a losing streak leave your position sizing unchanged?</div>
-      <div class="assess__opts"><button type="button" class="assess__opt" data-val="1">Yes</button><button type="button" class="assess__opt" data-val="0">No</button></div>
-    </div>
-    <div class="assess__q" data-q="5">
-      <div class="assess__qtext">6. Do you journal and review your trades regularly, win or lose?</div>
-      <div class="assess__opts"><button type="button" class="assess__opt" data-val="1">Yes</button><button type="button" class="assess__opt" data-val="0">No</button></div>
-    </div>
-
-    <button type="submit" class="btn btn--fill assess__submit" id="assessSubmit" disabled>See my score</button>
-
-    <div class="assess__result assess__hide" id="assessResult">
-      <div class="score"><span id="scoreNum">0</span><span class="u">/100</span></div>
-      <div class="verdict" id="scoreVerdict"></div>
-    </div>
-  </form>
+  <ol class="olist">
+    <li><b>Leverage magnifies the emotional swing.</b> A move that would be a minor fluctuation in shares can be a large percentage swing in an option's value, which means the emotional reaction is scaled up along with the position size.</li>
+    <li><b>Time decay adds urgency even when nothing happens.</b> A losing options position doesn't just sit and wait to be right, it loses a little value every day from theta alone, which pressures decisions to be made faster than the underlying thesis actually requires.</li>
+    <li><b>Averaging down on a decaying position.</b> Adding more contracts to lower a losing position's average cost increases the total amount actively being eroded by time decay, compounding the original mistake instead of fixing it.</li>
+    <li><b>Small frequent wins can mask a bad expectancy.</b> A strategy that wins often in small amounts and rarely loses big can feel consistently profitable right up until one of the rare large losses erases months of small gains.</li>
+  </ol>
 </section>
 
 <section class="fsec wrap" id="report" style="padding-top:0">
   <div class="fsec__head">
     <div class="eyebrow"><span class="num">02</span> What PnL App would show</div>
     <h2>A sample behavioral report</h2>
-    <p>Discipline scored on process, not on whether the trade happened to work.</p>
+    <p>Win rate against expectancy, tracked separately, since options can hide a bad ratio behind a good win rate.</p>
   </div>
-  <div class="grade-card">
-    <div class="grade-card__tag">Setup grade &middot; last 62 trades</div>
-    <div class="grade-row">
-      <div class="grade-row__top"><span class="grade-row__letter">A+</span><span class="grade-row__count">6 trades</span><span class="grade-row__win">100%</span><span class="grade-row__pnl pos">+$1,840</span></div>
-      <div class="grade-row__bar"><span style="width:100%;background:var(--lime)"></span></div>
+  <div class="report-mock">
+    <div class="report-mock__tag">Win rate vs. expectancy &middot; Last 90 days</div>
+    <h4>Frequent small wins, rare large losses</h4>
+    <div class="ebar">
+      <div class="ebar__row"><span class="ebar__lab">Win rate</span><span class="ebar__track"><span class="ebar__fill" style="width:74%;background:var(--lime)"></span></span><span class="ebar__val">74%</span></div>
+      <div class="ebar__row"><span class="ebar__lab">Avg. win size</span><span class="ebar__track"><span class="ebar__fill" style="width:22%;background:var(--lime)"></span></span><span class="ebar__val">Small</span></div>
+      <div class="ebar__row"><span class="ebar__lab">Avg. loss size</span><span class="ebar__track"><span class="ebar__fill" style="width:88%;background:#ff5b4c"></span></span><span class="ebar__val">Large</span></div>
+      <div class="ebar__row"><span class="ebar__lab">Net expectancy over the period</span><span class="ebar__track"><span class="ebar__fill" style="width:15%;background:#ff5b4c"></span></span><span class="ebar__val">Negative</span></div>
     </div>
-    <div class="grade-row">
-      <div class="grade-row__top"><span class="grade-row__letter">A</span><span class="grade-row__count">12 trades</span><span class="grade-row__win">83%</span><span class="grade-row__pnl pos">+$2,120</span></div>
-      <div class="grade-row__bar"><span style="width:83%;background:var(--lime)"></span></div>
-    </div>
-    <div class="grade-row">
-      <div class="grade-row__top"><span class="grade-row__letter">B+</span><span class="grade-row__count">15 trades</span><span class="grade-row__win">67%</span><span class="grade-row__pnl pos">+$980</span></div>
-      <div class="grade-row__bar"><span style="width:67%;background:#9bd400"></span></div>
-    </div>
-    <div class="grade-row">
-      <div class="grade-row__top"><span class="grade-row__letter">C+</span><span class="grade-row__count">8 trades</span><span class="grade-row__win">38%</span><span class="grade-row__pnl neg">&minus;$420</span></div>
-      <div class="grade-row__bar"><span style="width:38%;background:#ff5b4c"></span></div>
-    </div>
-    <div class="grade-row">
-      <div class="grade-row__top"><span class="grade-row__letter">F</span><span class="grade-row__count">2 trades</span><span class="grade-row__win">0%</span><span class="grade-row__pnl neg">&minus;$620</span></div>
-      <div class="grade-row__bar"><span style="width:4%;background:#ff5b4c"></span></div>
-    </div>
-    <p class="grade-card__note">Pnlee's read: A-grade setups (plan matched, risk respected, stop untouched) win 83&ndash;100% of the time. The two F-grade trades broke every rule at entry — and it shows.</p>
+    <p class="report-mock__note">Pnlee's read: a 74% win rate looks strong on its own, but the rare losses are large enough to make the overall expectancy negative. The win rate was never the number that mattered here.</p>
   </div>
 </section>
 
@@ -165,16 +125,16 @@
   </div>
   <div class="example-block">
     <div class="eyebrow">Composite example, from PnL App usage patterns</div>
-    <p>A clean setup, entered on plan, risk sized correctly. Then price went against it, the stop got moved "to give it room," and the trade turned into a hold-and-hope. It came back and closed green. On paper, a win. In the log, a rule broken that happened to get bailed out by the market — which is exactly the trade that teaches you nothing.</p>
-    <p class="quote">&ldquo;A winning trade can still be a <span class="u">bad trade.</span>&rdquo;</p>
+    <p>A losing call position gets a second, then a third batch of contracts added as the price drifts against it, each purchase justified as "lowering the average." By expiration the position is worthless, and the total loss is close to three times what the original single position would have cost.</p>
+    <p class="quote">&ldquo;Averaging down didn't fix the trade. It <span class="u">tripled the size</span> of being wrong.&rdquo;</p>
   </div>
 </section>
 
 <section class="fsec wrap" style="padding-top:0">
   <div class="funnel-cta">
-    <div class="eyebrow" style="justify-content:center;color:var(--ink-faint);margin-bottom:20px">Score every trade, not just the P&amp;L</div>
-    <h2>Discipline, <span class="u">made default.</span></h2>
-    <p>PnL App scores each trade on process — plan adherence, risk discipline, stop respect — so a lucky win never gets mistaken for a good decision.</p>
+    <div class="eyebrow" style="justify-content:center;color:var(--ink-faint);margin-bottom:20px">See expectancy, not just win rate</div>
+    <h2>The number that <span class="u">actually</span> matters.</h2>
+    <p>PnL App tracks expectancy alongside win rate, so a string of small wins can't quietly hide a losing pattern until it's expensive.</p>
     <div class="btnrow">
       <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn btn--lime">Download on App Store</a>
       <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn" style="border-color:rgba(255,255,255,.3);color:var(--cream)">Get it on Google Play</a>
@@ -185,15 +145,14 @@
 <section class="fsec wrap" style="padding-top:0;padding-bottom:90px">
   <div class="fsec__head">
     <div class="eyebrow"><span class="num">04</span> Related</div>
-    <h2>More self-tests</h2>
+    <h2>More on trading psychology</h2>
   </div>
   <div class="related__list">
-    <a href="/revenge-trading-test">Revenge Trading Test</a>
     <a href="/overtrading-calculator">Overtrading Calculator</a>
+    <a href="/why-traders-move-their-stop-loss">Why Traders Move Stop Loss</a>
+    <a href="/futures-trading-psychology">Futures Trading Psychology</a>
     <a href="/trading-psychology-assessment">Trading Psychology Assessment</a>
-    <a href="/how-to-review-losing-trades">How to Review Losing Trades</a>
     <a href="/quiz">Full 20-Question Diagnostic</a>
-    <a href="https://blog.pnlapp.co/trading-psychology/why-winning-is-the-most-dangerous-thing-in-trading" target="_blank" rel="noopener">Blog: Why Winning Is the Most Dangerous Thing</a>
   </div>
 </section>
 
@@ -215,8 +174,8 @@
       </div>
       <div class="foot__col">
         <h5>Company</h5>
-        <a href="#ethos">About</a>
-        <a href="#team">Team</a>
+        <a href="/#ethos">About</a>
+        <a href="/#team">Team</a>
         <a href="/termsandconditions">Terms &amp; Conditions</a>
         <a href="/privacypolicy">Privacy Policy</a>
         <a href="/request-delete-account">Delete Account</a>
@@ -274,7 +233,7 @@
       </div>
     </div>
     <div class="foot__bot">
-      <p>&copy; 2026 Breiterman LLC — Dubai, UAE. All rights reserved.</p>
+      <p>&copy; 2026 Breiterman LLC &mdash; Dubai, UAE. All rights reserved.</p>
       <p class="dis">PnL App does not provide financial, investment, or trading advice. It helps you understand and track your own trading behavior, not predict markets or recommend specific trades. Nothing on this site is a recommendation to buy, sell, or hold any security or asset, always do your own research and consult a licensed financial advisor before making investment decisions. Control your mind &middot; Mindful trading &middot; Grow together.</p>
     </div>
   </div>
@@ -284,7 +243,6 @@
   const nav=document.getElementById('nav');
   const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>12);
   onScroll();window.addEventListener('scroll',onScroll,{passive:true});
-  // OS detection for the mobile store button
   (function(){
     var ua=navigator.userAgent||'';
     if(/iPhone|iPad|iPod/.test(ua)) document.documentElement.classList.add('os-ios');
@@ -306,41 +264,6 @@
     btn.addEventListener('click',()=>{
       btn.closest('.foot__col--more').classList.toggle('open');
     });
-  });
-
-  const answers={};
-  const opts=document.querySelectorAll('.assess__opt');
-  const submitBtn=document.getElementById('assessSubmit');
-  opts.forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const qEl=btn.closest('.assess__q');
-      const qIdx=qEl.getAttribute('data-q');
-      qEl.querySelectorAll('.assess__opt').forEach(o=>o.classList.remove('sel'));
-      btn.classList.add('sel');
-      answers[qIdx]=parseInt(btn.getAttribute('data-val'),10);
-      submitBtn.disabled=Object.keys(answers).length<6;
-    });
-  });
-
-  document.getElementById('assessForm').addEventListener('submit',(e)=>{
-    e.preventDefault();
-    const total=Object.values(answers).reduce((a,b)=>a+b,0);
-    const pct=Math.round((total/6)*100);
-    document.getElementById('scoreNum').textContent=pct;
-    let verdict;
-    if(pct>=84){
-      verdict="<b>Elite discipline.</b> You follow your own rules even when nobody's grading you on it. Your result suggests your process is your edge — protect it.";
-    }else if(pct>=50){
-      verdict="<b>Solid, with real gaps.</b> Your result suggests discipline holds most of the time but breaks under pressure. Track your next ten trades in PnL App to see exactly where it slips.";
-    }else if(pct>=17){
-      verdict="<b>Inconsistent.</b> Your result suggests your rules exist but don't survive contact with a live trade. That's not a strategy problem — it's an execution one.";
-    }else{
-      verdict="<b>Low discipline score.</b> Right now, whether a trade follows plan depends on how the last one went. PnL App can score every trade on process so wins stop disguising bad decisions.";
-    }
-    document.getElementById('scoreVerdict').innerHTML=verdict;
-    document.getElementById('assessResult').classList.remove('assess__hide');
-    submitBtn.style.display='none';
-    document.getElementById('assessResult').scrollIntoView({behavior:'smooth',block:'center'});
   });
 </script>
 </body>

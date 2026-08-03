@@ -56,6 +56,46 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://pnlapp.co/day-trading-psychology</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pnlapp.co/swing-trading-psychology</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pnlapp.co/options-trading-psychology</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pnlapp.co/futures-trading-psychology</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pnlapp.co/pnl-app-vs-edgewonk</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pnlapp.co/pnl-app-vs-tradersync</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pnlapp.co/pnl-app-vs-tradervue</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pnlapp.co/pnl-app-vs-spreadsheet</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pnlapp.co/termsandconditions</loc>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>

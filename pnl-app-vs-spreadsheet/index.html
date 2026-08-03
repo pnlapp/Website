@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Overtrading Calculator — How Many Trades Is Too Many? | PnL App</title>
-<meta name="description" content="Enter your planned trade frequency and what you actually placed today to instantly see your overtrading ratio — and whether you traded your edge or your boredom." />
-<link rel="canonical" href="https://pnlapp.co/overtrading-calculator" />
+<title>PnL App vs a Spreadsheet: What a DIY Journal Can't Do | PnL App</title>
+<meta name="description" content="A spreadsheet is free and fully customizable, but it depends entirely on the discipline it's meant to help build. Here's an honest look at the tradeoff." />
+<link rel="canonical" href="https://pnlapp.co/pnl-app-vs-spreadsheet" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Overtrading Calculator — How Many Trades Is Too Many? | PnL App" />
-<meta property="og:description" content="Instantly see your overtrading ratio and what it means." />
-<meta property="og:url" content="https://pnlapp.co/overtrading-calculator" />
+<meta property="og:title" content="PnL App vs a Spreadsheet | PnL App" />
+<meta property="og:description" content="What a free, DIY trading journal can and can't do, compared honestly." />
+<meta property="og:url" content="https://pnlapp.co/pnl-app-vs-spreadsheet" />
 <meta property="og:image" content="https://pnlapp.co/assets/logo-black.png" />
 <meta name="twitter:card" content="summary" />
 <script type="application/ld+json">
@@ -19,18 +19,18 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What counts as overtrading?",
+      "name": "Is a spreadsheet good enough for a trading journal?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Overtrading is placing more trades than your strategy generates real signals for, usually to fill time, chase action, or recover a loss. There's no universal number; the tell is the ratio between your planned trade frequency and your actual one."
+        "text": "A spreadsheet can work well for a trader who is highly consistent about logging every trade and reviewing it regularly. Its main limitation isn't features, it's that maintaining it depends entirely on the same discipline that inconsistent traders are usually trying to build in the first place."
       }
     },
     {
       "@type": "Question",
-      "name": "How many trades a day is too many?",
+      "name": "What can PnL App do that a spreadsheet cannot?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "There's no fixed number, it depends on your strategy's real signal frequency. A ratio of actual trades to planned trades above 2x is a warning sign, and above 3x is a clear pattern of overtrading."
+        "text": "PnL App can automatically capture trade context, flag risky behavioral patterns as they happen, and lock trading during a cooldown after a loss. A spreadsheet is a passive record that only reflects what you choose to enter, with no way to intervene in the moment."
       }
     }
   ]
@@ -44,6 +44,7 @@
 <link href="https://fonts.cdnfonts.com/css/neue-montreal" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/site.css" />
+<style>.olist{max-width:640px;margin-top:8px}.olist li{font-size:15.5px;line-height:1.65;color:var(--ink-soft);margin-bottom:14px;padding-left:2px}.olist li b{color:var(--ink);font-weight:500}</style>
 </head>
 <body>
 
@@ -76,76 +77,45 @@
 </div>
 
 <header class="funnel-hero wrap">
-  <div class="eyebrow"><span class="num">00</span> Free calculator</div>
-  <h1>Overtrading calculator</h1>
-  <p class="sub">There's no universal "too many trades." The tell is the gap between what your strategy actually signals and what you actually clicked.</p>
+  <div class="eyebrow"><span class="num">00</span> Compare</div>
+  <h1>PnL App vs a spreadsheet</h1>
+  <p class="sub">Plenty of disciplined traders built their process in a spreadsheet first. The honest question isn't whether it can work, it's what it depends on to keep working.</p>
   <div class="answer-box">
     <span class="lbl">Short answer</span>
-    <p>Overtrading is placing more trades than your strategy generates real signals for — usually to fill time, chase action, or recover a loss. Enter your planned frequency and your actual count below to see the ratio.</p>
+    <p>A spreadsheet is free, fully customizable, and can absolutely work for a trader who is already consistent about logging and reviewing every trade. Its limitation isn't a lack of features, it's that it's entirely passive: it only shows what you choose to enter, on the days you choose to enter it, with nothing built in to catch a risky decision as it's happening. PnL App automates the capture and adds real-time behavioral flags a static sheet simply can't provide.</p>
   </div>
 </header>
 
-<section class="fsec wrap" id="calc">
+<section class="fsec wrap" id="why">
   <div class="fsec__head">
-    <div class="eyebrow"><span class="num">01</span> The calculator</div>
-    <h2>Plan vs. reality, for today</h2>
+    <div class="eyebrow"><span class="num">01</span> Where they differ</div>
+    <h2>A record vs. an active system</h2>
   </div>
-
-  <form class="assess" id="calcForm">
-    <div class="assess__field" style="margin-bottom:18px">
-      <label for="planned">Trades your strategy should signal today (planned)</label>
-      <input type="number" id="planned" min="0" step="1" placeholder="e.g. 3" required />
-    </div>
-    <div class="assess__field" style="margin-bottom:8px">
-      <label for="actual">Trades you actually placed today</label>
-      <input type="number" id="actual" min="0" step="1" placeholder="e.g. 9" required />
-    </div>
-
-    <button type="submit" class="btn btn--fill assess__submit">Calculate my ratio</button>
-
-    <div class="assess__result assess__hide" id="calcResult">
-      <div class="score"><span id="ratioNum">0</span><span class="u">× planned</span></div>
-      <div class="verdict" id="ratioVerdict"></div>
-    </div>
-  </form>
-</section>
-
-<section class="fsec wrap" id="report" style="padding-top:0">
-  <div class="fsec__head">
-    <div class="eyebrow"><span class="num">02</span> What PnL App would show</div>
-    <h2>A sample behavioral report</h2>
-    <p>This is what overtrading looks like once frequency is actually tracked against plan, not felt in the moment.</p>
-  </div>
-  <div class="report-mock">
-    <div class="report-mock__tag">Week of trades · Frequency vs. plan</div>
-    <h4>Trade frequency breakdown</h4>
-    <div class="ebar">
-      <div class="ebar__row"><span class="ebar__lab">Mon</span><span class="ebar__track"><span class="ebar__fill" style="width:30%;background:var(--lime)"></span></span><span class="ebar__val">3/3</span></div>
-      <div class="ebar__row"><span class="ebar__lab">Tue</span><span class="ebar__track"><span class="ebar__fill" style="width:50%;background:var(--lime)"></span></span><span class="ebar__val">2/2</span></div>
-      <div class="ebar__row"><span class="ebar__lab">Wed</span><span class="ebar__track"><span class="ebar__fill" style="width:90%;background:#ff5b4c"></span></span><span class="ebar__val">9/3</span></div>
-      <div class="ebar__row"><span class="ebar__lab">Thu</span><span class="ebar__track"><span class="ebar__fill" style="width:70%;background:#ffb020"></span></span><span class="ebar__val">5/3</span></div>
-    </div>
-    <p class="report-mock__note">Pnlee's read: Wednesday's session ran 3× the trader's normal frequency, all after a red morning. The extra six trades lost money as a group; the first three, taken to plan, were profitable.</p>
-  </div>
+  <ol class="olist">
+    <li><b>A spreadsheet depends on the discipline it's meant to build.</b> The traders who struggle most with consistency are often the same traders who stop updating a spreadsheet the moment things get emotionally difficult, which is exactly when the data would be most useful.</li>
+    <li><b>Nothing happens automatically.</b> A spreadsheet doesn't notice that size crept up after a loss or that a stop got moved twice this week. It only shows that if you specifically go looking for it.</li>
+    <li><b>No real-time intervention is possible.</b> A cell can't lock your broker app for twenty minutes after a loss. That kind of in-the-moment circuit breaker requires something built for it.</li>
+    <li><b>A spreadsheet's real advantage is total control.</b> For a trader who wants to design their own exact tracking system and is confident they'll maintain it, that flexibility is genuinely valuable, and building one for a month is a reasonable way to learn what a journal should even capture.</li>
+  </ol>
 </section>
 
 <section class="fsec wrap" id="example" style="padding-top:0">
   <div class="fsec__head">
-    <div class="eyebrow"><span class="num">03</span> A real pattern</div>
-    <h2>What this looks like on an actual account</h2>
+    <div class="eyebrow"><span class="num">02</span> Who each one fits</div>
+    <h2>Matching the tool to the actual problem</h2>
   </div>
   <div class="example-block">
-    <div class="eyebrow">Composite example, from PnL App usage patterns</div>
-    <p>Plan called for two, maybe three trades on a slow Wednesday. By 2pm there were nine — most opened in the twenty minutes after a loss, several on symbols not even on the watchlist. The first three followed the plan and made money. The other six were mostly noise, and gave almost all of it back.</p>
-    <p class="quote">&ldquo;The edge didn't disappear. It just got <span class="u">outnumbered.</span>&rdquo;</p>
+    <div class="eyebrow">A practical way to decide</div>
+    <p>If you've maintained a spreadsheet consistently for months and it's working, there's no urgent reason to switch. If your spreadsheet has three weeks of entries followed by a gap, followed by another three weeks, that gap pattern is itself useful information, and it's usually a sign the tracking needs to require less willpower to keep up, not more.</p>
+    <p class="quote">&ldquo;The best tracking system is the one you actually <span class="u">keep using</span> after a bad week.&rdquo;</p>
   </div>
 </section>
 
 <section class="fsec wrap" style="padding-top:0">
   <div class="funnel-cta">
-    <div class="eyebrow" style="justify-content:center;color:var(--ink-faint);margin-bottom:20px">Trade the plan, not the boredom</div>
-    <h2>See your <span class="u">real</span> frequency.</h2>
-    <p>PnL App logs every trade automatically and flags the sessions where your count ran away from your plan — before the extra trades cost you the good ones.</p>
+    <div class="eyebrow" style="justify-content:center;color:var(--ink-faint);margin-bottom:20px">Less friction, more intervention</div>
+    <h2>A journal that <span class="u">acts</span>, not just records.</h2>
+    <p>PnL App captures trade context automatically and flags risky patterns in real time, so the tracking survives the exact weeks a spreadsheet usually gets abandoned.</p>
     <div class="btnrow">
       <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn btn--lime">Download on App Store</a>
       <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn" style="border-color:rgba(255,255,255,.3);color:var(--cream)">Get it on Google Play</a>
@@ -155,16 +125,15 @@
 
 <section class="fsec wrap" style="padding-top:0;padding-bottom:90px">
   <div class="fsec__head">
-    <div class="eyebrow"><span class="num">04</span> Related</div>
-    <h2>More self-tests</h2>
+    <div class="eyebrow"><span class="num">03</span> Related</div>
+    <h2>More comparisons and tools</h2>
   </div>
   <div class="related__list">
-    <a href="/revenge-trading-test">Revenge Trading Test</a>
-    <a href="/trading-discipline-score">Trading Discipline Score</a>
-    <a href="/trading-psychology-assessment">Trading Psychology Assessment</a>
-    <a href="/how-to-review-losing-trades">How to Review Losing Trades</a>
+    <a href="/pnl-app-vs-edgewonk">PnL App vs Edgewonk</a>
+    <a href="/pnl-app-vs-tradersync">PnL App vs TraderSync</a>
+    <a href="/pnl-app-vs-tradervue">PnL App vs Tradervue</a>
+    <a href="/emotional-trading-journal">Emotional Trading Journal</a>
     <a href="/quiz">Full 20-Question Diagnostic</a>
-    <a href="https://blog.pnlapp.co/trading-psychology/market-doesnt-reward-excitement-rewards-boring-discipline" target="_blank" rel="noopener">Blog: The Market Rewards Boring Discipline</a>
   </div>
 </section>
 
@@ -186,8 +155,8 @@
       </div>
       <div class="foot__col">
         <h5>Company</h5>
-        <a href="#ethos">About</a>
-        <a href="#team">Team</a>
+        <a href="/#ethos">About</a>
+        <a href="/#team">Team</a>
         <a href="/termsandconditions">Terms &amp; Conditions</a>
         <a href="/privacypolicy">Privacy Policy</a>
         <a href="/request-delete-account">Delete Account</a>
@@ -245,7 +214,7 @@
       </div>
     </div>
     <div class="foot__bot">
-      <p>&copy; 2026 Breiterman LLC — Dubai, UAE. All rights reserved.</p>
+      <p>&copy; 2026 Breiterman LLC &mdash; Dubai, UAE. All rights reserved.</p>
       <p class="dis">PnL App does not provide financial, investment, or trading advice. It helps you understand and track your own trading behavior, not predict markets or recommend specific trades. Nothing on this site is a recommendation to buy, sell, or hold any security or asset, always do your own research and consult a licensed financial advisor before making investment decisions. Control your mind &middot; Mindful trading &middot; Grow together.</p>
     </div>
   </div>
@@ -255,7 +224,6 @@
   const nav=document.getElementById('nav');
   const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>12);
   onScroll();window.addEventListener('scroll',onScroll,{passive:true});
-  // OS detection for the mobile store button
   (function(){
     var ua=navigator.userAgent||'';
     if(/iPhone|iPad|iPod/.test(ua)) document.documentElement.classList.add('os-ios');
@@ -277,29 +245,6 @@
     btn.addEventListener('click',()=>{
       btn.closest('.foot__col--more').classList.toggle('open');
     });
-  });
-
-  document.getElementById('calcForm').addEventListener('submit',(e)=>{
-    e.preventDefault();
-    const planned=Math.max(0,parseFloat(document.getElementById('planned').value)||0);
-    const actual=Math.max(0,parseFloat(document.getElementById('actual').value)||0);
-    const ratio = planned>0 ? actual/planned : (actual>0?99:0);
-    document.getElementById('ratioNum').textContent=ratio.toFixed(1);
-    let verdict;
-    if(planned===0 && actual===0){
-      verdict="No trades either way today — hard to overtrade a day you didn't trade.";
-    }else if(ratio<=1.2){
-      verdict="<b>On plan.</b> You traded roughly what your strategy actually signaled. This is what discipline looks like when nobody's watching.";
-    }else if(ratio<=2){
-      verdict="<b>Creeping.</b> You're trading noticeably more than your plan called for. Not a crisis yet — but it's worth asking what the extra trades were actually for.";
-    }else if(ratio<=3){
-      verdict="<b>Overtrading.</b> Your result suggests you're filling time or chasing outcomes, not following signals. Track your next few sessions in PnL App to see which trades are actually part of your edge.";
-    }else{
-      verdict="<b>Severe overtrading.</b> You placed several multiples of your planned trade count. The market didn't get more interesting today — something else did the deciding.";
-    }
-    document.getElementById('ratioVerdict').innerHTML=verdict;
-    document.getElementById('calcResult').classList.remove('assess__hide');
-    document.getElementById('calcResult').scrollIntoView({behavior:'smooth',block:'center'});
   });
 </script>
 </body>

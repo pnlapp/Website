@@ -54,6 +54,7 @@
     <a href="/#system">System</a>
     <a href="/#pnlee">Pnlee</a>
     <a href="/quiz">Diagnostic</a>
+    <a href="https://blog.pnlapp.co">Blog</a>
   </div>
   <div class="nav__cta">
     <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn" id="navApp">App Store</a>
@@ -67,6 +68,7 @@
   <a href="/#system">System</a>
   <a href="/#pnlee">Pnlee</a>
   <a href="/quiz">Diagnostic</a>
+  <a href="https://blog.pnlapp.co">Blog</a>
   <div class="nav__mobile__cta">
     <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn btn--fill">Download on App Store</a>
     <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn">Get it on Google Play</a>
@@ -196,10 +198,11 @@
 <footer class="foot">
   <div class="wrap">
     <div class="foot__top">
-      <div>
+      <div class="foot__brand">
         <div class="foot__logo"><img src="/assets/logo-white.png" alt="PnL App" /></div>
         <p class="foot__tag">Trading psychology, engineered. Built to make discipline your default.</p>
       </div>
+      <div class="foot__cols">
       <div class="foot__col">
         <h5>Product</h5>
         <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340">iOS App</a>
@@ -210,8 +213,8 @@
       </div>
       <div class="foot__col">
         <h5>Company</h5>
-        <a href="/#ethos">About</a>
-        <a href="/#team">Team</a>
+        <a href="#ethos">About</a>
+        <a href="#team">Team</a>
         <a href="/termsandconditions">Terms &amp; Conditions</a>
         <a href="/privacypolicy">Privacy Policy</a>
         <a href="/request-delete-account">Delete Account</a>
@@ -224,8 +227,8 @@
         <a href="https://www.reddit.com/r/thetradingcommunity/">Reddit</a>
         <a href="https://t.me/pnlappofficial">Telegram</a>
       </div>
-      <div class="foot__col foot__col--more" id="footMore">
-        <button type="button" class="foot__col__toggle" id="footMoreToggle"><h5>Other</h5><span class="foot__col__caret"></span></button>
+      <div class="foot__col foot__col--more">
+        <button type="button" class="foot__col__toggle"><h5>Trading Psychology</h5><span class="foot__col__caret"></span></button>
         <div class="foot__col__links">
           <a href="/revenge-trading-test">Revenge Trading Test</a>
           <a href="/overtrading-calculator">Overtrading Calculator</a>
@@ -237,10 +240,40 @@
           <a href="/how-to-review-losing-trades">Review Losing Trades</a>
         </div>
       </div>
+      <div class="foot__col foot__col--more">
+        <button type="button" class="foot__col__toggle"><h5>Trading Concepts</h5><span class="foot__col__caret"></span></button>
+        <div class="foot__col__links">
+          <a href="https://blog.pnlapp.co/glossary/what-is-fomo-in-trading/">FOMO in Trading</a>
+          <a href="https://blog.pnlapp.co/glossary/what-is-revenge-trading/">Revenge Trading</a>
+          <a href="https://blog.pnlapp.co/glossary/what-is-loss-aversion/">Loss Aversion</a>
+          <a href="https://blog.pnlapp.co/glossary/what-is-trading-tilt/">Trading Tilt</a>
+          <a href="https://blog.pnlapp.co/glossary/what-is-trading-discipline/">Trading Discipline</a>
+          <a href="https://blog.pnlapp.co/glossary/what-is-analysis-paralysis/">Analysis Paralysis</a>
+        </div>
+      </div>
+      <div class="foot__col foot__col--more">
+        <button type="button" class="foot__col__toggle"><h5>Trading Styles</h5><span class="foot__col__caret"></span></button>
+        <div class="foot__col__links">
+          <a href="/day-trading-psychology">Day Trading Psychology</a>
+          <a href="/swing-trading-psychology">Swing Trading Psychology</a>
+          <a href="/options-trading-psychology">Options Trading Psychology</a>
+          <a href="/futures-trading-psychology">Futures Trading Psychology</a>
+        </div>
+      </div>
+      <div class="foot__col foot__col--more">
+        <button type="button" class="foot__col__toggle"><h5>Compare</h5><span class="foot__col__caret"></span></button>
+        <div class="foot__col__links">
+          <a href="/pnl-app-vs-edgewonk">PnL App vs Edgewonk</a>
+          <a href="/pnl-app-vs-tradersync">PnL App vs TraderSync</a>
+          <a href="/pnl-app-vs-tradervue">PnL App vs Tradervue</a>
+          <a href="/pnl-app-vs-spreadsheet">PnL App vs a Spreadsheet</a>
+        </div>
+      </div>
+      </div>
     </div>
     <div class="foot__bot">
       <p>&copy; 2026 Breiterman LLC — Dubai, UAE. All rights reserved.</p>
-      <p class="dis">PnL App does not provide financial advice. It helps you understand your trading behavior. Control your mind &middot; Mindful trading &middot; Grow together.</p>
+      <p class="dis">PnL App does not provide financial, investment, or trading advice. It helps you understand and track your own trading behavior, not predict markets or recommend specific trades. Nothing on this site is a recommendation to buy, sell, or hold any security or asset, always do your own research and consult a licensed financial advisor before making investment decisions. Control your mind &middot; Mindful trading &middot; Grow together.</p>
     </div>
   </div>
 </footer>
@@ -267,7 +300,11 @@
       navMobile.classList.remove('open');
     });
   });
-  document.getElementById('footMoreToggle').addEventListener('click',()=>{ document.getElementById('footMore').classList.toggle('open'); });
+  document.querySelectorAll('.foot__col__toggle').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      btn.closest('.foot__col--more').classList.toggle('open');
+    });
+  });
 
   const answers={};
   const opts=document.querySelectorAll('.assess__opt');

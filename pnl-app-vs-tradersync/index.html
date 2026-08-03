@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Overtrading Calculator — How Many Trades Is Too Many? | PnL App</title>
-<meta name="description" content="Enter your planned trade frequency and what you actually placed today to instantly see your overtrading ratio — and whether you traded your edge or your boredom." />
-<link rel="canonical" href="https://pnlapp.co/overtrading-calculator" />
+<title>PnL App vs TraderSync: Automation vs Behavioral Coaching | PnL App</title>
+<meta name="description" content="TraderSync auto-imports your trades from most major brokers. PnL App captures the behavior behind them. Here's an honest look at what each does well." />
+<link rel="canonical" href="https://pnlapp.co/pnl-app-vs-tradersync" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Overtrading Calculator — How Many Trades Is Too Many? | PnL App" />
-<meta property="og:description" content="Instantly see your overtrading ratio and what it means." />
-<meta property="og:url" content="https://pnlapp.co/overtrading-calculator" />
+<meta property="og:title" content="PnL App vs TraderSync | PnL App" />
+<meta property="og:description" content="Broker auto-import versus real-time behavioral coaching, compared honestly." />
+<meta property="og:url" content="https://pnlapp.co/pnl-app-vs-tradersync" />
 <meta property="og:image" content="https://pnlapp.co/assets/logo-black.png" />
 <meta name="twitter:card" content="summary" />
 <script type="application/ld+json">
@@ -19,18 +19,18 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What counts as overtrading?",
+      "name": "What does TraderSync do differently from PnL App?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Overtrading is placing more trades than your strategy generates real signals for, usually to fill time, chase action, or recover a loss. There's no universal number; the tell is the ratio between your planned trade frequency and your actual one."
+        "text": "TraderSync's strength is automated trade import from most major brokers, which removes the manual data entry that causes many traders to abandon journaling altogether. PnL App also removes manual entry friction, but puts more emphasis on capturing the emotional and behavioral context around each trade, not just the trade data itself."
       }
     },
     {
       "@type": "Question",
-      "name": "How many trades a day is too many?",
+      "name": "Can I use both TraderSync and PnL App?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "There's no fixed number, it depends on your strategy's real signal frequency. A ratio of actual trades to planned trades above 2x is a warning sign, and above 3x is a clear pattern of overtrading."
+        "text": "Some traders do use a statistics-focused journal alongside a behavior-focused one, though most find one tool used consistently is more valuable than two used partially. The right choice usually comes down to whether your bigger gap is in trade data or in behavioral awareness."
       }
     }
   ]
@@ -44,6 +44,7 @@
 <link href="https://fonts.cdnfonts.com/css/neue-montreal" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/site.css" />
+<style>.olist{max-width:640px;margin-top:8px}.olist li{font-size:15.5px;line-height:1.65;color:var(--ink-soft);margin-bottom:14px;padding-left:2px}.olist li b{color:var(--ink);font-weight:500}</style>
 </head>
 <body>
 
@@ -76,76 +77,45 @@
 </div>
 
 <header class="funnel-hero wrap">
-  <div class="eyebrow"><span class="num">00</span> Free calculator</div>
-  <h1>Overtrading calculator</h1>
-  <p class="sub">There's no universal "too many trades." The tell is the gap between what your strategy actually signals and what you actually clicked.</p>
+  <div class="eyebrow"><span class="num">00</span> Compare</div>
+  <h1>PnL App vs TraderSync</h1>
+  <p class="sub">TraderSync solved the data entry problem. PnL App is built to solve the problem that's usually still there even after the data entry is solved.</p>
   <div class="answer-box">
     <span class="lbl">Short answer</span>
-    <p>Overtrading is placing more trades than your strategy generates real signals for — usually to fill time, chase action, or recover a loss. Enter your planned frequency and your actual count below to see the ratio.</p>
+    <p>TraderSync's biggest strength is automated trade import from most major brokers, which removes the manual logging friction that causes a lot of traders to quit journaling within a few weeks. PnL App also aims to minimize that friction, but its core focus is different: capturing the emotional state and behavior around each trade, and intervening on risky patterns in real time, not just recording what happened.</p>
   </div>
 </header>
 
-<section class="fsec wrap" id="calc">
+<section class="fsec wrap" id="why">
   <div class="fsec__head">
-    <div class="eyebrow"><span class="num">01</span> The calculator</div>
-    <h2>Plan vs. reality, for today</h2>
+    <div class="eyebrow"><span class="num">01</span> Where they differ</div>
+    <h2>What gets captured, and what happens with it</h2>
   </div>
-
-  <form class="assess" id="calcForm">
-    <div class="assess__field" style="margin-bottom:18px">
-      <label for="planned">Trades your strategy should signal today (planned)</label>
-      <input type="number" id="planned" min="0" step="1" placeholder="e.g. 3" required />
-    </div>
-    <div class="assess__field" style="margin-bottom:8px">
-      <label for="actual">Trades you actually placed today</label>
-      <input type="number" id="actual" min="0" step="1" placeholder="e.g. 9" required />
-    </div>
-
-    <button type="submit" class="btn btn--fill assess__submit">Calculate my ratio</button>
-
-    <div class="assess__result assess__hide" id="calcResult">
-      <div class="score"><span id="ratioNum">0</span><span class="u">× planned</span></div>
-      <div class="verdict" id="ratioVerdict"></div>
-    </div>
-  </form>
-</section>
-
-<section class="fsec wrap" id="report" style="padding-top:0">
-  <div class="fsec__head">
-    <div class="eyebrow"><span class="num">02</span> What PnL App would show</div>
-    <h2>A sample behavioral report</h2>
-    <p>This is what overtrading looks like once frequency is actually tracked against plan, not felt in the moment.</p>
-  </div>
-  <div class="report-mock">
-    <div class="report-mock__tag">Week of trades · Frequency vs. plan</div>
-    <h4>Trade frequency breakdown</h4>
-    <div class="ebar">
-      <div class="ebar__row"><span class="ebar__lab">Mon</span><span class="ebar__track"><span class="ebar__fill" style="width:30%;background:var(--lime)"></span></span><span class="ebar__val">3/3</span></div>
-      <div class="ebar__row"><span class="ebar__lab">Tue</span><span class="ebar__track"><span class="ebar__fill" style="width:50%;background:var(--lime)"></span></span><span class="ebar__val">2/2</span></div>
-      <div class="ebar__row"><span class="ebar__lab">Wed</span><span class="ebar__track"><span class="ebar__fill" style="width:90%;background:#ff5b4c"></span></span><span class="ebar__val">9/3</span></div>
-      <div class="ebar__row"><span class="ebar__lab">Thu</span><span class="ebar__track"><span class="ebar__fill" style="width:70%;background:#ffb020"></span></span><span class="ebar__val">5/3</span></div>
-    </div>
-    <p class="report-mock__note">Pnlee's read: Wednesday's session ran 3× the trader's normal frequency, all after a red morning. The extra six trades lost money as a group; the first three, taken to plan, were profitable.</p>
-  </div>
+  <ol class="olist">
+    <li><b>TraderSync leans into automation for data.</b> Auto-importing trades from a connected broker means the P&L and trade details are logged automatically, which is a real advantage for high-frequency traders who would otherwise skip logging out of sheer volume.</li>
+    <li><b>PnL App leans into automation for behavior.</b> Alongside trade data, it's built to capture the context that explains a trade, emotional state, whether a rule was followed, how size compared to plan, and act on risky patterns as they emerge.</li>
+    <li><b>Reporting philosophy differs.</b> TraderSync's reports are built to answer "what happened in my trading." PnL App's reports are built to answer "why did it happen," which is a different question with a different kind of answer.</li>
+    <li><b>Neither replaces a trading plan.</b> Both tools work best paired with clear entry, exit, and sizing rules already in place, they measure adherence to a plan rather than creating one for you.</li>
+  </ol>
 </section>
 
 <section class="fsec wrap" id="example" style="padding-top:0">
   <div class="fsec__head">
-    <div class="eyebrow"><span class="num">03</span> A real pattern</div>
-    <h2>What this looks like on an actual account</h2>
+    <div class="eyebrow"><span class="num">02</span> Who each one fits</div>
+    <h2>Matching the tool to the actual problem</h2>
   </div>
   <div class="example-block">
-    <div class="eyebrow">Composite example, from PnL App usage patterns</div>
-    <p>Plan called for two, maybe three trades on a slow Wednesday. By 2pm there were nine — most opened in the twenty minutes after a loss, several on symbols not even on the watchlist. The first three followed the plan and made money. The other six were mostly noise, and gave almost all of it back.</p>
-    <p class="quote">&ldquo;The edge didn't disappear. It just got <span class="u">outnumbered.</span>&rdquo;</p>
+    <div class="eyebrow">A practical way to decide</div>
+    <p>If the main reason you don't journal is the friction of manual data entry across many trades a day, TraderSync's broker automation directly solves that. If you already have your trade data but keep repeating the same emotional mistakes without seeing the pattern clearly, PnL App's behavioral layer is built for that gap specifically.</p>
+    <p class="quote">&ldquo;Automating the data entry doesn't automatically explain the <span class="u">why</span> behind a losing trade.&rdquo;</p>
   </div>
 </section>
 
 <section class="fsec wrap" style="padding-top:0">
   <div class="funnel-cta">
-    <div class="eyebrow" style="justify-content:center;color:var(--ink-faint);margin-bottom:20px">Trade the plan, not the boredom</div>
-    <h2>See your <span class="u">real</span> frequency.</h2>
-    <p>PnL App logs every trade automatically and flags the sessions where your count ran away from your plan — before the extra trades cost you the good ones.</p>
+    <div class="eyebrow" style="justify-content:center;color:var(--ink-faint);margin-bottom:20px">See the behavior behind your trades</div>
+    <h2>Not just the data, the <span class="u">why</span>.</h2>
+    <p>PnL App captures your emotional state and rule adherence alongside every trade, then flags the pattern before it repeats.</p>
     <div class="btnrow">
       <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn btn--lime">Download on App Store</a>
       <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn" style="border-color:rgba(255,255,255,.3);color:var(--cream)">Get it on Google Play</a>
@@ -155,16 +125,15 @@
 
 <section class="fsec wrap" style="padding-top:0;padding-bottom:90px">
   <div class="fsec__head">
-    <div class="eyebrow"><span class="num">04</span> Related</div>
-    <h2>More self-tests</h2>
+    <div class="eyebrow"><span class="num">03</span> Related</div>
+    <h2>More comparisons and tools</h2>
   </div>
   <div class="related__list">
-    <a href="/revenge-trading-test">Revenge Trading Test</a>
-    <a href="/trading-discipline-score">Trading Discipline Score</a>
-    <a href="/trading-psychology-assessment">Trading Psychology Assessment</a>
-    <a href="/how-to-review-losing-trades">How to Review Losing Trades</a>
+    <a href="/pnl-app-vs-edgewonk">PnL App vs Edgewonk</a>
+    <a href="/pnl-app-vs-tradervue">PnL App vs Tradervue</a>
+    <a href="/pnl-app-vs-spreadsheet">PnL App vs a Spreadsheet</a>
+    <a href="/emotional-trading-journal">Emotional Trading Journal</a>
     <a href="/quiz">Full 20-Question Diagnostic</a>
-    <a href="https://blog.pnlapp.co/trading-psychology/market-doesnt-reward-excitement-rewards-boring-discipline" target="_blank" rel="noopener">Blog: The Market Rewards Boring Discipline</a>
   </div>
 </section>
 
@@ -186,8 +155,8 @@
       </div>
       <div class="foot__col">
         <h5>Company</h5>
-        <a href="#ethos">About</a>
-        <a href="#team">Team</a>
+        <a href="/#ethos">About</a>
+        <a href="/#team">Team</a>
         <a href="/termsandconditions">Terms &amp; Conditions</a>
         <a href="/privacypolicy">Privacy Policy</a>
         <a href="/request-delete-account">Delete Account</a>
@@ -245,7 +214,7 @@
       </div>
     </div>
     <div class="foot__bot">
-      <p>&copy; 2026 Breiterman LLC — Dubai, UAE. All rights reserved.</p>
+      <p>&copy; 2026 Breiterman LLC &mdash; Dubai, UAE. All rights reserved.</p>
       <p class="dis">PnL App does not provide financial, investment, or trading advice. It helps you understand and track your own trading behavior, not predict markets or recommend specific trades. Nothing on this site is a recommendation to buy, sell, or hold any security or asset, always do your own research and consult a licensed financial advisor before making investment decisions. Control your mind &middot; Mindful trading &middot; Grow together.</p>
     </div>
   </div>
@@ -255,7 +224,6 @@
   const nav=document.getElementById('nav');
   const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>12);
   onScroll();window.addEventListener('scroll',onScroll,{passive:true});
-  // OS detection for the mobile store button
   (function(){
     var ua=navigator.userAgent||'';
     if(/iPhone|iPad|iPod/.test(ua)) document.documentElement.classList.add('os-ios');
@@ -277,29 +245,6 @@
     btn.addEventListener('click',()=>{
       btn.closest('.foot__col--more').classList.toggle('open');
     });
-  });
-
-  document.getElementById('calcForm').addEventListener('submit',(e)=>{
-    e.preventDefault();
-    const planned=Math.max(0,parseFloat(document.getElementById('planned').value)||0);
-    const actual=Math.max(0,parseFloat(document.getElementById('actual').value)||0);
-    const ratio = planned>0 ? actual/planned : (actual>0?99:0);
-    document.getElementById('ratioNum').textContent=ratio.toFixed(1);
-    let verdict;
-    if(planned===0 && actual===0){
-      verdict="No trades either way today — hard to overtrade a day you didn't trade.";
-    }else if(ratio<=1.2){
-      verdict="<b>On plan.</b> You traded roughly what your strategy actually signaled. This is what discipline looks like when nobody's watching.";
-    }else if(ratio<=2){
-      verdict="<b>Creeping.</b> You're trading noticeably more than your plan called for. Not a crisis yet — but it's worth asking what the extra trades were actually for.";
-    }else if(ratio<=3){
-      verdict="<b>Overtrading.</b> Your result suggests you're filling time or chasing outcomes, not following signals. Track your next few sessions in PnL App to see which trades are actually part of your edge.";
-    }else{
-      verdict="<b>Severe overtrading.</b> You placed several multiples of your planned trade count. The market didn't get more interesting today — something else did the deciding.";
-    }
-    document.getElementById('ratioVerdict').innerHTML=verdict;
-    document.getElementById('calcResult').classList.remove('assess__hide');
-    document.getElementById('calcResult').scrollIntoView({behavior:'smooth',block:'center'});
   });
 </script>
 </body>

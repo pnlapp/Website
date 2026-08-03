@@ -410,9 +410,11 @@
 
   /* ---------- FOOTER ---------- */
   .foot{background:var(--ink-block);color:var(--cream);padding:70px 0 34px;margin-top:16px}
-  .foot__top{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr 1fr;gap:32px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .foot__top{display:flex;flex-wrap:wrap;gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .foot__brand{flex:0 0 220px}
   .foot__logo img{height:26px;width:auto;margin-bottom:18px}
   .foot__tag{color:#b7b4aa;font-size:15px;line-height:1.5;max-width:32ch}
+  .foot__cols{flex:1 1 560px;min-width:0;display:grid;grid-template-columns:repeat(4,1fr);gap:32px 24px}
   .foot__col h5{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:16px}
   .foot__col a{display:block;color:#c9c6bc;font-size:14.5px;padding:5px 0;transition:color .2s}
   .foot__col a:hover{color:var(--lime)}
@@ -425,6 +427,9 @@
   .foot__bot{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-top:26px;flex-wrap:wrap}
   .foot__bot p{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#6f6c62;letter-spacing:.02em}
   .foot__bot .dis{max-width:52ch;line-height:1.5}
+  @media(max-width:900px){
+    .foot__cols{grid-template-columns:repeat(2,1fr)}
+  }
 
   /* reveal anim */
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
@@ -438,7 +443,6 @@
     .enemy-grid{grid-template-columns:repeat(2,1fr)}
     .feat{grid-template-columns:1fr 1fr}
     .arch-grid{grid-template-columns:repeat(3,1fr)}
-    .foot__top{grid-template-columns:1fr 1fr}
     .team-grid{grid-template-columns:1fr 1fr}
   }
   @media(max-width:720px){
@@ -466,7 +470,8 @@
     .pullquote{grid-template-columns:1fr;gap:24px;padding:32px 26px}
     .comm{grid-template-columns:1fr}
     .team-grid{grid-template-columns:1fr}
-    .foot__top{grid-template-columns:1fr;gap:28px}
+    .foot__top{flex-direction:column;gap:28px}
+    .foot__cols{grid-template-columns:1fr;gap:28px}
     .cta{padding:54px 24px}
     .enemy-band{border-radius:22px}
     .marq span{font-size:20px}
@@ -488,6 +493,7 @@
     <a href="#pnlee">Pnlee</a>
     <a href="#press">Press</a>
     <a href="#team">Team</a>
+    <a href="https://blog.pnlapp.co">Blog</a>
   </div>
   <div class="nav__cta">
     <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn" id="navApp">App Store</a>
@@ -502,6 +508,7 @@
   <a href="#pnlee">Pnlee</a>
   <a href="#press">Press</a>
   <a href="#team">Team</a>
+  <a href="https://blog.pnlapp.co">Blog</a>
   <div class="nav__mobile__cta">
     <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn btn--fill">Download on App Store</a>
     <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn">Get it on Google Play</a>
@@ -920,10 +927,11 @@
 <footer class="foot">
   <div class="wrap">
     <div class="foot__top">
-      <div>
+      <div class="foot__brand">
         <div class="foot__logo"><img src="/assets/logo-white.png" alt="PnL App" /></div>
         <p class="foot__tag">Trading psychology, engineered. Built to make discipline your default.</p>
       </div>
+      <div class="foot__cols">
       <div class="foot__col">
         <h5>Product</h5>
         <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340">iOS App</a>
@@ -948,8 +956,8 @@
         <a href="https://www.reddit.com/r/thetradingcommunity/">Reddit</a>
         <a href="https://t.me/pnlappofficial">Telegram</a>
       </div>
-      <div class="foot__col foot__col--more" id="footMore">
-        <button type="button" class="foot__col__toggle" id="footMoreToggle"><h5>Other</h5><span class="foot__col__caret"></span></button>
+      <div class="foot__col foot__col--more">
+        <button type="button" class="foot__col__toggle"><h5>Trading Psychology</h5><span class="foot__col__caret"></span></button>
         <div class="foot__col__links">
           <a href="/revenge-trading-test">Revenge Trading Test</a>
           <a href="/overtrading-calculator">Overtrading Calculator</a>
@@ -961,10 +969,40 @@
           <a href="/how-to-review-losing-trades">Review Losing Trades</a>
         </div>
       </div>
+      <div class="foot__col foot__col--more">
+        <button type="button" class="foot__col__toggle"><h5>Trading Concepts</h5><span class="foot__col__caret"></span></button>
+        <div class="foot__col__links">
+          <a href="https://blog.pnlapp.co/glossary/what-is-fomo-in-trading/">FOMO in Trading</a>
+          <a href="https://blog.pnlapp.co/glossary/what-is-revenge-trading/">Revenge Trading</a>
+          <a href="https://blog.pnlapp.co/glossary/what-is-loss-aversion/">Loss Aversion</a>
+          <a href="https://blog.pnlapp.co/glossary/what-is-trading-tilt/">Trading Tilt</a>
+          <a href="https://blog.pnlapp.co/glossary/what-is-trading-discipline/">Trading Discipline</a>
+          <a href="https://blog.pnlapp.co/glossary/what-is-analysis-paralysis/">Analysis Paralysis</a>
+        </div>
+      </div>
+      <div class="foot__col foot__col--more">
+        <button type="button" class="foot__col__toggle"><h5>Trading Styles</h5><span class="foot__col__caret"></span></button>
+        <div class="foot__col__links">
+          <a href="/day-trading-psychology">Day Trading Psychology</a>
+          <a href="/swing-trading-psychology">Swing Trading Psychology</a>
+          <a href="/options-trading-psychology">Options Trading Psychology</a>
+          <a href="/futures-trading-psychology">Futures Trading Psychology</a>
+        </div>
+      </div>
+      <div class="foot__col foot__col--more">
+        <button type="button" class="foot__col__toggle"><h5>Compare</h5><span class="foot__col__caret"></span></button>
+        <div class="foot__col__links">
+          <a href="/pnl-app-vs-edgewonk">PnL App vs Edgewonk</a>
+          <a href="/pnl-app-vs-tradersync">PnL App vs TraderSync</a>
+          <a href="/pnl-app-vs-tradervue">PnL App vs Tradervue</a>
+          <a href="/pnl-app-vs-spreadsheet">PnL App vs a Spreadsheet</a>
+        </div>
+      </div>
+      </div>
     </div>
     <div class="foot__bot">
       <p>© 2026 Breiterman LLC — Dubai, UAE. All rights reserved.</p>
-      <p class="dis">PnL App does not provide financial advice. It helps you understand your trading behavior. Control your mind · Mindful trading · Grow together.</p>
+      <p class="dis">PnL App does not provide financial, investment, or trading advice. It helps you understand and track your own trading behavior, not predict markets or recommend specific trades. Nothing on this site is a recommendation to buy, sell, or hold any security or asset, always do your own research and consult a licensed financial advisor before making investment decisions. Control your mind · Mindful trading · Grow together.</p>
     </div>
   </div>
 </footer>
@@ -1001,9 +1039,11 @@
     });
   });
 
-  // footer "Other" dropdown
-  document.getElementById('footMoreToggle').addEventListener('click',()=>{
-    document.getElementById('footMore').classList.toggle('open');
+  // footer dropdown columns
+  document.querySelectorAll('.foot__col__toggle').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      btn.closest('.foot__col--more').classList.toggle('open');
+    });
   });
 
   // ---- Lead form -> Google Sheets (Apps Script) ----

@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Trading Discipline Score — Rate Your Process in 60 Seconds | PnL App</title>
-<meta name="description" content="Get your trading discipline score in six quick questions. See how process, not profit, predicts whether your edge survives contact with the market." />
-<link rel="canonical" href="https://pnlapp.co/trading-discipline-score" />
+<title>Day Trading Psychology: Why It Breaks People Faster | PnL App</title>
+<meta name="description" content="Day trading compresses every trading bias into minutes instead of days. Here's why the psychology of day trading is uniquely hard, and what actually helps." />
+<link rel="canonical" href="https://pnlapp.co/day-trading-psychology" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Trading Discipline Score — Rate Your Process | PnL App" />
-<meta property="og:description" content="Get your trading discipline score in six quick questions." />
-<meta property="og:url" content="https://pnlapp.co/trading-discipline-score" />
+<meta property="og:title" content="Day Trading Psychology | PnL App" />
+<meta property="og:description" content="Why day trading is psychologically harder than other styles, and what to do about it." />
+<meta property="og:url" content="https://pnlapp.co/day-trading-psychology" />
 <meta property="og:image" content="https://pnlapp.co/assets/logo-black.png" />
 <meta name="twitter:card" content="summary" />
 <script type="application/ld+json">
@@ -19,18 +19,18 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is trading discipline?",
+      "name": "Why is day trading psychologically harder than other trading styles?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Trading discipline is how consistently you follow your own predefined rules, entry criteria, position size, and exit plan, regardless of how the last trade went. It's measured by adherence, not by profit and loss."
+        "text": "Because the feedback loop is fast. A swing trader has hours or days between decisions to cool off. A day trader can lose a trade and be in the next one within minutes, which means there is almost no natural gap for emotion to settle before the next decision gets made."
       }
     },
     {
       "@type": "Question",
-      "name": "How is a trading discipline score calculated?",
+      "name": "What is the most common day trading psychology mistake?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "It's scored on process, not profit: whether you followed your plan, defined risk before entry, and kept your stop where you set it, regardless of whether the trade won or lost."
+        "text": "Increasing size or frequency after a loss within the same session, trying to make the day 'even' before the close instead of accepting the loss and stopping. This single pattern accounts for a large share of the worst individual trading days most day traders have."
       }
     }
   ]
@@ -44,6 +44,7 @@
 <link href="https://fonts.cdnfonts.com/css/neue-montreal" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/site.css" />
+<style>.olist{max-width:640px;margin-top:8px}.olist li{font-size:15.5px;line-height:1.65;color:var(--ink-soft);margin-bottom:14px;padding-left:2px}.olist li b{color:var(--ink);font-weight:500}</style>
 </head>
 <body>
 
@@ -76,85 +77,44 @@
 </div>
 
 <header class="funnel-hero wrap">
-  <div class="eyebrow"><span class="num">00</span> Free score · 60 seconds</div>
-  <h1>What's your trading discipline score?</h1>
-  <p class="sub">Six questions about process, not profit. A winning trade can still be a bad trade — this scores the part that actually repeats.</p>
+  <div class="eyebrow"><span class="num">00</span> Guide</div>
+  <h1>Day trading psychology</h1>
+  <p class="sub">A swing trader gets hours to cool off between decisions. A day trader gets minutes, sometimes seconds. That compression is the whole problem.</p>
   <div class="answer-box">
     <span class="lbl">Short answer</span>
-    <p>Trading discipline is how consistently you follow your own predefined rules — entry criteria, position size, and exit plan — regardless of how the last trade went. It's measured by adherence, not by P&amp;L. The score below is a quick read on yours.</p>
+    <p>Day trading takes every psychological bias that affects trading, fear, greed, revenge, overconfidence, and removes the natural cooldown period between decisions. A losing trade and the next entry can be minutes apart, which means there is almost no gap for emotion to settle before the account is at risk again.</p>
   </div>
 </header>
 
-<section class="fsec wrap" id="test">
+<section class="fsec wrap" id="why">
   <div class="fsec__head">
-    <div class="eyebrow"><span class="num">01</span> The score</div>
-    <h2>Six questions, scored 0–100</h2>
+    <div class="eyebrow"><span class="num">01</span> The core problem</div>
+    <h2>Speed is the risk factor, not the market</h2>
   </div>
-
-  <form class="assess" id="assessForm">
-    <div class="assess__q" data-q="0">
-      <div class="assess__qtext">1. Do you have a written entry, exit, and risk rule set you actually follow?</div>
-      <div class="assess__opts"><button type="button" class="assess__opt" data-val="1">Yes</button><button type="button" class="assess__opt" data-val="0">No</button></div>
-    </div>
-    <div class="assess__q" data-q="1">
-      <div class="assess__qtext">2. Do you define your risk before entering, every time, without exception?</div>
-      <div class="assess__opts"><button type="button" class="assess__opt" data-val="1">Yes</button><button type="button" class="assess__opt" data-val="0">No</button></div>
-    </div>
-    <div class="assess__q" data-q="2">
-      <div class="assess__qtext">3. Do you only take trades that match your setup criteria?</div>
-      <div class="assess__opts"><button type="button" class="assess__opt" data-val="1">Yes</button><button type="button" class="assess__opt" data-val="0">No</button></div>
-    </div>
-    <div class="assess__q" data-q="3">
-      <div class="assess__qtext">4. Do you keep your stop loss where you originally set it?</div>
-      <div class="assess__opts"><button type="button" class="assess__opt" data-val="1">Yes</button><button type="button" class="assess__opt" data-val="0">No</button></div>
-    </div>
-    <div class="assess__q" data-q="4">
-      <div class="assess__qtext">5. Does a losing streak leave your position sizing unchanged?</div>
-      <div class="assess__opts"><button type="button" class="assess__opt" data-val="1">Yes</button><button type="button" class="assess__opt" data-val="0">No</button></div>
-    </div>
-    <div class="assess__q" data-q="5">
-      <div class="assess__qtext">6. Do you journal and review your trades regularly, win or lose?</div>
-      <div class="assess__opts"><button type="button" class="assess__opt" data-val="1">Yes</button><button type="button" class="assess__opt" data-val="0">No</button></div>
-    </div>
-
-    <button type="submit" class="btn btn--fill assess__submit" id="assessSubmit" disabled>See my score</button>
-
-    <div class="assess__result assess__hide" id="assessResult">
-      <div class="score"><span id="scoreNum">0</span><span class="u">/100</span></div>
-      <div class="verdict" id="scoreVerdict"></div>
-    </div>
-  </form>
+  <ol class="olist">
+    <li><b>No cooldown between decisions.</b> Other styles have hours or overnight gaps built in. Day trading can put a trader back in a position minutes after a loss, before the emotional charge from that loss has actually faded.</li>
+    <li><b>Same-session revenge trading.</b> The urge to "make the day back" before the close is one of the most common ways a single bad trade turns into a genuinely bad day, since there is still time left in the session to keep trying.</li>
+    <li><b>Screen fatigue compounds the problem.</b> Hours of continuous focus degrade judgment the same way physical fatigue does, and the degradation tends to show up as looser rule-following late in a session, not as an obvious crash.</li>
+    <li><b>Every session resets the pressure.</b> Unlike a swing position that can be reviewed calmly overnight, a day trade's outcome is usually known and reacted to within the same emotional state it was entered in.</li>
+  </ol>
 </section>
 
 <section class="fsec wrap" id="report" style="padding-top:0">
   <div class="fsec__head">
     <div class="eyebrow"><span class="num">02</span> What PnL App would show</div>
     <h2>A sample behavioral report</h2>
-    <p>Discipline scored on process, not on whether the trade happened to work.</p>
+    <p>Trade frequency and outcome, tracked by time since the last loss.</p>
   </div>
-  <div class="grade-card">
-    <div class="grade-card__tag">Setup grade &middot; last 62 trades</div>
-    <div class="grade-row">
-      <div class="grade-row__top"><span class="grade-row__letter">A+</span><span class="grade-row__count">6 trades</span><span class="grade-row__win">100%</span><span class="grade-row__pnl pos">+$1,840</span></div>
-      <div class="grade-row__bar"><span style="width:100%;background:var(--lime)"></span></div>
+  <div class="report-mock">
+    <div class="report-mock__tag">Same-session behavior &middot; Last 30 days</div>
+    <h4>What happens in the 15 minutes after a loss</h4>
+    <div class="ebar">
+      <div class="ebar__row"><span class="ebar__lab">Trades taken within 15 min of a loss</span><span class="ebar__track"><span class="ebar__fill" style="width:41%;background:#ff5b4c"></span></span><span class="ebar__val">41%</span></div>
+      <div class="ebar__row"><span class="ebar__lab">Win rate on those trades</span><span class="ebar__track"><span class="ebar__fill" style="width:33%;background:#ff5b4c"></span></span><span class="ebar__val">33%</span></div>
+      <div class="ebar__row"><span class="ebar__lab">Win rate on trades taken after a cooldown</span><span class="ebar__track"><span class="ebar__fill" style="width:58%;background:var(--lime)"></span></span><span class="ebar__val">58%</span></div>
+      <div class="ebar__row"><span class="ebar__lab">Avg. size on post-loss trades</span><span class="ebar__track"><span class="ebar__fill" style="width:71%;background:#ff5b4c"></span></span><span class="ebar__val">1.6&times;</span></div>
     </div>
-    <div class="grade-row">
-      <div class="grade-row__top"><span class="grade-row__letter">A</span><span class="grade-row__count">12 trades</span><span class="grade-row__win">83%</span><span class="grade-row__pnl pos">+$2,120</span></div>
-      <div class="grade-row__bar"><span style="width:83%;background:var(--lime)"></span></div>
-    </div>
-    <div class="grade-row">
-      <div class="grade-row__top"><span class="grade-row__letter">B+</span><span class="grade-row__count">15 trades</span><span class="grade-row__win">67%</span><span class="grade-row__pnl pos">+$980</span></div>
-      <div class="grade-row__bar"><span style="width:67%;background:#9bd400"></span></div>
-    </div>
-    <div class="grade-row">
-      <div class="grade-row__top"><span class="grade-row__letter">C+</span><span class="grade-row__count">8 trades</span><span class="grade-row__win">38%</span><span class="grade-row__pnl neg">&minus;$420</span></div>
-      <div class="grade-row__bar"><span style="width:38%;background:#ff5b4c"></span></div>
-    </div>
-    <div class="grade-row">
-      <div class="grade-row__top"><span class="grade-row__letter">F</span><span class="grade-row__count">2 trades</span><span class="grade-row__win">0%</span><span class="grade-row__pnl neg">&minus;$620</span></div>
-      <div class="grade-row__bar"><span style="width:4%;background:#ff5b4c"></span></div>
-    </div>
-    <p class="grade-card__note">Pnlee's read: A-grade setups (plan matched, risk respected, stop untouched) win 83&ndash;100% of the time. The two F-grade trades broke every rule at entry — and it shows.</p>
+    <p class="report-mock__note">Pnlee's read: trades entered within 15 minutes of a loss are sized larger and win less often than trades taken after a break. The pattern repeats often enough that it looks like a rule, not a coincidence.</p>
   </div>
 </section>
 
@@ -165,16 +125,16 @@
   </div>
   <div class="example-block">
     <div class="eyebrow">Composite example, from PnL App usage patterns</div>
-    <p>A clean setup, entered on plan, risk sized correctly. Then price went against it, the stop got moved "to give it room," and the trade turned into a hold-and-hope. It came back and closed green. On paper, a win. In the log, a rule broken that happened to get bailed out by the market — which is exactly the trade that teaches you nothing.</p>
-    <p class="quote">&ldquo;A winning trade can still be a <span class="u">bad trade.</span>&rdquo;</p>
+    <p>A clean morning session, three trades, three planned exits, ends around midday roughly flat. Then a fourth trade, taken outside the usual setup criteria, loses more than the first three combined, entered less than ten minutes after the prior trade closed.</p>
+    <p class="quote">&ldquo;The morning session was fine. The <span class="u">one impatient trade</span> after lunch wasn't.&rdquo;</p>
   </div>
 </section>
 
 <section class="fsec wrap" style="padding-top:0">
   <div class="funnel-cta">
-    <div class="eyebrow" style="justify-content:center;color:var(--ink-faint);margin-bottom:20px">Score every trade, not just the P&amp;L</div>
-    <h2>Discipline, <span class="u">made default.</span></h2>
-    <p>PnL App scores each trade on process — plan adherence, risk discipline, stop respect — so a lucky win never gets mistaken for a good decision.</p>
+    <div class="eyebrow" style="justify-content:center;color:var(--ink-faint);margin-bottom:20px">Build in the gap yourself</div>
+    <h2>The <span class="u">cooldown</span> a fast market won't give you.</h2>
+    <p>PnL App flags post-loss trades in real time and can lock the app for a set window after a loss, so the gap day trading removes gets put back in on purpose.</p>
     <div class="btnrow">
       <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn btn--lime">Download on App Store</a>
       <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn" style="border-color:rgba(255,255,255,.3);color:var(--cream)">Get it on Google Play</a>
@@ -185,15 +145,14 @@
 <section class="fsec wrap" style="padding-top:0;padding-bottom:90px">
   <div class="fsec__head">
     <div class="eyebrow"><span class="num">04</span> Related</div>
-    <h2>More self-tests</h2>
+    <h2>More on trading psychology</h2>
   </div>
   <div class="related__list">
     <a href="/revenge-trading-test">Revenge Trading Test</a>
     <a href="/overtrading-calculator">Overtrading Calculator</a>
-    <a href="/trading-psychology-assessment">Trading Psychology Assessment</a>
-    <a href="/how-to-review-losing-trades">How to Review Losing Trades</a>
+    <a href="/trading-discipline-score">Trading Discipline Score</a>
+    <a href="/swing-trading-psychology">Swing Trading Psychology</a>
     <a href="/quiz">Full 20-Question Diagnostic</a>
-    <a href="https://blog.pnlapp.co/trading-psychology/why-winning-is-the-most-dangerous-thing-in-trading" target="_blank" rel="noopener">Blog: Why Winning Is the Most Dangerous Thing</a>
   </div>
 </section>
 
@@ -215,8 +174,8 @@
       </div>
       <div class="foot__col">
         <h5>Company</h5>
-        <a href="#ethos">About</a>
-        <a href="#team">Team</a>
+        <a href="/#ethos">About</a>
+        <a href="/#team">Team</a>
         <a href="/termsandconditions">Terms &amp; Conditions</a>
         <a href="/privacypolicy">Privacy Policy</a>
         <a href="/request-delete-account">Delete Account</a>
@@ -274,7 +233,7 @@
       </div>
     </div>
     <div class="foot__bot">
-      <p>&copy; 2026 Breiterman LLC — Dubai, UAE. All rights reserved.</p>
+      <p>&copy; 2026 Breiterman LLC &mdash; Dubai, UAE. All rights reserved.</p>
       <p class="dis">PnL App does not provide financial, investment, or trading advice. It helps you understand and track your own trading behavior, not predict markets or recommend specific trades. Nothing on this site is a recommendation to buy, sell, or hold any security or asset, always do your own research and consult a licensed financial advisor before making investment decisions. Control your mind &middot; Mindful trading &middot; Grow together.</p>
     </div>
   </div>
@@ -284,7 +243,6 @@
   const nav=document.getElementById('nav');
   const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>12);
   onScroll();window.addEventListener('scroll',onScroll,{passive:true});
-  // OS detection for the mobile store button
   (function(){
     var ua=navigator.userAgent||'';
     if(/iPhone|iPad|iPod/.test(ua)) document.documentElement.classList.add('os-ios');
@@ -306,41 +264,6 @@
     btn.addEventListener('click',()=>{
       btn.closest('.foot__col--more').classList.toggle('open');
     });
-  });
-
-  const answers={};
-  const opts=document.querySelectorAll('.assess__opt');
-  const submitBtn=document.getElementById('assessSubmit');
-  opts.forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const qEl=btn.closest('.assess__q');
-      const qIdx=qEl.getAttribute('data-q');
-      qEl.querySelectorAll('.assess__opt').forEach(o=>o.classList.remove('sel'));
-      btn.classList.add('sel');
-      answers[qIdx]=parseInt(btn.getAttribute('data-val'),10);
-      submitBtn.disabled=Object.keys(answers).length<6;
-    });
-  });
-
-  document.getElementById('assessForm').addEventListener('submit',(e)=>{
-    e.preventDefault();
-    const total=Object.values(answers).reduce((a,b)=>a+b,0);
-    const pct=Math.round((total/6)*100);
-    document.getElementById('scoreNum').textContent=pct;
-    let verdict;
-    if(pct>=84){
-      verdict="<b>Elite discipline.</b> You follow your own rules even when nobody's grading you on it. Your result suggests your process is your edge — protect it.";
-    }else if(pct>=50){
-      verdict="<b>Solid, with real gaps.</b> Your result suggests discipline holds most of the time but breaks under pressure. Track your next ten trades in PnL App to see exactly where it slips.";
-    }else if(pct>=17){
-      verdict="<b>Inconsistent.</b> Your result suggests your rules exist but don't survive contact with a live trade. That's not a strategy problem — it's an execution one.";
-    }else{
-      verdict="<b>Low discipline score.</b> Right now, whether a trade follows plan depends on how the last one went. PnL App can score every trade on process so wins stop disguising bad decisions.";
-    }
-    document.getElementById('scoreVerdict').innerHTML=verdict;
-    document.getElementById('assessResult').classList.remove('assess__hide');
-    submitBtn.style.display='none';
-    document.getElementById('assessResult').scrollIntoView({behavior:'smooth',block:'center'});
   });
 </script>
 </body>
