@@ -76,11 +76,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://pnlapp.co/market-insights</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://pnlapp.co/whats-new</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -266,11 +261,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pnlapp.co/market-insights</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pnlapp.co/whats-new</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -294,20 +284,5 @@
     <loc>https://pnlapp.co/pnl-app-vs-investing-com</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pnlapp.co/termsandconditions</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  <url>
-    <loc>https://pnlapp.co/privacypolicy</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  <url>
-    <loc>https://pnlapp.co/request-delete-account</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.1</priority>
   </url>
 </urlset>
