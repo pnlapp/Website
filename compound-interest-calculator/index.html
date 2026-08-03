@@ -3,30 +3,17 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Market Insights | PnL App</title>
-<meta name="description" content="Pnlee turns your own trade history into one clear insight and one next action, sharper the more you trade." />
-<link rel="canonical" href="https://pnlapp.co/market-insights" />
+<title>Compound Interest Calculator | PnL App</title>
+<meta name="description" content="See how a starting balance and regular contributions grow over time with compounding, and how sensitive the result is to your assumed return." />
+<link rel="canonical" href="https://pnlapp.co/compound-interest-calculator" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Market Insights | PnL App" />
-<meta property="og:description" content="Behavioral insights from your own trading history, not generic market commentary." />
-<meta property="og:url" content="https://pnlapp.co/market-insights" />
+<meta property="og:title" content="Compound Interest Calculator | PnL App" />
+<meta property="og:description" content="A simple compounding projection, with the assumptions made visible." />
+<meta property="og:url" content="https://pnlapp.co/compound-interest-calculator" />
 <meta property="og:image" content="https://pnlapp.co/assets/logo-black.png" />
 <meta name="twitter:card" content="summary" />
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Does PnL App give market predictions?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Pnlee, PnL App's AI behavioral mentor, doesn't sell signals or predict the market. It diagnoses the trader first, turning your own trade history into one clear insight and one next action."
-      }
-    }
-  ]
-}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is compound interest calculated?","acceptedAnswer":{"@type":"Answer","text":"Compound interest is calculated by applying a growth rate to a balance repeatedly over time, so each period's return is earned on the original amount plus everything already earned before it. Regular contributions added along the way also compound from the point they're added."}}]}
 </script>
 <link rel="icon" type="image/png" href="/assets/favicon.png" />
 <link rel="apple-touch-icon" href="/assets/favicon.png" />
@@ -36,7 +23,18 @@
 <link href="https://fonts.cdnfonts.com/css/neue-montreal" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/site.css" />
-<style>.olist{max-width:640px;margin-top:8px}.olist li{font-size:15.5px;line-height:1.65;color:var(--ink-soft);margin-bottom:14px;padding-left:2px}.olist li b{color:var(--ink);font-weight:500}</style>
+<style>
+  .calc{max-width:640px;background:var(--cream);border:1.5px solid var(--line);border-radius:24px;padding:36px}
+  .calc__row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  .calc__field label{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px}
+  .calc__field input,.calc__field select{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--ink);background:var(--cream)}
+  .calc__field input:focus,.calc__field select:focus{outline:none;border-color:var(--ink)}
+  .calc__results{margin-top:24px;padding-top:24px;border-top:1px solid var(--line)}
+  .calc__result{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0}
+  .calc__result .lab{color:var(--ink-soft);font-size:14.5px}
+  .calc__result .val{font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:500}
+  .calc__note{margin-top:20px;font-size:13px;color:var(--ink-faint);line-height:1.6}
+</style>
 </head>
 <body>
 
@@ -69,32 +67,48 @@
 </div>
 
 <header class="funnel-hero wrap">
-  <div class="eyebrow"><span class="num">00</span> Feature</div>
-  <h1>Market insights</h1>
-  <p class="sub">Not predictions about the market. Insights about you, built from your own trade history.</p>
-  <div class="answer-box">
-    <span class="lbl">Short answer</span>
-    <p>Pnlee, the AI behavioral mentor inside PnL App, doesn't sell signals or forecast prices. It studies your behavior, time of day, emotional notes, sizing patterns, and turns your own trade history into one clear insight and one next action, growing sharper the more you trade.</p>
-  </div>
+  <div class="eyebrow"><span class="num">00</span> Tool</div>
+  <h1>Compound interest calculator</h1>
+  <p class="sub">Starting balance, contributions, rate, and time in. A projection out, with the assumptions kept visible.</p>
 </header>
 
-<section class="fsec wrap" id="why">
-  <div class="fsec__head">
-    <div class="eyebrow"><span class="num">01</span> Why insights, not predictions</div>
-    <h2>The market doesn't need your permission. Your behavior does</h2>
+<section class="fsec wrap">
+  <div class="calc">
+    <div class="calc__row">
+      <div class="calc__field">
+        <label for="principal">Starting balance ($)</label>
+        <input type="number" id="principal" value="5000" min="0" step="1" />
+      </div>
+      <div class="calc__field">
+        <label for="monthly">Monthly contribution ($)</label>
+        <input type="number" id="monthly" value="200" min="0" step="1" />
+      </div>
+    </div>
+    <div class="calc__row">
+      <div class="calc__field">
+        <label for="rate">Annual return (%)</label>
+        <input type="number" id="rate" value="7" min="0" step="0.1" />
+      </div>
+      <div class="calc__field">
+        <label for="years">Years</label>
+        <input type="number" id="years" value="20" min="1" step="1" />
+      </div>
+    </div>
+    <div class="calc__results">
+      <div class="calc__result"><span class="lab">Total contributed</span><span class="val" id="outContributed">$0</span></div>
+      <div class="calc__result"><span class="lab">Total growth</span><span class="val" id="outGrowth">$0</span></div>
+      <div class="calc__result"><span class="lab">Final balance</span><span class="val" id="outFinal">$0</span></div>
+    </div>
+    <p class="calc__note">This assumes a constant annual return compounded monthly, which real markets never actually deliver in a straight line. It's a planning estimate, not a prediction, and it is not financial advice. Actual returns vary and can be negative in any given year.</p>
   </div>
-  <p style="max-width:640px;color:var(--ink-soft);font-size:15.5px;line-height:1.68">A prediction about where a market is headed is a guess dressed up as insight. A pattern pulled from your own trade history, like "you increase size within 20 minutes of a loss," is verifiable and actionable in a way a market call never is. Pnlee is built around the second kind of insight specifically.</p>
 </section>
 
-<section class="fsec wrap" style="padding-top:0">
-  <div class="funnel-cta">
-    <div class="eyebrow" style="color:var(--ink-faint);margin-bottom:20px">Insight built from your own data</div>
-    <h2>Pnlee tells you <span class="u">why</span>, not just what.</h2>
-    <div class="btnrow">
-      <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn btn--lime">Download on App Store</a>
-      <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn">Get it on Google Play</a>
-    </div>
+<section class="fsec wrap" id="why" style="padding-top:0">
+  <div class="fsec__head">
+    <div class="eyebrow"><span class="num">01</span> Why this matters</div>
+    <h2>The rate you assume changes everything</h2>
   </div>
+  <p style="max-width:640px;color:var(--ink-soft);font-size:15.5px;line-height:1.68">Small differences in assumed annual return compound into large differences over long time horizons. Run this a few times with a more conservative rate before trusting a single optimistic projection, the gap between a 5% and a 9% assumption over 20 years is far larger than it looks over 1 year.</p>
 </section>
 
 <section class="fsec wrap" style="padding-top:0;padding-bottom:90px">
@@ -103,10 +117,10 @@
     <h2>More tools and guides</h2>
   </div>
   <div class="related__list">
-    <a href="/trading-psychology-assessment">Psychology Assessment</a>
-    <a href="/trading-discipline-score">Trading Discipline Score</a>
-    <a href="/emotional-trading-journal">Emotional Trading Journal</a>
-    <a href="/quiz">Full 20-Question Diagnostic</a>
+    <a href="/dividend-calculator">Dividend Calculator</a>
+    <a href="/psychology-of-dividend-investing">The Psychology of Dividend Investing</a>
+    <a href="/how-to-start-trading-2026">How to Start Trading in 2026</a>
+    <a href="/position-size-calculator">Position Size Calculator</a>
   </div>
 </section>
 
@@ -243,6 +257,8 @@
   </div>
 </footer>
 
+
+
 <script>
   const nav=document.getElementById('nav');
   const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>12);
@@ -269,6 +285,33 @@
       btn.closest('.foot__col--more').classList.toggle('open');
     });
   });
+
+  const fmt = n => '$' + n.toLocaleString(undefined, {maximumFractionDigits: 0});
+  function recalc() {
+    const principal = parseFloat(document.getElementById('principal').value) || 0;
+    const monthly = parseFloat(document.getElementById('monthly').value) || 0;
+    const rate = parseFloat(document.getElementById('rate').value) || 0;
+    const years = parseInt(document.getElementById('years').value) || 0;
+
+    const monthlyRate = rate / 100 / 12;
+    const months = years * 12;
+    let balance = principal;
+    let contributed = principal;
+    for (let m = 0; m < months; m++) {
+      balance *= (1 + monthlyRate);
+      balance += monthly;
+      contributed += monthly;
+    }
+    const growth = balance - contributed;
+
+    document.getElementById('outContributed').textContent = fmt(contributed);
+    document.getElementById('outGrowth').textContent = fmt(growth);
+    document.getElementById('outFinal').textContent = fmt(balance);
+  }
+  ['principal','monthly','rate','years'].forEach(id => {
+    document.getElementById(id).addEventListener('input', recalc);
+  });
+  recalc();
 </script>
 </body>
 </html>

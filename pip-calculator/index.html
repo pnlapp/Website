@@ -3,30 +3,17 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Market Insights | PnL App</title>
-<meta name="description" content="Pnlee turns your own trade history into one clear insight and one next action, sharper the more you trade." />
-<link rel="canonical" href="https://pnlapp.co/market-insights" />
+<title>Pip Calculator | PnL App</title>
+<meta name="description" content="Calculate the dollar value of a pip move for a given forex position size, and what that move means for your account risk." />
+<link rel="canonical" href="https://pnlapp.co/pip-calculator" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Market Insights | PnL App" />
-<meta property="og:description" content="Behavioral insights from your own trading history, not generic market commentary." />
-<meta property="og:url" content="https://pnlapp.co/market-insights" />
+<meta property="og:title" content="Pip Calculator | PnL App" />
+<meta property="og:description" content="Know your pip value before you size the trade." />
+<meta property="og:url" content="https://pnlapp.co/pip-calculator" />
 <meta property="og:image" content="https://pnlapp.co/assets/logo-black.png" />
 <meta name="twitter:card" content="summary" />
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Does PnL App give market predictions?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Pnlee, PnL App's AI behavioral mentor, doesn't sell signals or predict the market. It diagnoses the trader first, turning your own trade history into one clear insight and one next action."
-      }
-    }
-  ]
-}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a pip in forex trading?","acceptedAnswer":{"@type":"Answer","text":"A pip is the smallest standardized price move in most currency pairs, typically the fourth decimal place (0.0001) for pairs quoted to four decimals, or the second decimal place (0.01) for pairs involving the Japanese yen. Its dollar value depends on the position size and the pair being traded."}}]}
 </script>
 <link rel="icon" type="image/png" href="/assets/favicon.png" />
 <link rel="apple-touch-icon" href="/assets/favicon.png" />
@@ -36,7 +23,18 @@
 <link href="https://fonts.cdnfonts.com/css/neue-montreal" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/site.css" />
-<style>.olist{max-width:640px;margin-top:8px}.olist li{font-size:15.5px;line-height:1.65;color:var(--ink-soft);margin-bottom:14px;padding-left:2px}.olist li b{color:var(--ink);font-weight:500}</style>
+<style>
+  .calc{max-width:640px;background:var(--cream);border:1.5px solid var(--line);border-radius:24px;padding:36px}
+  .calc__row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  .calc__field label{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px}
+  .calc__field input,.calc__field select{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--ink);background:var(--cream)}
+  .calc__field input:focus,.calc__field select:focus{outline:none;border-color:var(--ink)}
+  .calc__results{margin-top:24px;padding-top:24px;border-top:1px solid var(--line)}
+  .calc__result{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0}
+  .calc__result .lab{color:var(--ink-soft);font-size:14.5px}
+  .calc__result .val{font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:500}
+  .calc__note{margin-top:20px;font-size:13px;color:var(--ink-faint);line-height:1.6}
+</style>
 </head>
 <body>
 
@@ -69,32 +67,50 @@
 </div>
 
 <header class="funnel-hero wrap">
-  <div class="eyebrow"><span class="num">00</span> Feature</div>
-  <h1>Market insights</h1>
-  <p class="sub">Not predictions about the market. Insights about you, built from your own trade history.</p>
-  <div class="answer-box">
-    <span class="lbl">Short answer</span>
-    <p>Pnlee, the AI behavioral mentor inside PnL App, doesn't sell signals or forecast prices. It studies your behavior, time of day, emotional notes, sizing patterns, and turns your own trade history into one clear insight and one next action, growing sharper the more you trade.</p>
-  </div>
+  <div class="eyebrow"><span class="num">00</span> Tool</div>
+  <h1>Pip calculator</h1>
+  <p class="sub">Lot size and pair in. The dollar value of a single pip move out.</p>
 </header>
 
-<section class="fsec wrap" id="why">
-  <div class="fsec__head">
-    <div class="eyebrow"><span class="num">01</span> Why insights, not predictions</div>
-    <h2>The market doesn't need your permission. Your behavior does</h2>
+<section class="fsec wrap">
+  <div class="calc">
+    <div class="calc__row">
+      <div class="calc__field">
+        <label for="lots">Position size (lots)</label>
+        <input type="number" id="lots" value="1" min="0" step="0.01" />
+      </div>
+      <div class="calc__field">
+        <label for="pairtype">Pair type</label>
+        <select id="pairtype">
+          <option value="standard">Standard (e.g. EUR/USD)</option>
+          <option value="jpy">JPY pair (e.g. USD/JPY)</option>
+        </select>
+      </div>
+    </div>
+    <div class="calc__row">
+      <div class="calc__field">
+        <label for="pips">Number of pips</label>
+        <input type="number" id="pips" value="20" min="0" step="1" />
+      </div>
+      <div class="calc__field">
+        <label for="lotsize">Units per standard lot</label>
+        <input type="number" id="lotsize" value="100000" min="1" step="1" />
+      </div>
+    </div>
+    <div class="calc__results">
+      <div class="calc__result"><span class="lab">Value per pip</span><span class="val" id="outPerPip">$0</span></div>
+      <div class="calc__result"><span class="lab">Total value for this move</span><span class="val" id="outTotal">$0</span></div>
+    </div>
+    <p class="calc__note">This assumes the quote currency is USD and uses a standard pip definition (0.0001, or 0.01 for JPY pairs). Actual pip value varies by the specific pair and current exchange rate, always confirm with your broker's own calculator before sizing a live position.</p>
   </div>
-  <p style="max-width:640px;color:var(--ink-soft);font-size:15.5px;line-height:1.68">A prediction about where a market is headed is a guess dressed up as insight. A pattern pulled from your own trade history, like "you increase size within 20 minutes of a loss," is verifiable and actionable in a way a market call never is. Pnlee is built around the second kind of insight specifically.</p>
 </section>
 
-<section class="fsec wrap" style="padding-top:0">
-  <div class="funnel-cta">
-    <div class="eyebrow" style="color:var(--ink-faint);margin-bottom:20px">Insight built from your own data</div>
-    <h2>Pnlee tells you <span class="u">why</span>, not just what.</h2>
-    <div class="btnrow">
-      <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn btn--lime">Download on App Store</a>
-      <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn">Get it on Google Play</a>
-    </div>
+<section class="fsec wrap" id="why" style="padding-top:0">
+  <div class="fsec__head">
+    <div class="eyebrow"><span class="num">01</span> Why this matters</div>
+    <h2>Leverage makes pip value easy to underestimate</h2>
   </div>
+  <p style="max-width:640px;color:var(--ink-soft);font-size:15.5px;line-height:1.68">A standard lot moving 20 pips can mean a meaningfully different dollar swing than the same trade in a mini or micro lot. Forex's leverage means position sizing mistakes compound faster here than in most other instruments, knowing your exact pip value before entry is part of knowing your real risk, not just an afterthought.</p>
 </section>
 
 <section class="fsec wrap" style="padding-top:0;padding-bottom:90px">
@@ -103,10 +119,10 @@
     <h2>More tools and guides</h2>
   </div>
   <div class="related__list">
-    <a href="/trading-psychology-assessment">Psychology Assessment</a>
-    <a href="/trading-discipline-score">Trading Discipline Score</a>
-    <a href="/emotional-trading-journal">Emotional Trading Journal</a>
-    <a href="/quiz">Full 20-Question Diagnostic</a>
+    <a href="/margin-calculator">Margin Calculator</a>
+    <a href="/position-size-calculator">Position Size Calculator</a>
+    <a href="/risk-reward-calculator">Risk/Reward Calculator</a>
+    <a href="/overtrading-calculator">Overtrading Calculator</a>
   </div>
 </section>
 
@@ -243,6 +259,8 @@
   </div>
 </footer>
 
+
+
 <script>
   const nav=document.getElementById('nav');
   const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>12);
@@ -269,6 +287,27 @@
       btn.closest('.foot__col--more').classList.toggle('open');
     });
   });
+
+  const fmt = n => '$' + n.toLocaleString(undefined, {maximumFractionDigits: 2});
+  function recalc() {
+    const lots = parseFloat(document.getElementById('lots').value) || 0;
+    const pairType = document.getElementById('pairtype').value;
+    const pips = parseFloat(document.getElementById('pips').value) || 0;
+    const lotSize = parseFloat(document.getElementById('lotsize').value) || 100000;
+
+    const pipDecimal = pairType === 'jpy' ? 0.01 : 0.0001;
+    const units = lots * lotSize;
+    const perPip = units * pipDecimal;
+    const total = perPip * pips;
+
+    document.getElementById('outPerPip').textContent = fmt(perPip);
+    document.getElementById('outTotal').textContent = fmt(total);
+  }
+  ['lots','pairtype','pips','lotsize'].forEach(id => {
+    document.getElementById(id).addEventListener('input', recalc);
+    document.getElementById(id).addEventListener('change', recalc);
+  });
+  recalc();
 </script>
 </body>
 </html>

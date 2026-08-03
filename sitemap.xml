@@ -6,6 +6,46 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://pnlapp.co/risk-reward-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pnlapp.co/compound-interest-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pnlapp.co/pip-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pnlapp.co/margin-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pnlapp.co/disposition-effect-in-trading</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pnlapp.co/anchoring-bias-in-trading</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pnlapp.co/overconfidence-bias-in-trading</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pnlapp.co/herd-mentality-in-trading</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pnlapp.co/quiz</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

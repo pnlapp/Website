@@ -3,30 +3,17 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Market Insights | PnL App</title>
-<meta name="description" content="Pnlee turns your own trade history into one clear insight and one next action, sharper the more you trade." />
-<link rel="canonical" href="https://pnlapp.co/market-insights" />
+<title>Margin Calculator | PnL App</title>
+<meta name="description" content="Calculate the margin required to open a leveraged position, and how much of your account that position would actually use." />
+<link rel="canonical" href="https://pnlapp.co/margin-calculator" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Market Insights | PnL App" />
-<meta property="og:description" content="Behavioral insights from your own trading history, not generic market commentary." />
-<meta property="og:url" content="https://pnlapp.co/market-insights" />
+<meta property="og:title" content="Margin Calculator | PnL App" />
+<meta property="og:description" content="Know how much of your account a leveraged position actually uses." />
+<meta property="og:url" content="https://pnlapp.co/margin-calculator" />
 <meta property="og:image" content="https://pnlapp.co/assets/logo-black.png" />
 <meta name="twitter:card" content="summary" />
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Does PnL App give market predictions?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Pnlee, PnL App's AI behavioral mentor, doesn't sell signals or predict the market. It diagnoses the trader first, turning your own trade history into one clear insight and one next action."
-      }
-    }
-  ]
-}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is margin calculated?","acceptedAnswer":{"@type":"Answer","text":"Required margin is calculated by dividing the total position value by the leverage ratio offered. A $50,000 position at 10:1 leverage requires $5,000 in margin, meaning the trader needs at least that much account equity to open and maintain the position."}}]}
 </script>
 <link rel="icon" type="image/png" href="/assets/favicon.png" />
 <link rel="apple-touch-icon" href="/assets/favicon.png" />
@@ -36,7 +23,18 @@
 <link href="https://fonts.cdnfonts.com/css/neue-montreal" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/site.css" />
-<style>.olist{max-width:640px;margin-top:8px}.olist li{font-size:15.5px;line-height:1.65;color:var(--ink-soft);margin-bottom:14px;padding-left:2px}.olist li b{color:var(--ink);font-weight:500}</style>
+<style>
+  .calc{max-width:640px;background:var(--cream);border:1.5px solid var(--line);border-radius:24px;padding:36px}
+  .calc__row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  .calc__field label{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px}
+  .calc__field input,.calc__field select{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--ink);background:var(--cream)}
+  .calc__field input:focus,.calc__field select:focus{outline:none;border-color:var(--ink)}
+  .calc__results{margin-top:24px;padding-top:24px;border-top:1px solid var(--line)}
+  .calc__result{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0}
+  .calc__result .lab{color:var(--ink-soft);font-size:14.5px}
+  .calc__result .val{font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:500}
+  .calc__note{margin-top:20px;font-size:13px;color:var(--ink-faint);line-height:1.6}
+</style>
 </head>
 <body>
 
@@ -69,32 +67,44 @@
 </div>
 
 <header class="funnel-hero wrap">
-  <div class="eyebrow"><span class="num">00</span> Feature</div>
-  <h1>Market insights</h1>
-  <p class="sub">Not predictions about the market. Insights about you, built from your own trade history.</p>
-  <div class="answer-box">
-    <span class="lbl">Short answer</span>
-    <p>Pnlee, the AI behavioral mentor inside PnL App, doesn't sell signals or forecast prices. It studies your behavior, time of day, emotional notes, sizing patterns, and turns your own trade history into one clear insight and one next action, growing sharper the more you trade.</p>
-  </div>
+  <div class="eyebrow"><span class="num">00</span> Tool</div>
+  <h1>Margin calculator</h1>
+  <p class="sub">Position size and leverage in. The margin required and the percentage of your account it uses, out.</p>
 </header>
 
-<section class="fsec wrap" id="why">
-  <div class="fsec__head">
-    <div class="eyebrow"><span class="num">01</span> Why insights, not predictions</div>
-    <h2>The market doesn't need your permission. Your behavior does</h2>
+<section class="fsec wrap">
+  <div class="calc">
+    <div class="calc__row">
+      <div class="calc__field">
+        <label for="positionvalue">Position value ($)</label>
+        <input type="number" id="positionvalue" value="20000" min="0" step="1" />
+      </div>
+      <div class="calc__field">
+        <label for="leverage">Leverage (X:1)</label>
+        <input type="number" id="leverage" value="10" min="1" step="1" />
+      </div>
+    </div>
+    <div class="calc__row">
+      <div class="calc__field">
+        <label for="accountsize">Account size ($)</label>
+        <input type="number" id="accountsize" value="10000" min="0" step="1" />
+      </div>
+    </div>
+    <div class="calc__results">
+      <div class="calc__result"><span class="lab">Required margin</span><span class="val" id="outMargin">$0</span></div>
+      <div class="calc__result"><span class="lab">% of account used</span><span class="val" id="outPct">0%</span></div>
+      <div class="calc__result"><span class="lab">Remaining free margin</span><span class="val" id="outFree">$0</span></div>
+    </div>
+    <p class="calc__note">This is a simplified margin calculation. Actual margin requirements vary by broker, instrument, and market conditions, and can change without notice, especially during high volatility. Always confirm exact requirements with your broker before opening a leveraged position.</p>
   </div>
-  <p style="max-width:640px;color:var(--ink-soft);font-size:15.5px;line-height:1.68">A prediction about where a market is headed is a guess dressed up as insight. A pattern pulled from your own trade history, like "you increase size within 20 minutes of a loss," is verifiable and actionable in a way a market call never is. Pnlee is built around the second kind of insight specifically.</p>
 </section>
 
-<section class="fsec wrap" style="padding-top:0">
-  <div class="funnel-cta">
-    <div class="eyebrow" style="color:var(--ink-faint);margin-bottom:20px">Insight built from your own data</div>
-    <h2>Pnlee tells you <span class="u">why</span>, not just what.</h2>
-    <div class="btnrow">
-      <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn btn--lime">Download on App Store</a>
-      <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn">Get it on Google Play</a>
-    </div>
+<section class="fsec wrap" id="why" style="padding-top:0">
+  <div class="fsec__head">
+    <div class="eyebrow"><span class="num">01</span> Why this matters</div>
+    <h2>Leverage magnifies the emotional swing, not just the position</h2>
   </div>
+  <p style="max-width:640px;color:var(--ink-soft);font-size:15.5px;line-height:1.68">A position using a large share of available margin leaves little room for the trade to move against you before a margin call forces the decision out of your hands. Knowing the percentage of your account a position actually uses, before you enter, is part of sizing with discipline rather than sizing on confidence.</p>
 </section>
 
 <section class="fsec wrap" style="padding-top:0;padding-bottom:90px">
@@ -103,10 +113,10 @@
     <h2>More tools and guides</h2>
   </div>
   <div class="related__list">
-    <a href="/trading-psychology-assessment">Psychology Assessment</a>
-    <a href="/trading-discipline-score">Trading Discipline Score</a>
-    <a href="/emotional-trading-journal">Emotional Trading Journal</a>
-    <a href="/quiz">Full 20-Question Diagnostic</a>
+    <a href="/pip-calculator">Pip Calculator</a>
+    <a href="/position-size-calculator">Position Size Calculator</a>
+    <a href="/futures-trading-psychology">Futures Trading Psychology</a>
+    <a href="/overtrading-calculator">Overtrading Calculator</a>
   </div>
 </section>
 
@@ -243,6 +253,8 @@
   </div>
 </footer>
 
+
+
 <script>
   const nav=document.getElementById('nav');
   const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>12);
@@ -269,6 +281,25 @@
       btn.closest('.foot__col--more').classList.toggle('open');
     });
   });
+
+  const fmt = n => '$' + n.toLocaleString(undefined, {maximumFractionDigits: 2});
+  function recalc() {
+    const positionValue = parseFloat(document.getElementById('positionvalue').value) || 0;
+    const leverage = parseFloat(document.getElementById('leverage').value) || 1;
+    const accountSize = parseFloat(document.getElementById('accountsize').value) || 0;
+
+    const margin = positionValue / leverage;
+    const pct = accountSize > 0 ? (margin / accountSize) * 100 : 0;
+    const free = accountSize - margin;
+
+    document.getElementById('outMargin').textContent = fmt(margin);
+    document.getElementById('outPct').textContent = pct.toFixed(1) + '%';
+    document.getElementById('outFree').textContent = fmt(free);
+  }
+  ['positionvalue','leverage','accountsize'].forEach(id => {
+    document.getElementById(id).addEventListener('input', recalc);
+  });
+  recalc();
 </script>
 </body>
 </html>

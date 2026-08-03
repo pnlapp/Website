@@ -3,30 +3,17 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Market Insights | PnL App</title>
-<meta name="description" content="Pnlee turns your own trade history into one clear insight and one next action, sharper the more you trade." />
-<link rel="canonical" href="https://pnlapp.co/market-insights" />
+<title>Risk/Reward Ratio Calculator | PnL App</title>
+<meta name="description" content="Calculate your risk/reward ratio and required win rate from your entry, stop loss, and target, before you place the trade." />
+<link rel="canonical" href="https://pnlapp.co/risk-reward-calculator" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Market Insights | PnL App" />
-<meta property="og:description" content="Behavioral insights from your own trading history, not generic market commentary." />
-<meta property="og:url" content="https://pnlapp.co/market-insights" />
+<meta property="og:title" content="Risk/Reward Ratio Calculator | PnL App" />
+<meta property="og:description" content="Know your ratio and required win rate before you enter, not after." />
+<meta property="og:url" content="https://pnlapp.co/risk-reward-calculator" />
 <meta property="og:image" content="https://pnlapp.co/assets/logo-black.png" />
 <meta name="twitter:card" content="summary" />
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Does PnL App give market predictions?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Pnlee, PnL App's AI behavioral mentor, doesn't sell signals or predict the market. It diagnoses the trader first, turning your own trade history into one clear insight and one next action."
-      }
-    }
-  ]
-}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a good risk/reward ratio?","acceptedAnswer":{"@type":"Answer","text":"There's no universal answer, since it depends on your win rate. A 1:2 risk/reward ratio only needs to win about 34% of the time to break even before costs, while a 1:1 ratio needs to win more than 50% of the time. The ratio and the win rate always have to be evaluated together, not separately."}}]}
 </script>
 <link rel="icon" type="image/png" href="/assets/favicon.png" />
 <link rel="apple-touch-icon" href="/assets/favicon.png" />
@@ -36,7 +23,18 @@
 <link href="https://fonts.cdnfonts.com/css/neue-montreal" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/site.css" />
-<style>.olist{max-width:640px;margin-top:8px}.olist li{font-size:15.5px;line-height:1.65;color:var(--ink-soft);margin-bottom:14px;padding-left:2px}.olist li b{color:var(--ink);font-weight:500}</style>
+<style>
+  .calc{max-width:640px;background:var(--cream);border:1.5px solid var(--line);border-radius:24px;padding:36px}
+  .calc__row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  .calc__field label{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px}
+  .calc__field input,.calc__field select{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--ink);background:var(--cream)}
+  .calc__field input:focus,.calc__field select:focus{outline:none;border-color:var(--ink)}
+  .calc__results{margin-top:24px;padding-top:24px;border-top:1px solid var(--line)}
+  .calc__result{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0}
+  .calc__result .lab{color:var(--ink-soft);font-size:14.5px}
+  .calc__result .val{font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:500}
+  .calc__note{margin-top:20px;font-size:13px;color:var(--ink-faint);line-height:1.6}
+</style>
 </head>
 <body>
 
@@ -69,32 +67,45 @@
 </div>
 
 <header class="funnel-hero wrap">
-  <div class="eyebrow"><span class="num">00</span> Feature</div>
-  <h1>Market insights</h1>
-  <p class="sub">Not predictions about the market. Insights about you, built from your own trade history.</p>
-  <div class="answer-box">
-    <span class="lbl">Short answer</span>
-    <p>Pnlee, the AI behavioral mentor inside PnL App, doesn't sell signals or forecast prices. It studies your behavior, time of day, emotional notes, sizing patterns, and turns your own trade history into one clear insight and one next action, growing sharper the more you trade.</p>
-  </div>
+  <div class="eyebrow"><span class="num">00</span> Tool</div>
+  <h1>Risk/reward ratio calculator</h1>
+  <p class="sub">Entry, stop, and target in. Your ratio and the win rate you'd need to break even out.</p>
 </header>
 
-<section class="fsec wrap" id="why">
-  <div class="fsec__head">
-    <div class="eyebrow"><span class="num">01</span> Why insights, not predictions</div>
-    <h2>The market doesn't need your permission. Your behavior does</h2>
+<section class="fsec wrap">
+  <div class="calc">
+    <div class="calc__row">
+      <div class="calc__field">
+        <label for="entry">Entry price ($)</label>
+        <input type="number" id="entry" value="100" min="0" step="0.01" />
+      </div>
+      <div class="calc__field">
+        <label for="stop">Stop loss ($)</label>
+        <input type="number" id="stop" value="95" min="0" step="0.01" />
+      </div>
+    </div>
+    <div class="calc__row">
+      <div class="calc__field">
+        <label for="target">Target price ($)</label>
+        <input type="number" id="target" value="115" min="0" step="0.01" />
+      </div>
+    </div>
+    <div class="calc__results">
+      <div class="calc__result"><span class="lab">Risk per share</span><span class="val" id="outRisk">$0</span></div>
+      <div class="calc__result"><span class="lab">Reward per share</span><span class="val" id="outReward">$0</span></div>
+      <div class="calc__result"><span class="lab">Risk/reward ratio</span><span class="val" id="outRatio">0</span></div>
+      <div class="calc__result"><span class="lab">Win rate needed to break even</span><span class="val" id="outWinRate">0%</span></div>
+    </div>
+    <p class="calc__note">This is a simple calculation from the prices entered. It doesn't account for fees, slippage, or the probability the trade actually reaches your target. A good ratio on paper still needs a strategy with a real edge behind it.</p>
   </div>
-  <p style="max-width:640px;color:var(--ink-soft);font-size:15.5px;line-height:1.68">A prediction about where a market is headed is a guess dressed up as insight. A pattern pulled from your own trade history, like "you increase size within 20 minutes of a loss," is verifiable and actionable in a way a market call never is. Pnlee is built around the second kind of insight specifically.</p>
 </section>
 
-<section class="fsec wrap" style="padding-top:0">
-  <div class="funnel-cta">
-    <div class="eyebrow" style="color:var(--ink-faint);margin-bottom:20px">Insight built from your own data</div>
-    <h2>Pnlee tells you <span class="u">why</span>, not just what.</h2>
-    <div class="btnrow">
-      <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn btn--lime">Download on App Store</a>
-      <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn">Get it on Google Play</a>
-    </div>
+<section class="fsec wrap" id="why" style="padding-top:0">
+  <div class="fsec__head">
+    <div class="eyebrow"><span class="num">01</span> Why this matters</div>
+    <h2>The ratio means nothing without the win rate</h2>
   </div>
+  <p style="max-width:640px;color:var(--ink-soft);font-size:15.5px;line-height:1.68">A 1:3 risk/reward ratio sounds great until you realize a strategy with that ratio still loses money overall if it wins less than 25% of the time. The ratio and your actual, logged win rate always have to be read together. Neither one alone tells you whether a strategy works.</p>
 </section>
 
 <section class="fsec wrap" style="padding-top:0;padding-bottom:90px">
@@ -103,10 +114,10 @@
     <h2>More tools and guides</h2>
   </div>
   <div class="related__list">
-    <a href="/trading-psychology-assessment">Psychology Assessment</a>
+    <a href="/position-size-calculator">Position Size Calculator</a>
+    <a href="/overtrading-calculator">Overtrading Calculator</a>
     <a href="/trading-discipline-score">Trading Discipline Score</a>
-    <a href="/emotional-trading-journal">Emotional Trading Journal</a>
-    <a href="/quiz">Full 20-Question Diagnostic</a>
+    <a href="/how-to-start-trading-2026">How to Start Trading in 2026</a>
   </div>
 </section>
 
@@ -243,6 +254,8 @@
   </div>
 </footer>
 
+
+
 <script>
   const nav=document.getElementById('nav');
   const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>12);
@@ -269,6 +282,27 @@
       btn.closest('.foot__col--more').classList.toggle('open');
     });
   });
+
+  const fmt = n => '$' + n.toLocaleString(undefined, {maximumFractionDigits: 2});
+  function recalc() {
+    const entry = parseFloat(document.getElementById('entry').value) || 0;
+    const stop = parseFloat(document.getElementById('stop').value) || 0;
+    const target = parseFloat(document.getElementById('target').value) || 0;
+
+    const risk = Math.abs(entry - stop);
+    const reward = Math.abs(target - entry);
+    const ratio = risk > 0 ? reward / risk : 0;
+    const winRateNeeded = (risk + reward) > 0 ? (risk / (risk + reward)) * 100 : 0;
+
+    document.getElementById('outRisk').textContent = fmt(risk);
+    document.getElementById('outReward').textContent = fmt(reward);
+    document.getElementById('outRatio').textContent = '1 : ' + ratio.toFixed(2);
+    document.getElementById('outWinRate').textContent = winRateNeeded.toFixed(1) + '%';
+  }
+  ['entry','stop','target'].forEach(id => {
+    document.getElementById(id).addEventListener('input', recalc);
+  });
+  recalc();
 </script>
 </body>
 </html>
