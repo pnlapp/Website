@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Test Yourself — PnL App Investing Guides Quiz</title>
+<meta name="description" content="Pick a guide, choose your chapters, and test how much actually stuck. Quizzes for the Investing, Fundamentals, and Technical Analysis guides." />
+<link rel="canonical" href="https://pnlapp.co/guide/tests" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Test Yourself — PnL App Investing Guides Quiz" />
+<meta property="og:description" content="Pick a guide, choose your chapters, and test how much actually stuck." />
+<meta property="og:url" content="https://pnlapp.co/guide/tests" />
+<meta name="twitter:card" content="summary" />
+<link rel="icon" type="image/png" href="/assets/favicon.png" />
+<link rel="apple-touch-icon" href="/assets/favicon.png" />
+</head>
+<body>
+
+<!-- ============================================================
+     Investstart Quiz Widget, for a Tilda "HTML" block
+     Paste this entire block into a Tilda T123/Zero HTML element.
+     Self-contained: styles + markup + script, namespaced under .pnlquiz
+     ============================================================ -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+<style>
+.pnlquiz, .pnlquiz * { box-sizing: border-box; }
+.pnlquiz {
+  --ink: #15171b;
+  --cream: #f5f4ef;
+  --white: #ffffff;
+  --coral: #ff6a4d;
+  --lime: #d8fb4c;
+  --lime-tint: rgba(216,251,76,.18);
+  --line: #e6e4dc;
+  --muted: #83858a;
+  --red: #c1442e;
+  --red-tint: #fbeae6;
+  font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+  color: var(--ink);
+  background: var(--cream);
+  font-size: 15px;
+  line-height: 1.55;
+  width: 100%;
+}
+.pq-inner { max-width: 1120px; margin: 0 auto; padding-left: 40px; padding-right: 40px; }
+@media (max-width: 900px) { .pq-inner { padding-left: 26px; padding-right: 26px; } }
+@media (max-width: 560px) { .pq-inner { padding-left: 18px; padding-right: 18px; } }
+.pnlquiz h1, .pnlquiz h2, .pnlquiz h3 { font-weight: 800; margin: 0 0 8px 0; color: var(--ink); letter-spacing: -.01em; }
+.pnlquiz p { margin: 0 0 10px 0; }
+.pnlquiz a { color: var(--coral); }
+.pnlquiz button { font-family: 'Inter', sans-serif; cursor: pointer; border: none; background: none; }
+.pnlquiz .pq-hide { display: none !important; }
+
+/* ---------- top nav ---------- */
+.pq-topnav { background: var(--cream); border-bottom: 1px solid var(--line); }
+.pq-topnavinner { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; padding-top: 18px; padding-bottom: 18px; }
+.pq-brand { display: inline-flex; align-items: baseline; gap: 2px; font-weight: 800; font-size: 19px; color: var(--ink) !important; text-decoration: none; }
+.pq-brand .pq-dot { color: var(--lime); }
+.pq-topnavlinks { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; row-gap: 8px; }
+.pq-topnavlinks a, .pq-topnavlinks button.pq-tnlink { font-size: 11.5px; font-weight: 700; color: var(--coral); letter-spacing: .04em; text-transform: uppercase; padding: 0; }
+.pq-topnavlinks a:hover, .pq-topnavlinks button.pq-tnlink:hover { text-decoration: underline; }
+
+/* ---------- shell ---------- */
+.pq-shell { padding-top: 40px; padding-bottom: 46px; background: var(--cream); }
+.pq-shell.pq-dark { background: var(--ink); color: #e7e8ea; }
+
+/* ---------- page header ---------- */
+.pq-pagekicker { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+.pq-pagekicker .pq-kdot { width: 6px; height: 6px; border-radius: 50%; background: var(--lime); display: inline-block; flex: none; }
+.pq-dark .pq-pagekicker { color: #9a9da1; }
+.pq-pagetitle { font-size: 30px; font-weight: 800; line-height: 1.14; letter-spacing: -.015em; margin-bottom: 10px; }
+.pq-dark .pq-pagetitle { color: #fff; }
+.pq-pagedesc { color: var(--muted); font-size: 14.5px; max-width: 560px; }
+.pq-dark .pq-pagedesc { color: #c3c5c8; }
+.pq-hl { background: var(--lime); padding: 0 4px; border-radius: 2px; }
+
+/* ---------- buttons ---------- */
+.pq-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 13px 24px; border-radius: 30px; font-weight: 700; font-size: 13.5px; transition: opacity .15s, transform .1s; white-space: nowrap; }
+.pq-btn:hover { opacity: .85; }
+.pq-btn:active { transform: scale(.98); }
+.pq-btn.pq-primary { background: var(--ink); color: #fff; }
+.pq-dark .pq-btn.pq-primary { background: #fff; color: var(--ink); }
+.pq-btn.pq-accent { background: var(--lime); color: #12140f; }
+.pq-btn.pq-outline { background: transparent; color: var(--coral); border: 1.5px solid var(--coral); }
+.pq-dark .pq-btn.pq-outline { color: #ffb199; border-color: #4a3f3a; }
+.pq-btn.pq-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+.pq-dark .pq-btn.pq-ghost { color: #e7e8ea; border-color: #34363b; }
+.pq-btn:disabled { opacity: .4; cursor: not-allowed; }
+.pq-btnrow { display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
+
+/* ---------- guide card grid (home) ---------- */
+.pq-cardgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 24px; }
+.pq-card { background: var(--white); border: 1px solid rgba(21,23,27,.16); border-radius: 14px; padding: 20px 20px 18px 20px; text-align: left; display: flex; flex-direction: column; gap: 8px; min-height: 176px; transition: transform .12s, box-shadow .12s; }
+.pq-card:hover { transform: translateY(-2px); box-shadow: 0 14px 26px -18px rgba(15,17,20,.3); }
+.pq-cardtop { display: flex; align-items: center; justify-content: space-between; }
+.pq-cardnum { font-size: 12px; font-weight: 800; color: var(--muted); }
+.pq-cardarrow { width: 30px; height: 30px; border-radius: 9px; background: var(--cream); display: flex; align-items: center; justify-content: center; color: var(--ink); font-size: 15px; flex: none; }
+.pq-cardtag { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--coral); margin-top: 4px; }
+.pq-cardtitle { font-size: 17.5px; font-weight: 800; color: var(--ink); line-height: 1.25; }
+.pq-carddesc { font-size: 12.5px; color: var(--muted); margin-top: auto; padding-top: 8px; }
+
+/* ---------- chapters screen ---------- */
+.pq-back { color: var(--muted); font-size: 13px; font-weight: 700; margin-bottom: 14px; display: inline-flex; align-items: center; gap: 5px; }
+.pq-back:hover { color: var(--coral); }
+.pq-chaptertoolbar { display: flex; align-items: center; justify-content: space-between; margin: 20px 0 10px 0; }
+.pq-toggleall { font-size: 12.5px; font-weight: 700; color: var(--coral); }
+.pq-chapterlist { border-top: 1px solid var(--line); }
+.pq-chapter { display: flex; align-items: flex-start; gap: 12px; padding: 13px 2px; border-bottom: 1px solid var(--line); cursor: pointer; }
+.pq-chapter input { margin-top: 3px; width: 16px; height: 16px; accent-color: var(--ink); flex: none; }
+.pq-chapter .pq-cbody { flex: 1; }
+.pq-chapter .pq-ctitle { font-weight: 700; font-size: 14px; display: block; }
+.pq-chapter .pq-cmeta { color: var(--muted); font-size: 12.5px; margin-top: 2px; display: block; }
+.pq-selectedbar { position: sticky; bottom: 0; background: linear-gradient(0deg, var(--cream) 65%, transparent); padding-top: 14px; margin-top: 6px; }
+.pq-selectedcount { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+.pq-selectedcount b { color: var(--ink); }
+
+/* ---------- quiz screen ---------- */
+.pq-progresswrap { background: var(--line); border-radius: 6px; height: 6px; overflow: hidden; margin-bottom: 8px; }
+.pq-progressbar { background: var(--ink); height: 100%; border-radius: 6px; transition: width .2s; }
+.pq-qcounter { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: .04em; margin-bottom: 18px; text-transform: uppercase; }
+.pq-qchapter { font-size: 11px; color: var(--coral); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+.pq-qtext { font-size: 19px; font-weight: 800; line-height: 1.35; margin-bottom: 20px; letter-spacing: -.01em; }
+.pq-options { list-style: none; margin: 0 0 8px 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+.pq-opt { border: 1.5px solid var(--line); border-radius: 10px; padding: 13px 14px; display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; background: var(--white); transition: border-color .12s, background .12s; }
+.pq-opt:hover { border-color: var(--ink); }
+.pq-opt.pq-selected { border-color: var(--ink); background: var(--lime-tint); }
+.pq-opt .pq-optletter { font-weight: 800; color: var(--muted); width: 18px; flex: none; }
+.pq-opt.pq-selected .pq-optletter { color: var(--ink); }
+.pq-navrow { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; }
+.pq-tag-calc { display: inline-block; font-size: 9.5px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #9a6b1c; background: #fbf1dd; border-radius: 4px; padding: 2px 7px; margin-left: 6px; vertical-align: middle; }
+
+/* ---------- gate (score teaser + email form) ---------- */
+.pq-scoreteaser { text-align: center; padding: 10px 0 6px 0; }
+.pq-scorebig { font-weight: 900; font-size: 56px; color: var(--lime); letter-spacing: -.02em; }
+.pq-scorelbl { font-size: 13px; color: #c3c5c8; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; margin-top: -6px; }
+.pq-scoremsg { font-size: 16px; color: #fff; margin: 14px 0 0 0; font-weight: 600; }
+.pq-form { margin-top: 26px; max-width: 420px; margin-left: auto; margin-right: auto; }
+.pq-field { margin-bottom: 14px; }
+.pq-field label { display: block; font-size: 11.5px; font-weight: 700; letter-spacing: .04em; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; }
+.pq-dark .pq-field label { color: #9a9da1; }
+.pq-field input[type=text], .pq-field input[type=email] { width: 100%; padding: 13px 14px; border-radius: 9px; border: 1.5px solid var(--line); font-size: 14.5px; font-family: 'Inter'; background: var(--white); color: var(--ink); }
+.pq-dark .pq-field input[type=text], .pq-dark .pq-field input[type=email] { background: #1e2126; border-color: #34363b; color: #fff; }
+.pq-field input:focus { outline: none; border-color: var(--coral); }
+.pq-consent { display: flex; align-items: flex-start; gap: 9px; font-size: 12.3px; color: var(--muted); margin: 16px 0 4px 0; text-align: left; }
+.pq-dark .pq-consent { color: #9a9da1; }
+.pq-consent input { margin-top: 3px; width: 15px; height: 15px; accent-color: var(--lime); flex: none; }
+.pq-errmsg { color: var(--red); font-size: 12.5px; margin-top: 6px; min-height: 16px; }
+.pq-dark .pq-errmsg { color: #ff9d7a; }
+.pq-submitstatus { font-size: 12.5px; color: var(--lime); margin-top: 10px; min-height: 16px; }
+
+/* ---------- results reveal ---------- */
+.pq-resultshead { text-align: center; padding-bottom: 6px; }
+.pq-resultsscore { font-weight: 900; font-size: 46px; color: var(--ink); letter-spacing: -.02em; }
+.pq-resultsub { color: var(--muted); font-size: 13.5px; }
+.pq-rcard { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 12px 0; background: var(--white); }
+.pq-rcard.pq-correct { border-left: 3px solid var(--ink); }
+.pq-rcard.pq-wrong { border-left: 3px solid var(--red); }
+.pq-rcard .pq-rqtext { font-weight: 700; font-size: 14px; margin-bottom: 8px; }
+.pq-rcard .pq-ranswer { font-size: 13px; margin-bottom: 3px; }
+.pq-rcard .pq-ranswer .pq-tick { font-weight: 700; }
+.pq-rcard .pq-ranswer.pq-yourwrong .pq-tick { color: var(--red); }
+.pq-rcard .pq-ranswer.pq-correctline .pq-tick { color: #4c7a2e; }
+.pq-rcard .pq-rexplain { background: var(--cream); border-radius: 7px; padding: 9px 11px; font-size: 12.8px; color: #3c3f43; margin-top: 8px; }
+.pq-rcard .pq-rexplain b { color: var(--coral); font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; display: block; margin-bottom: 3px; }
+.pq-rnum { color: var(--muted); font-weight: 700; margin-right: 4px; }
+
+/* ---------- join leaderboard block on results ---------- */
+.pq-lbjoin { background: var(--ink); color: #e7e8ea; border-radius: 14px; padding: 24px 22px; margin: 26px 0; text-align: center; }
+.pq-lbjoin .pq-pagekicker { justify-content: center; color: #9a9da1; }
+.pq-lbjoin h3 { color: #fff; font-size: 19px; margin-bottom: 6px; }
+.pq-lbjoin p { color: #b9bbbe; font-size: 13px; max-width: 420px; margin: 0 auto 14px auto; }
+.pq-lbjoin .pq-form { max-width: 340px; }
+.pq-lbjoined { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.pq-lbjoined .pq-check { width: 26px; height: 26px; border-radius: 50%; background: var(--lime); color: #12140f; display: inline-flex; align-items: center; justify-content: center; font-weight: 900; }
+
+/* ---------- leaderboard ---------- */
+.pq-lbtabs { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+.pq-lbtab { font-size: 12.5px; font-weight: 700; padding: 8px 15px; border-radius: 20px; border: 1.5px solid var(--line); background: var(--white); color: var(--muted); }
+.pq-lbtab.pq-active { border-color: var(--ink); color: var(--ink); background: var(--lime-tint); }
+.pq-lbtable { width: 100%; border-collapse: collapse; font-size: 13.5px; background: var(--white); border-radius: 10px; overflow: hidden; }
+.pq-lbtable th { text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 700; padding: 9px 10px; border-bottom: 1.5px solid var(--ink); }
+.pq-lbtable td { padding: 10px 10px; border-bottom: 1px solid var(--line); }
+.pq-lbtable tr:first-child td { font-weight: 700; }
+.pq-lbrank { color: var(--coral); font-weight: 800; width: 26px; }
+.pq-lbempty { color: var(--muted); font-size: 13.5px; text-align: center; padding: 30px 0; }
+.pq-lbloading { color: var(--muted); font-size: 13px; text-align: center; padding: 20px 0; }
+
+/* ---------- about-the-guides section (home page) ---------- */
+.pq-aboutwrap { margin-top: 54px; padding-top: 40px; border-top: 1px solid var(--line); }
+.pq-aboutrow { display: flex; gap: 26px; padding: 26px 0; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.pq-aboutrow:last-child { border-bottom: none; }
+.pq-aboutnum { font-size: 13px; font-weight: 800; color: var(--muted); width: 46px; flex: none; padding-top: 3px; }
+.pq-aboutbody { flex: 1; min-width: 240px; }
+.pq-abouttag { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--coral); margin-bottom: 6px; }
+.pq-abouttitle { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+.pq-aboutdesc { font-size: 13.5px; color: var(--muted); max-width: 560px; margin-bottom: 12px; }
+.pq-chiprow { display: flex; flex-wrap: wrap; gap: 7px; }
+.pq-chip { font-size: 11px; font-weight: 700; color: var(--ink); background: var(--white); border: 1px solid var(--line); border-radius: 20px; padding: 5px 12px; }
+.pq-aboutcta { flex: none; align-self: center; }
+
+/* ---------- site footer (mirrors pnlapp.co) ---------- */
+.pq-sitefooter { background: var(--ink); color: #b9bbbe; padding-top: 40px; padding-bottom: 22px; }
+.pq-footergrid { display: flex; flex-wrap: wrap; gap: 28px; justify-content: space-between; }
+.pq-footerbrand { max-width: 230px; }
+.pq-flogo { font-size: 19px; font-weight: 800; color: #fff; display: inline-flex; }
+.pq-flogo .pq-dot { color: var(--lime); }
+.pq-footerbrand p { font-size: 12px; color: #9a9da1; margin-top: 10px; }
+.pq-footercols { display: flex; gap: 34px; flex-wrap: wrap; }
+.pq-footercol h5 { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #7d8084; margin: 0 0 10px 0; }
+.pq-footercol a { display: block; font-size: 12.5px; color: #dfe0e2; margin-bottom: 8px; text-decoration: none; }
+.pq-footercol a:hover { color: var(--coral); }
+.pq-footerbottom { border-top: 1px solid #2a2d32; margin-top: 26px; padding-top: 16px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; font-size: 10.5px; color: #75787c; }
+.pq-footerbottom span:last-child { max-width: 480px; }
+
+@media (max-width: 700px) {
+  .pq-cardgrid { grid-template-columns: 1fr; }
+  .pq-aboutrow { flex-direction: column; gap: 10px; }
+  .pq-aboutnum { width: auto; }
+  .pq-aboutcta { align-self: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .pq-shell { padding-top: 26px; padding-bottom: 30px; }
+  .pq-topnavinner { padding-top: 14px; padding-bottom: 14px; }
+  .pq-topnavlinks { gap: 14px; }
+  .pq-pagetitle { font-size: 23px; }
+  .pq-scorebig { font-size: 44px; }
+  .pq-resultsscore { font-size: 34px; }
+  .pq-sitefooter { padding-top: 28px; padding-bottom: 16px; }
+  .pq-footergrid { flex-direction: column; gap: 22px; }
+  .pq-footercols { gap: 22px 30px; }
+}
+</style>
+
+<div class="pnlquiz" id="pnlquizRoot"></div>
+
+<!--
+  This block loads the question data from a separate file instead of
+  embedding it here, because the full data set is too large to paste
+  into Tilda's HTML block in one piece. Host quiz_data.js somewhere
+  public (see the delivery notes) and put that URL below.
+-->
+<script src="https://gist.githack.com/aabreyterman/4c8d8fc3cc0b03ed2b452c2a596ad26e/raw/quiz_data.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var QUIZ_DATA = window.QUIZ_DATA;
+
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz0Kp9WRjfCzmDis-Cj_-S0V6CXE_sb9UP4B9DMY5xqKBttOhpR436Q5XQP2Fdrmg/exec";
+  var TERMS_URL = "https://pnlapp.co/termsandconditions";
+  var PRIVACY_URL = "https://pnlapp.co/privacypolicy";
+  var SITE_URL = "https://pnlapp.co";
+  var LETTERS = ["A","B","C","D","E","F"];
+
+  var root = document.getElementById("pnlquizRoot");
+
+  var state = {
+    screen: "home",           // home | chapters | quiz | gate | results | leaderboard
+    guideKey: null,
+    selectedChapters: {},     // chapterNum -> true
+    questions: [],            // flattened active question set
+    idx: 0,
+    answers: {},              // questionNum -> selectedIndex
+    email: "",
+    consent: false,
+    submitting: false,
+    submitStatus: "",         // "", "ok", "error"
+    unlocked: false,          // has passed the email gate for this attempt
+    lbName: "",
+    lbSubmitting: false,
+    lbSubmitted: false,
+    lbError: "",
+    lbData: null,
+    lbLoading: false,
+    lbLoadError: false,
+    lbFilter: "all",
+    formError: ""
+  };
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function guideList() {
+    return [
+      { key: "g1", num: "01" },
+      { key: "g2", num: "02" },
+      { key: "g3", num: "03" }
+    ];
+  }
+
+  function chapterQuestionCount(guide) {
+    return guide.chapters.reduce(function (n, c) { return n + c.questions.length; }, 0);
+  }
+
+  function setScreen(s) {
+    state.screen = s;
+    render();
+    root.scrollIntoView && root.scrollIntoView({ block: "start", behavior: "smooth" });
+  }
+
+  // -----------------------------------------------------------
+  // SHARED CHROME: top nav + footer
+  // -----------------------------------------------------------
+  var NAV_GUIDE_LABELS = { g1: "Investing", g2: "Fundamentals", g3: "Technical Analysis" };
+
+  function topNavHtml() {
+    return (
+      '<div class="pq-topnav"><div class="pq-inner pq-topnavinner">' +
+        '<a class="pq-brand" href="' + SITE_URL + '" target="_blank" rel="noopener">pnl<span class="pq-dot">.</span></a>' +
+        '<div class="pq-topnavlinks">' +
+          '<button class="pq-tnlink" data-action="go-leaderboard">Leaderboard</button>' +
+          '<button class="pq-tnlink" data-action="nav-pick-guide" data-guide="g1">' + NAV_GUIDE_LABELS.g1 + '</button>' +
+          '<button class="pq-tnlink" data-action="nav-pick-guide" data-guide="g2">' + NAV_GUIDE_LABELS.g2 + '</button>' +
+          '<button class="pq-tnlink" data-action="nav-pick-guide" data-guide="g3">' + NAV_GUIDE_LABELS.g3 + '</button>' +
+        '</div>' +
+      '</div></div>'
+    );
+  }
+
+  function footerHtml() {
+    return (
+      '<div class="pq-sitefooter"><div class="pq-inner">' +
+        '<div class="pq-footergrid">' +
+          '<div class="pq-footerbrand">' +
+            '<div class="pq-flogo">pnl<span class="pq-dot">.</span></div>' +
+            '<p>Trading psychology, engineered. Built to make discipline your default.</p>' +
+          '</div>' +
+          '<div class="pq-footercols">' +
+            '<div class="pq-footercol">' +
+              '<h5>Product</h5>' +
+              '<a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" target="_blank" rel="noopener">iOS App</a>' +
+              '<a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" target="_blank" rel="noopener">Android App</a>' +
+              '<a href="https://pnlapp.co/privatetradingclub" target="_blank" rel="noopener">Private Trading Club</a>' +
+              '<a href="https://pnlapp.co/blog" target="_blank" rel="noopener">Blog</a>' +
+            '</div>' +
+            '<div class="pq-footercol">' +
+              '<h5>Company</h5>' +
+              '<a href="https://pnlapp.co/#ethos" target="_blank" rel="noopener">About</a>' +
+              '<a href="https://pnlapp.co/#team" target="_blank" rel="noopener">Team</a>' +
+              '<a href="' + TERMS_URL + '" target="_blank" rel="noopener">Terms &amp; Conditions</a>' +
+              '<a href="' + PRIVACY_URL + '" target="_blank" rel="noopener">Privacy Policy</a>' +
+            '</div>' +
+            '<div class="pq-footercol">' +
+              '<h5>Follow</h5>' +
+              '<a href="https://www.instagram.com/pnlapp/" target="_blank" rel="noopener">Instagram</a>' +
+              '<a href="https://x.com/pnlapp_official" target="_blank" rel="noopener">X / Twitter</a>' +
+              '<a href="https://www.linkedin.com/company/108309261/" target="_blank" rel="noopener">LinkedIn</a>' +
+              '<a href="https://www.reddit.com/r/thetradingcommunity/" target="_blank" rel="noopener">Reddit</a>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="pq-footerbottom">' +
+          '<span>&copy; 2026 Breiterman LLC, Dubai, UAE. All rights reserved.</span>' +
+          '<span>PnL App does not provide financial advice. It helps you understand your trading behavior. Control your mind, mindful trading, grow together.</span>' +
+        '</div>' +
+      '</div></div>'
+    );
+  }
+
+  function pageHeaderHtml(num, label, title, desc) {
+    return (
+      '<div class="pq-pagekicker"><span class="pq-kdot"></span>' + (num ? num + ', ' : '') + esc(label) + '</div>' +
+      '<h1 class="pq-pagetitle">' + title + '</h1>' +
+      (desc ? '<p class="pq-pagedesc">' + esc(desc) + '</p>' : '')
+    );
+  }
+
+  // -----------------------------------------------------------
+  // HOME
+  // -----------------------------------------------------------
+  var GUIDE_ABOUT = {
+    g1: {
+      desc: "The fundamentals: what investing actually is, choosing a broker, retirement accounts, building a strategy, diversification, margin trading, and risk management.",
+      chips: ["Brokers & exchanges", "Retirement accounts", "Diversification", "Margin trading", "Risk management"]
+    },
+    g2: {
+      desc: "How to read a company's financial statements, calculate the multiples that matter, and estimate what a business is actually worth, all the way through a full DCF model.",
+      chips: ["Financial statements", "P/E & P/S", "EBITDA & EV", "ROE, ROA, ROIC", "DCF valuation"]
+    },
+    g3: {
+      desc: "Reading a price chart, finding trends and levels, candlestick and chart patterns, indicators, and the logic behind Smart Money and liquidity.",
+      chips: ["Candlestick patterns", "Chart patterns", "Indicators", "Smart Money", "ICT & SFP"]
+    }
+  };
+
+  function renderHome() {
+    var guides = guideList();
+    var cards = guides.map(function (g) {
+      var guide = QUIZ_DATA[g.key];
+      var qn = chapterQuestionCount(guide);
+      return (
+        '<button class="pq-card" data-action="pick-guide" data-guide="' + g.key + '">' +
+          '<div class="pq-cardtop">' +
+            '<span class="pq-cardnum">' + g.num + '</span>' +
+            '<span class="pq-cardarrow">&#8594;</span>' +
+          '</div>' +
+          '<div class="pq-cardtag">Guide ' + g.num.replace(/^0/, "") + '</div>' +
+          '<div class="pq-cardtitle">' + esc(guide.title) + '</div>' +
+          '<div class="pq-carddesc">' + guide.chapters.length + ' chapters &middot; ' + qn + ' questions</div>' +
+        '</button>'
+      );
+    }).join("");
+
+    var aboutRows = guides.map(function (g) {
+      var guide = QUIZ_DATA[g.key];
+      var about = GUIDE_ABOUT[g.key];
+      var chips = about.chips.map(function (c) { return '<span class="pq-chip">' + esc(c) + '</span>'; }).join("");
+      return (
+        '<div class="pq-aboutrow">' +
+          '<div class="pq-aboutnum">' + g.num + '</div>' +
+          '<div class="pq-aboutbody">' +
+            '<div class="pq-abouttag">Guide ' + g.num.replace(/^0/, "") + '</div>' +
+            '<div class="pq-abouttitle">' + esc(guide.title) + '</div>' +
+            '<div class="pq-aboutdesc">' + esc(about.desc) + '</div>' +
+            '<div class="pq-chiprow">' + chips + '</div>' +
+          '</div>' +
+          '<div class="pq-aboutcta"><button class="pq-btn pq-outline" data-action="pick-guide" data-guide="' + g.key + '">Start this guide</button></div>' +
+        '</div>'
+      );
+    }).join("");
+
+    root.innerHTML =
+      topNavHtml() +
+      '<div class="pq-shell"><div class="pq-inner">' +
+        pageHeaderHtml("", "Test yourself", 'How much of <span class="pq-hl">the guides</span> actually stuck?',
+          "Pick a guide, work through the chapters you want to be quizzed on, and see your full score with explanations at the end.") +
+        '<div class="pq-cardgrid">' + cards + '</div>' +
+        '<div class="pq-aboutwrap">' +
+          pageHeaderHtml("", "About the series", "What's actually in each guide", "") +
+          aboutRows +
+        '</div>' +
+      '</div></div>' +
+      footerHtml();
+  }
+
+  // -----------------------------------------------------------
+  // CHAPTERS
+  // -----------------------------------------------------------
+  function renderChapters() {
+    var guide = QUIZ_DATA[state.guideKey];
+    var rows = guide.chapters.map(function (c) {
+      var checked = state.selectedChapters[c.chapter] ? "checked" : "";
+      return (
+        '<label class="pq-chapter">' +
+          '<input type="checkbox" data-action="toggle-chapter" data-chapter="' + c.chapter + '" ' + checked + '>' +
+          '<span class="pq-cbody">' +
+            '<span class="pq-ctitle">' + String(c.chapter).padStart(2, "0") + '. ' + esc(c.title) + '</span>' +
+            '<span class="pq-cmeta">' + c.questions.length + ' questions</span>' +
+          '</span>' +
+        '</label>'
+      );
+    }).join("");
+
+    var total = 0;
+    guide.chapters.forEach(function (c) {
+      if (state.selectedChapters[c.chapter]) total += c.questions.length;
+    });
+
+    root.innerHTML =
+      topNavHtml() +
+      '<div class="pq-shell"><div class="pq-inner">' +
+        '<button class="pq-back" data-action="go-home">&#8592; All guides</button>' +
+        pageHeaderHtml(guideKickerNum(state.guideKey), "Guide " + guideIndex(state.guideKey), esc(guide.title),
+          "Choose which chapters to be tested on. All chapters are selected by default for the full guide test.") +
+        '<div class="pq-chaptertoolbar">' +
+          '<span class="pq-cmeta" style="color:var(--muted); font-size:12.5px;">' + guide.chapters.length + ' chapters</span>' +
+          '<button class="pq-toggleall" data-action="toggle-all-chapters">Select none</button>' +
+        '</div>' +
+        '<div class="pq-chapterlist">' + rows + '</div>' +
+        '<div class="pq-selectedbar">' +
+          '<div class="pq-selectedcount"><b>' + total + '</b> question' + (total === 1 ? '' : 's') + ' selected</div>' +
+          '<div class="pq-btnrow">' +
+            '<button class="pq-btn pq-primary" data-action="start-quiz" ' + (total === 0 ? 'disabled' : '') + '>Start test</button>' +
+          '</div>' +
+        '</div>' +
+      '</div></div>' +
+      footerHtml();
+  }
+
+  // -----------------------------------------------------------
+  // QUIZ
+  // -----------------------------------------------------------
+  function renderQuiz() {
+    var q = state.questions[state.idx];
+    var total = state.questions.length;
+    var answered = state.answers[q.num];
+    var pct = Math.round(((state.idx) / total) * 100);
+
+    var opts = q.options.map(function (opt, i) {
+      var sel = answered === i ? "pq-selected" : "";
+      return (
+        '<li class="pq-opt ' + sel + '" data-action="select-option" data-idx="' + i + '">' +
+          '<span class="pq-optletter">' + LETTERS[i] + '</span>' +
+          '<span>' + esc(opt) + '</span>' +
+        '</li>'
+      );
+    }).join("");
+
+    var isLast = state.idx === total - 1;
+    var nextLabel = isLast ? "See my score" : "Next";
+
+    root.innerHTML =
+      topNavHtml() +
+      '<div class="pq-shell"><div class="pq-inner" style="max-width:720px;">' +
+        '<div class="pq-btnrow" style="margin-top:0; margin-bottom:6px;">' +
+          '<button class="pq-back" data-action="exit-quiz" style="margin-bottom:0;">&#8592; Exit test</button>' +
+        '</div>' +
+        '<div class="pq-progresswrap"><div class="pq-progressbar" style="width:' + pct + '%"></div></div>' +
+        '<div class="pq-qcounter">Question ' + (state.idx + 1) + ' of ' + total + '</div>' +
+        '<div class="pq-qchapter">' + esc(q.chapterTitle) + '</div>' +
+        '<div class="pq-qtext">' + esc(q.text) + (q.calc ? '<span class="pq-tag-calc">Calculation</span>' : '') + '</div>' +
+        '<ul class="pq-options">' + opts + '</ul>' +
+        '<div class="pq-navrow">' +
+          '<button class="pq-btn pq-ghost" data-action="prev-question" ' + (state.idx === 0 ? 'disabled' : '') + '>Back</button>' +
+          '<button class="pq-btn pq-primary" data-action="next-question" ' + (answered == null ? 'disabled' : '') + '>' + nextLabel + '</button>' +
+        '</div>' +
+      '</div></div>' +
+      footerHtml();
+  }
+
+  // -----------------------------------------------------------
+  // GATE (score teaser + email form, required to unlock the reveal)
+  // -----------------------------------------------------------
+  function renderGate() {
+    var res = computeScore();
+    root.innerHTML =
+      topNavHtml() +
+      '<div class="pq-shell pq-dark"><div class="pq-inner" style="max-width:640px;">' +
+        '<div class="pq-scoreteaser">' +
+          '<div class="pq-pagekicker" style="justify-content:center;">Test complete</div>' +
+          '<div class="pq-scorebig">' + res.pct + '%</div>' +
+          '<div class="pq-scorelbl">' + res.correct + ' of ' + res.total + ' correct</div>' +
+          '<div class="pq-scoremsg">' + esc(scoreMessage(res.pct)) + '</div>' +
+        '</div>' +
+        '<div class="pq-form">' +
+          '<div class="pq-pagekicker" style="margin-top:10px; justify-content:center;">Get your full results</div>' +
+          '<p class="pq-pagedesc" style="text-align:center; margin-left:auto; margin-right:auto;">Enter your email to see every question with the right answer and a short explanation.</p>' +
+          '<div class="pq-field">' +
+            '<label for="pq-email">Email</label>' +
+            '<input type="email" id="pq-email" placeholder="you@example.com" value="' + esc(state.email) + '">' +
+          '</div>' +
+          '<label class="pq-consent">' +
+            '<input type="checkbox" id="pq-consent" ' + (state.consent ? "checked" : "") + '>' +
+            '<span>I agree to have my information processed in line with the ' +
+              '<a href="' + TERMS_URL + '" target="_blank" rel="noopener">Terms &amp; Conditions</a> and ' +
+              '<a href="' + PRIVACY_URL + '" target="_blank" rel="noopener">Privacy Policy</a>.</span>' +
+          '</label>' +
+          '<div class="pq-errmsg">' + esc(state.formError) + '</div>' +
+          '<div class="pq-btnrow" style="justify-content:center;">' +
+            '<button class="pq-btn pq-accent" data-action="submit-gate" ' + (state.submitting ? "disabled" : "") + '>' +
+              (state.submitting ? "Submitting..." : "Show my results") +
+            '</button>' +
+          '</div>' +
+        '</div>' +
+      '</div></div>' +
+      footerHtml();
+  }
+
+  // -----------------------------------------------------------
+  // RESULTS
+  // -----------------------------------------------------------
+  function renderResults() {
+    var res = computeScore();
+    var cards = state.questions.map(function (q) {
+      var userIdx = state.answers[q.num];
+      var isCorrect = userIdx === q.correct;
+      var cls = isCorrect ? "pq-correct" : "pq-wrong";
+      var userLine = "";
+      if (userIdx == null) {
+        userLine = '<div class="pq-ranswer pq-yourwrong"><span class="pq-tick">&#10007;</span> You didn\'t answer this one.</div>' +
+          '<div class="pq-ranswer pq-correctline"><span class="pq-tick">&#10003;</span> Correct answer: ' + LETTERS[q.correct] + '. ' + esc(q.options[q.correct]) + '</div>';
+      } else if (isCorrect) {
+        userLine = '<div class="pq-ranswer pq-correctline"><span class="pq-tick">&#10003;</span> Your answer: ' + LETTERS[userIdx] + '. ' + esc(q.options[userIdx]) + '</div>';
+      } else {
+        userLine = '<div class="pq-ranswer pq-yourwrong"><span class="pq-tick">&#10007;</span> Your answer: ' + LETTERS[userIdx] + '. ' + esc(q.options[userIdx]) + '</div>' +
+          '<div class="pq-ranswer pq-correctline"><span class="pq-tick">&#10003;</span> Correct answer: ' + LETTERS[q.correct] + '. ' + esc(q.options[q.correct]) + '</div>';
+      }
+      return (
+        '<div class="pq-rcard ' + cls + '">' +
+          '<div class="pq-rqtext"><span class="pq-rnum">' + q.num + '</span>' + esc(q.text) + '</div>' +
+          userLine +
+          '<div class="pq-rexplain"><b>Explanation</b>' + esc(q.explanation) + '</div>' +
+        '</div>'
+      );
+    }).join("");
+
+    var fullTotal = chapterQuestionCount(QUIZ_DATA[state.guideKey]);
+    var isFullRun = res.total === fullTotal;
+
+    var lbBlock;
+    if (!isFullRun) {
+      lbBlock =
+        '<div class="pq-lbjoin">' +
+          '<div class="pq-pagekicker">Leaderboard</div>' +
+          '<h3>The leaderboard only counts full-guide runs</h3>' +
+          '<p>You were tested on ' + res.total + ' of ' + fullTotal + ' questions in this guide (a chapter subset). ' +
+            'Scores on different question sets aren\'t comparable, so only complete-guide attempts can join the leaderboard. ' +
+            'Retake with every chapter selected to submit your score.</p>' +
+          '<div class="pq-btnrow" style="justify-content:center;">' +
+            '<button class="pq-btn pq-accent" data-action="pick-guide" data-guide="' + state.guideKey + '">Retake full guide</button>' +
+          '</div>' +
+        '</div>';
+    } else if (state.lbSubmitted) {
+      lbBlock =
+        '<div class="pq-lbjoin">' +
+          '<div class="pq-lbjoined"><span class="pq-check">&#10003;</span> You\'re on the leaderboard as <strong>&nbsp;' + esc(state.lbName) + '</strong>.</div>' +
+          '<div class="pq-btnrow" style="justify-content:center;"><button class="pq-btn pq-accent" data-action="go-leaderboard">View leaderboard</button></div>' +
+        '</div>';
+    } else {
+      lbBlock =
+        '<div class="pq-lbjoin">' +
+          '<div class="pq-pagekicker">Leaderboard</div>' +
+          '<h3>Add your score to the leaderboard</h3>' +
+          '<p>Everyone can submit their result. Only your display name, guide, and score are shown, never your email.</p>' +
+          '<div class="pq-form">' +
+            '<div class="pq-field">' +
+              '<label for="pq-lbname">Display name</label>' +
+              '<input type="text" id="pq-lbname" maxlength="40" placeholder="e.g. Alex" value="' + esc(state.lbName) + '">' +
+            '</div>' +
+            '<div class="pq-errmsg">' + esc(state.lbError) + '</div>' +
+            '<div class="pq-btnrow" style="justify-content:center;">' +
+              '<button class="pq-btn pq-accent" data-action="submit-leaderboard" ' + (state.lbSubmitting ? "disabled" : "") + '>' +
+                (state.lbSubmitting ? "Submitting..." : "Submit to leaderboard") +
+              '</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+    }
+
+    root.innerHTML =
+      topNavHtml() +
+      '<div class="pq-shell"><div class="pq-inner" style="max-width:720px;">' +
+        '<div class="pq-resultshead">' +
+          '<div class="pq-pagekicker" style="justify-content:center;">Your results</div>' +
+          '<div class="pq-resultsscore">' + res.correct + ' / ' + res.total + '</div>' +
+          '<div class="pq-resultsub">' + res.pct + '% correct, ' + esc(scoreMessage(res.pct)) + '</div>' +
+        '</div>' +
+        lbBlock +
+        '<div style="margin-top:10px;">' + cards + '</div>' +
+        '<div class="pq-btnrow">' +
+          '<button class="pq-btn pq-primary" data-action="go-home">Try another guide</button>' +
+          '<button class="pq-btn pq-outline" data-action="go-leaderboard">View leaderboard</button>' +
+        '</div>' +
+      '</div></div>' +
+      footerHtml();
+  }
+
+  // -----------------------------------------------------------
+  // LEADERBOARD
+  // -----------------------------------------------------------
+  function renderLeaderboard() {
+    var tabs = [{ k: "all", l: "All guides" }, { k: "g1", l: "Guide 1" }, { k: "g2", l: "Guide 2" }, { k: "g3", l: "Guide 3" }];
+    var tabsHtml = tabs.map(function (t) {
+      return '<button class="pq-lbtab ' + (state.lbFilter === t.k ? "pq-active" : "") + '" data-action="filter-lb" data-filter="' + t.k + '">' + t.l + '</button>';
+    }).join("");
+
+    var body;
+    if (state.lbLoading) {
+      body = '<div class="pq-lbloading">Loading leaderboard...</div>';
+    } else if (state.lbLoadError) {
+      body = '<div class="pq-lbempty">Couldn\'t load the leaderboard right now. Check the Apps Script deployment (it needs a doGet that answers ?action=leaderboard) and try again.</div>';
+    } else if (!state.lbData || state.lbData.length === 0) {
+      body = '<div class="pq-lbempty">No results yet. Be the first to finish a test and claim the top spot.</div>';
+    } else {
+      var rows = state.lbData
+        .filter(function (r) { return state.lbFilter === "all" || r.guide === state.lbFilter; })
+        .filter(function (r) {
+          var g = QUIZ_DATA[r.guide];
+          if (!g) return true;
+          return Number(r.total) === chapterQuestionCount(g);
+        })
+        .sort(function (a, b) { return (b.percentage || 0) - (a.percentage || 0); })
+        .slice(0, 50)
+        .map(function (r, i) {
+          return (
+            '<tr>' +
+              '<td class="pq-lbrank">' + (i + 1) + '</td>' +
+              '<td>' + esc(r.name || "Anonymous") + '</td>' +
+              '<td>' + esc(guideLabel(r.guide)) + '</td>' +
+              '<td>' + (r.score != null && r.score !== "" ? r.score + '/' + r.total : '') + '</td>' +
+              '<td>' + Math.round(r.percentage || 0) + '%</td>' +
+            '</tr>'
+          );
+        }).join("");
+      body =
+        '<table class="pq-lbtable">' +
+          '<thead><tr><th>#</th><th>Name</th><th>Guide</th><th>Score</th><th>%</th></tr></thead>' +
+          '<tbody>' + rows + '</tbody>' +
+        '</table>';
+    }
+
+    root.innerHTML =
+      topNavHtml() +
+      '<div class="pq-shell"><div class="pq-inner">' +
+        '<button class="pq-back" data-action="go-home">&#8592; Back</button>' +
+        pageHeaderHtml("00", "Leaderboard", "Top scores",
+          "Everyone who finishes a test and submits their result shows up here. Only names and scores are public, emails stay private.") +
+        '<div class="pq-lbtabs">' + tabsHtml + '</div>' +
+        body +
+      '</div></div>' +
+      footerHtml();
+
+    if (state.lbData == null && !state.lbLoading) {
+      loadLeaderboard();
+    }
+  }
+
+  function guideLabel(key) {
+    if (QUIZ_DATA[key]) return QUIZ_DATA[key].title;
+    return key || "";
+  }
+
+  function guideIndex(key) {
+    var idx = guideList().map(function (g) { return g.key; }).indexOf(key);
+    return idx >= 0 ? (idx + 1) : "";
+  }
+
+  function guideKickerNum(key) {
+    var idx = guideList().map(function (g) { return g.key; }).indexOf(key);
+    return idx >= 0 ? guideList()[idx].num : "00";
+  }
+
+  // -----------------------------------------------------------
+  // SCORE HELPERS
+  // -----------------------------------------------------------
+  function computeScore() {
+    var total = state.questions.length;
+    var correct = 0;
+    state.questions.forEach(function (q) {
+      if (state.answers[q.num] === q.correct) correct++;
+    });
+    var pct = total === 0 ? 0 : Math.round((correct / total) * 100);
+    return { correct: correct, total: total, pct: pct };
+  }
+
+  function scoreMessage(pct) {
+    if (pct >= 90) return "Excellent, you know this cold.";
+    if (pct >= 75) return "Strong work. A few gaps to close.";
+    if (pct >= 50) return "Getting there, worth another pass through the guide.";
+    return "Time to go back through the guide before your next attempt.";
+  }
+
+  // -----------------------------------------------------------
+  // ACTIONS
+  // -----------------------------------------------------------
+  function startGuide(key) {
+    state.guideKey = key;
+    state.selectedChapters = {};
+    QUIZ_DATA[key].chapters.forEach(function (c) { state.selectedChapters[c.chapter] = true; });
+    setScreen("chapters");
+  }
+
+  function buildQuestionSet() {
+    var guide = QUIZ_DATA[state.guideKey];
+    var list = [];
+    guide.chapters.forEach(function (c) {
+      if (!state.selectedChapters[c.chapter]) return;
+      c.questions.forEach(function (q) {
+        list.push({
+          num: q.num, text: q.text, options: q.options, correct: q.correct,
+          calc: q.calc, explanation: q.explanation, chapterTitle: c.title
+        });
+      });
+    });
+    return list;
+  }
+
+  function startQuiz() {
+    state.questions = buildQuestionSet();
+    state.idx = 0;
+    state.answers = {};
+    state.unlocked = false;
+    state.submitStatus = "";
+    state.lbSubmitted = false;
+    state.lbError = "";
+    setScreen("quiz");
+  }
+
+  function submitGate() {
+    var emailEl = document.getElementById("pq-email");
+    var consentEl = document.getElementById("pq-consent");
+    state.email = emailEl ? emailEl.value.trim() : "";
+    state.consent = consentEl ? consentEl.checked : false;
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.email)) { state.formError = "Enter a valid email address."; render(); return; }
+    if (!state.consent) { state.formError = "Please agree to the terms and privacy policy to continue."; render(); return; }
+
+    state.formError = "";
+    state.submitting = true;
+    render();
+
+    var res = computeScore();
+    postToScript({
+      type: "result_view",
+      name: "",
+      email: state.email,
+      guide: state.guideKey,
+      guideTitle: QUIZ_DATA[state.guideKey].title,
+      score: res.correct,
+      total: res.total,
+      percentage: res.pct,
+      consent: "yes",
+      timestamp: new Date().toISOString()
+    }).then(function (ok) {
+      state.submitting = false;
+      state.submitStatus = ok ? "ok" : "error";
+      state.unlocked = true;
+      setScreen("results");
+    });
+  }
+
+  function submitLeaderboard() {
+    var fullTotal = chapterQuestionCount(QUIZ_DATA[state.guideKey]);
+    if (state.questions.length !== fullTotal) { state.lbError = "Only full-guide runs can join the leaderboard."; render(); return; }
+
+    var nameEl = document.getElementById("pq-lbname");
+    state.lbName = nameEl ? nameEl.value.trim() : "";
+    if (!state.lbName) { state.lbError = "Add a display name to join the leaderboard."; render(); return; }
+
+    state.lbError = "";
+    state.lbSubmitting = true;
+    render();
+
+    var res = computeScore();
+    postToScript({
+      type: "leaderboard",
+      name: state.lbName,
+      email: state.email,
+      guide: state.guideKey,
+      guideTitle: QUIZ_DATA[state.guideKey].title,
+      score: res.correct,
+      total: res.total,
+      percentage: res.pct,
+      consent: state.consent ? "yes" : "no",
+      timestamp: new Date().toISOString()
+    }).then(function (ok) {
+      state.lbSubmitting = false;
+      state.lbSubmitted = !!ok;
+      if (!ok) state.lbError = "Could not reach the server, try again in a moment.";
+      state.lbData = null; // force a refresh next time the leaderboard is opened
+      state.lbLoadError = false;
+      render();
+    });
+  }
+
+  function postToScript(params) {
+    var body = new URLSearchParams(params);
+    return fetch(APPS_SCRIPT_URL, { method: "POST", body: body })
+      .then(function (r) {
+        if (!r.ok) console.error("[Investstart quiz] Apps Script POST returned HTTP", r.status);
+        return true;
+      })
+      .catch(function (err) {
+        console.error("[Investstart quiz] Apps Script POST failed:", err);
+        return false;
+      });
+  }
+
+  function loadLeaderboard() {
+    state.lbLoading = true;
+    state.lbLoadError = false;
+    render();
+    fetch(APPS_SCRIPT_URL + "?action=leaderboard")
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      })
+      .then(function (data) {
+        state.lbData = Array.isArray(data) ? data : (data && data.rows) || [];
+        state.lbLoading = false;
+        if (state.screen === "leaderboard") render();
+      })
+      .catch(function (err) {
+        console.error("[Investstart quiz] could not load leaderboard, check that the Apps Script has a doGet(?action=leaderboard) handler and has been redeployed:", err);
+        state.lbData = [];
+        state.lbLoadError = true;
+        state.lbLoading = false;
+        if (state.screen === "leaderboard") render();
+      });
+  }
+
+  // -----------------------------------------------------------
+  // EVENT DELEGATION
+  // -----------------------------------------------------------
+  root.addEventListener("click", function (e) {
+    var el = e.target.closest("[data-action]");
+    if (!el) return;
+    var action = el.getAttribute("data-action");
+
+    if (action === "pick-guide") { startGuide(el.getAttribute("data-guide")); }
+    else if (action === "nav-pick-guide") {
+      if (state.screen === "quiz" && !confirm("Leave this test? Your progress on it will be lost.")) return;
+      startGuide(el.getAttribute("data-guide"));
+    }
+    else if (action === "go-home") { setScreen("home"); }
+    else if (action === "go-leaderboard") { state.lbFilter = "all"; setScreen("leaderboard"); }
+    else if (action === "filter-lb") { state.lbFilter = el.getAttribute("data-filter"); render(); }
+    else if (action === "toggle-chapter") { /* handled by change listener */ }
+    else if (action === "toggle-all-chapters") {
+      var guide = QUIZ_DATA[state.guideKey];
+      var anySelected = guide.chapters.some(function (c) { return state.selectedChapters[c.chapter]; });
+      guide.chapters.forEach(function (c) { state.selectedChapters[c.chapter] = !anySelected; });
+      render();
+    }
+    else if (action === "start-quiz") { startQuiz(); }
+    else if (action === "exit-quiz") { setScreen("chapters"); }
+    else if (action === "select-option") {
+      var q = state.questions[state.idx];
+      state.answers[q.num] = parseInt(el.getAttribute("data-idx"), 10);
+      render();
+    }
+    else if (action === "next-question") {
+      if (state.idx < state.questions.length - 1) { state.idx++; render(); }
+      else { setScreen("gate"); }
+    }
+    else if (action === "prev-question") {
+      if (state.idx > 0) { state.idx--; render(); }
+    }
+    else if (action === "submit-gate") { submitGate(); }
+    else if (action === "submit-leaderboard") { submitLeaderboard(); }
+  });
+
+  root.addEventListener("change", function (e) {
+    if (e.target.matches('[data-action="toggle-chapter"]')) {
+      var ch = e.target.getAttribute("data-chapter");
+      state.selectedChapters[ch] = e.target.checked;
+      render();
+    }
+  });
+
+  function render() {
+    if (state.screen === "home") renderHome();
+    else if (state.screen === "chapters") renderChapters();
+    else if (state.screen === "quiz") renderQuiz();
+    else if (state.screen === "gate") renderGate();
+    else if (state.screen === "results") renderResults();
+    else if (state.screen === "leaderboard") renderLeaderboard();
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
