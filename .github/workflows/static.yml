@@ -1,4 +1,5 @@
-# Simple workflow for deploying static content to GitHub Pages
+# Deploys the pnlapp.co marketing site plus the blog (built from the
+# separate pnlapp/pnl-blog repo) merged in at /blog.
 name: Deploy static content to Pages
 
 on:
@@ -22,22 +23,59 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout website
         uses: actions/checkout@v4
+        with:
+          path: website
+
+      - name: Checkout blog
+        uses: actions/checkout@v4
+        with:
+          repository: pnlapp/pnl-blog
+          path: pnl-blog
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: pnl-blog/package-lock.json
+
+      - name: Install blog dependencies
+        working-directory: pnl-blog
+        run: npm ci
+
+      - name: Build blog
+        working-directory: pnl-blog
+        run: npm run build
+        env:
+          PUBLIC_NEWSLETTER_ENDPOINT: ${{ secrets.NEWSLETTER_ENDPOINT }}
+
+      - name: Merge blog build into website output
+        run: |
+          rm -rf website/blog
+          mkdir -p website/blog
+          cp -r pnl-blog/dist/blog/. website/blog/
+          # Astro's bundled JS/CSS build under dist/_astro (referenced as
+          # /blog/_astro/... via assetsPrefix) regardless of the /blog page
+          # nesting, so it needs copying in separately to line up.
+          mkdir -p website/blog/_astro
+          cp -r pnl-blog/dist/_astro/. website/blog/_astro/
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: '.'
+          path: website
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5

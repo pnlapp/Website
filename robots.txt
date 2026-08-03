@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://pnlapp.co/sitemap.xml
+Sitemap: https://pnlapp.co/blog/sitemap-index.xml
