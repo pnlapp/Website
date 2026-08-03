@@ -257,7 +257,7 @@ img{display:block;max-width:100%}
 .example-block .quote .u{background:linear-gradient(transparent 62%,rgba(198,255,0,.28) 62%);padding:0 .03em}
 
 /* funnel CTA */
-.funnel-cta{background:var(--cream);color:var(--ink);border:1.5px solid var(--line);border-radius:34px;padding:56px 60px;text-align:left;max-width:1100px;margin:0 auto}
+.funnel-cta{background:var(--cream);color:var(--ink);border:1.5px solid var(--line);border-radius:34px;padding:56px 60px;text-align:left;width:100%}
 .funnel-cta h2{font-size:clamp(28px,4vw,44px);font-weight:500;margin-bottom:14px;letter-spacing:-.02em;line-height:1.05}
 .funnel-cta h2 .u{background:linear-gradient(transparent 60%,var(--lime) 60%);color:var(--ink);padding:0 .04em}
 .funnel-cta p{color:var(--ink-soft);font-size:16px;max-width:48ch;margin:0 0 26px}

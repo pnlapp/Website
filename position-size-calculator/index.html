@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Futures Trading Psychology: Leverage Without a Closing Bell | PnL App</title>
-<meta name="description" content="Futures markets trade nearly around the clock with high leverage built in. Here's why that combination creates its own specific psychological risks." />
-<link rel="canonical" href="https://pnlapp.co/futures-trading-psychology" />
+<title>Position Size Calculator | PnL App</title>
+<meta name="description" content="Calculate the exact position size that keeps a single trade's risk at a fixed percentage of your account, based on your entry and stop loss." />
+<link rel="canonical" href="https://pnlapp.co/position-size-calculator" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Futures Trading Psychology | PnL App" />
-<meta property="og:description" content="Why near-24-hour markets and built-in leverage make futures psychology uniquely demanding." />
-<meta property="og:url" content="https://pnlapp.co/futures-trading-psychology" />
+<meta property="og:title" content="Position Size Calculator | PnL App" />
+<meta property="og:description" content="Risk a fixed percentage of your account on every trade, calculated automatically from your stop distance." />
+<meta property="og:url" content="https://pnlapp.co/position-size-calculator" />
 <meta property="og:image" content="https://pnlapp.co/assets/logo-black.png" />
 <meta name="twitter:card" content="summary" />
 <script type="application/ld+json">
@@ -19,18 +19,10 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Why is futures trading psychologically demanding?",
+      "name": "How do I calculate position size based on risk?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Futures contracts carry high leverage by design, so ordinary price moves translate into large dollar swings per contract. Combined with markets that trade nearly around the clock, there's rarely a natural stopping point, which makes it easy to keep trading well past the point of good judgment."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is a common futures trading psychology mistake?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Increasing contract size after a loss to recover it faster, which is revenge trading amplified by leverage, since each additional contract multiplies both the potential recovery and the potential damage if the trade goes wrong too."
+        "text": "Divide the dollar amount you're willing to risk (your account size times your risk percentage) by the distance in price between your entry and your stop loss. The result is the number of shares or units you can hold while keeping your actual dollar risk fixed, regardless of how tight or wide the stop is."
       }
     }
   ]
@@ -44,7 +36,19 @@
 <link href="https://fonts.cdnfonts.com/css/neue-montreal" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/site.css" />
-<style>.olist{max-width:640px;margin-top:8px}.olist li{font-size:15.5px;line-height:1.65;color:var(--ink-soft);margin-bottom:14px;padding-left:2px}.olist li b{color:var(--ink);font-weight:500}</style>
+<style>
+  .calc{max-width:640px;background:var(--cream);border:1.5px solid var(--line);border-radius:24px;padding:36px}
+  .calc__row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  .calc__field label{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px}
+  .calc__field input,.calc__field select{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--ink);background:var(--cream)}
+  .calc__field input:focus,.calc__field select:focus{outline:none;border-color:var(--ink)}
+  .calc__results{margin-top:24px;padding-top:24px;border-top:1px solid var(--line)}
+  .calc__result{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0}
+  .calc__result .lab{color:var(--ink-soft);font-size:14.5px}
+  .calc__result .val{font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:500}
+  .calc__result.hi .val{color:var(--lime-dk,#5a7d00)}
+  .calc__note{margin-top:20px;font-size:13px;color:var(--ink-faint);line-height:1.6}
+</style>
 </head>
 <body>
 
@@ -77,81 +81,61 @@
 </div>
 
 <header class="funnel-hero wrap">
-  <div class="eyebrow"><span class="num">00</span> Guide</div>
-  <h1>Futures trading psychology</h1>
-  <p class="sub">Built-in leverage and a market that barely closes remove two things every other trading style relies on for discipline: a natural size limit, and a natural stopping point.</p>
-  <div class="answer-box">
-    <span class="lbl">Short answer</span>
-    <p>Futures contracts carry high leverage by design, so a normal price move produces a large dollar swing per contract. Combined with markets that trade nearly 24 hours a day, there's rarely a forced pause to interrupt a bad decision, which makes ordinary biases like revenge trading and oversizing do outsized damage compared to lower-leverage instruments.</p>
-  </div>
+  <div class="eyebrow"><span class="num">00</span> Tool</div>
+  <h1>Position size calculator</h1>
+  <p class="sub">Fix your dollar risk before the trade, not after. Enter your account size, risk tolerance, entry, and stop, get the exact size.</p>
 </header>
 
-<section class="fsec wrap" id="why">
-  <div class="fsec__head">
-    <div class="eyebrow"><span class="num">01</span> The core problem</div>
-    <h2>Leverage plus no closing bell</h2>
-  </div>
-  <ol class="olist">
-    <li><b>Leverage is built into the instrument.</b> Unlike shares, where leverage is a choice, futures contracts carry it by default, which means the psychological weight of a normal-sized move is already amplified before any decision about position size gets made.</li>
-    <li><b>Near-24-hour markets remove the natural pause.</b> A stock trader's day ends at the closing bell whether they like it or not. A futures trader has to choose to stop, and after a bad trade, choosing to stop is exactly the decision that's hardest to make well.</li>
-    <li><b>Adding contracts after a loss compounds fast.</b> Increasing size to recover a loss faster multiplies both the potential recovery and the potential damage, and leverage means that multiplication happens quickly.</li>
-    <li><b>Margin calls add a second layer of panic.</b> The threat of a forced liquidation introduces urgency that has nothing to do with the original trade thesis, and decisions made under that specific pressure tend to be worse than decisions made without it.</li>
-  </ol>
-</section>
-
-<section class="fsec wrap" id="report" style="padding-top:0">
-  <div class="fsec__head">
-    <div class="eyebrow"><span class="num">02</span> What PnL App would show</div>
-    <h2>A sample behavioral report</h2>
-    <p>Contract size against time since the last loss, tracked automatically.</p>
-  </div>
-  <div class="report-mock">
-    <div class="report-mock__tag">Position sizing after losses &middot; Last 30 days</div>
-    <h4>Contract size, before and after a losing trade</h4>
-    <div class="ebar">
-      <div class="ebar__row"><span class="ebar__lab">Avg. contracts on a normal entry</span><span class="ebar__track"><span class="ebar__fill" style="width:40%;background:var(--lime)"></span></span><span class="ebar__val">Baseline</span></div>
-      <div class="ebar__row"><span class="ebar__lab">Avg. contracts within 1 hr of a loss</span><span class="ebar__track"><span class="ebar__fill" style="width:74%;background:#ff5b4c"></span></span><span class="ebar__val">1.9&times;</span></div>
-      <div class="ebar__row"><span class="ebar__lab">Session end time, days with a loss</span><span class="ebar__track"><span class="ebar__fill" style="width:81%;background:#ff5b4c"></span></span><span class="ebar__val">Later</span></div>
+<section class="fsec wrap">
+  <div class="calc">
+    <div class="calc__row">
+      <div class="calc__field">
+        <label for="account">Account size ($)</label>
+        <input type="number" id="account" value="10000" min="0" step="1" />
+      </div>
+      <div class="calc__field">
+        <label for="riskpct">Risk per trade (%)</label>
+        <input type="number" id="riskpct" value="1" min="0" step="0.1" />
+      </div>
     </div>
-    <p class="report-mock__note">Pnlee's read: contract size nearly doubles in the hour after a loss, and losing sessions tend to run longer rather than shorter. Both point the same direction, toward trying to force a recovery instead of stepping away.</p>
-  </div>
-</section>
-
-<section class="fsec wrap" id="example" style="padding-top:0">
-  <div class="fsec__head">
-    <div class="eyebrow"><span class="num">03</span> A real pattern</div>
-    <h2>What this looks like on an actual account</h2>
-  </div>
-  <div class="example-block">
-    <div class="eyebrow">Composite example, from PnL App usage patterns</div>
-    <p>A loss during the day session gets carried into the overnight session with a larger position "to make it back before tomorrow," on a setup that wouldn't have met the original plan's criteria in daylight, calmer conditions.</p>
-    <p class="quote">&ldquo;The market never closed. The <span class="u">decision to keep trading</span> should have.&rdquo;</p>
-  </div>
-</section>
-
-<section class="fsec wrap" style="padding-top:0">
-  <div class="funnel-cta">
-    <div class="eyebrow" style="justify-content:center;color:var(--ink-faint);margin-bottom:20px">Give yourself the closing bell the market won't</div>
-    <h2>A forced pause, <span class="u">on purpose</span>.</h2>
-    <p>PnL App can lock trading after a loss past a set threshold, putting a real stopping point into a market that otherwise never gives you one.</p>
-    <div class="btnrow">
-      <a href="https://apps.apple.com/ae/app/pnl-app/id6756570340" class="btn btn--lime">Download on App Store</a>
-      <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn">Get it on Google Play</a>
+    <div class="calc__row">
+      <div class="calc__field">
+        <label for="entry">Entry price ($)</label>
+        <input type="number" id="entry" value="50" min="0" step="0.01" />
+      </div>
+      <div class="calc__field">
+        <label for="stop">Stop loss price ($)</label>
+        <input type="number" id="stop" value="48" min="0" step="0.01" />
+      </div>
     </div>
+    <div class="calc__results">
+      <div class="calc__result"><span class="lab">Dollar risk this trade</span><span class="val" id="outRisk">$0</span></div>
+      <div class="calc__result"><span class="lab">Risk per share/unit</span><span class="val" id="outPerShare">$0</span></div>
+      <div class="calc__result hi"><span class="lab">Position size (shares/units)</span><span class="val" id="outShares">0</span></div>
+      <div class="calc__result"><span class="lab">Total position value</span><span class="val" id="outValue">$0</span></div>
+    </div>
+    <p class="calc__note">This calculates the position size that keeps your dollar risk fixed at the percentage you set, based on the distance between your entry and stop. It does not account for fees, slippage, or gap risk, and it is not financial advice. Always confirm your broker's minimum size and margin requirements before placing a trade.</p>
   </div>
+</section>
+
+<section class="fsec wrap" id="why" style="padding-top:0">
+  <div class="fsec__head">
+    <div class="eyebrow"><span class="num">01</span> Why this matters</div>
+    <h2>Position size should follow your stop, not your confidence</h2>
+  </div>
+  <p style="max-width:640px;color:var(--ink-soft);font-size:15.5px;line-height:1.68">A tight stop allows a larger position for the same dollar risk. A wide stop requires a smaller one. Sizing by a fixed share count instead of by this calculation means your actual dollar risk changes every time your stop distance changes, which is how two trades that look similar on paper can carry very different real risk.</p>
 </section>
 
 <section class="fsec wrap" style="padding-top:0;padding-bottom:90px">
   <div class="fsec__head">
-    <div class="eyebrow"><span class="num">04</span> Related</div>
-    <h2>More on trading psychology</h2>
+    <div class="eyebrow"><span class="num">02</span> Related</div>
+    <h2>More tools and guides</h2>
   </div>
   <div class="related__list">
-    <a href="/revenge-trading-test">Revenge Trading Test</a>
-    <a href="/options-trading-psychology">Options Trading Psychology</a>
+    <a href="/how-to-start-trading-2026">How to Start Trading in 2026</a>
     <a href="/overtrading-calculator">Overtrading Calculator</a>
-    <a href="/prop-trader-journal">Prop Trader Journal</a>
-    <a href="/quiz">Full 20-Question Diagnostic</a>
+    <a href="/dividend-calculator">Dividend Calculator</a>
+    <a href="/trading-discipline-score">Trading Discipline Score</a>
   </div>
 </section>
 
@@ -280,6 +264,7 @@
   </div>
 </footer>
 
+
 <script>
   const nav=document.getElementById('nav');
   const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>12);
@@ -306,6 +291,28 @@
       btn.closest('.foot__col--more').classList.toggle('open');
     });
   });
+
+  const fmt = n => '$' + n.toLocaleString(undefined, {maximumFractionDigits: 2});
+  function recalc() {
+    const account = parseFloat(document.getElementById('account').value) || 0;
+    const riskPct = parseFloat(document.getElementById('riskpct').value) || 0;
+    const entry = parseFloat(document.getElementById('entry').value) || 0;
+    const stop = parseFloat(document.getElementById('stop').value) || 0;
+
+    const dollarRisk = account * (riskPct / 100);
+    const perShareRisk = Math.abs(entry - stop);
+    const shares = perShareRisk > 0 ? Math.floor(dollarRisk / perShareRisk) : 0;
+    const positionValue = shares * entry;
+
+    document.getElementById('outRisk').textContent = fmt(dollarRisk);
+    document.getElementById('outPerShare').textContent = fmt(perShareRisk);
+    document.getElementById('outShares').textContent = shares.toLocaleString();
+    document.getElementById('outValue').textContent = fmt(positionValue);
+  }
+  ['account','riskpct','entry','stop'].forEach(id => {
+    document.getElementById(id).addEventListener('input', recalc);
+  });
+  recalc();
 </script>
 </body>
 </html>
