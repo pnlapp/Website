@@ -67,6 +67,12 @@ jobs:
           # nesting, so it needs copying in separately to line up.
           mkdir -p website/blog/_astro
           cp -r pnl-blog/dist/_astro/. website/blog/_astro/
+          # Publish the blog sitemap at the URL declared in website/robots.txt.
+          # Astro emits its sitemap files at the build root, so adjust the
+          # sitemap index to reference the copied /blog child sitemap.
+          cp pnl-blog/dist/sitemap-*.xml website/blog/
+          cp pnl-blog/dist/sitemap-index.xml website/blog/sitemap-index.xml
+          sed -i 's#https://pnlapp.co/sitemap-#https://pnlapp.co/blog/sitemap-#g' website/blog/sitemap-index.xml
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
