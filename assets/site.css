@@ -99,6 +99,16 @@ img{display:block;max-width:100%}
 .nav__mobile__cta a.btn:not(.btn--fill){color:var(--ink)}
 @media(min-width:721px){.nav__mobile{display:none!important}}
 
+/* Blurring a fixed, full-width layer is costly on lower-powered mobile GPUs.
+   Keep the navigation legible without delaying the first meaningful paint. */
+@media(max-width:720px){
+  .nav{
+    background:rgba(248,246,240,.97);
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
+}
+
 /* ---------- PAGE HEADER (inner pages) ---------- */
 .pagehead{padding:150px 0 56px}
 .pagehead .eyebrow{margin-bottom:22px}
