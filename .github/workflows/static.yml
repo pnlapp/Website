@@ -95,7 +95,7 @@ jobs:
         # affects every static website page, so submit those pages together.
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         env:
-          INDEXNOW_KEY: 55b2226c9a1e48f0878d902bad363fd4
+          INDEXNOW_KEY: e9456da49c0d491791e0a1d4a6a7da8a
           BEFORE_SHA: ${{ github.event.before }}
           CURRENT_SHA: ${{ github.sha }}
         run: |
