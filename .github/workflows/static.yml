@@ -93,7 +93,7 @@ jobs:
         # IndexNow should receive pages that changed in this deployment, not
         # a recurring dump of the entire site. A shared site asset change
         # affects every static website page, so submit those pages together.
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         env:
           INDEXNOW_KEY: 55b2226c9a1e48f0878d902bad363fd4
           BEFORE_SHA: ${{ github.event.before }}
@@ -101,38 +101,45 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [ "$BEFORE_SHA" = "0000000000000000000000000000000000000000" ]; then
-            echo "No previous commit available; skipping IndexNow."
-            exit 0
-          fi
-
-          declare -a changed_files=()
-          while IFS= read -r file; do
-            changed_files+=("$file")
-          done < <(git -C website diff --name-only "$BEFORE_SHA" "$CURRENT_SHA")
-          shared_asset_changed=false
           declare -a urls=()
 
-          for file in "${changed_files[@]}"; do
-            if [[ "$file" == assets/* ]]; then
-              shared_asset_changed=true
-            elif [[ "$file" == "index.html" ]]; then
-              urls+=("https://pnlapp.co/")
-            elif [[ "$file" == */index.html ]]; then
-              urls+=("https://pnlapp.co/${file%/index.html}/")
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            # A manual run is used once, immediately after initial setup, to
+            # prove the integration end-to-end without resubmitting the site.
+            urls=("https://pnlapp.co/")
+          else
+            if [ "$BEFORE_SHA" = "0000000000000000000000000000000000000000" ]; then
+              echo "No previous commit available; skipping IndexNow."
+              exit 0
             fi
-          done
 
-          if [ "$shared_asset_changed" = true ]; then
-            urls=()
+            declare -a changed_files=()
             while IFS= read -r file; do
-              relative_path="${file#website/}"
-              if [ "$relative_path" = "index.html" ]; then
+              changed_files+=("$file")
+            done < <(git -C website diff --name-only "$BEFORE_SHA" "$CURRENT_SHA")
+            shared_asset_changed=false
+
+            for file in "${changed_files[@]}"; do
+              if [[ "$file" == assets/* ]]; then
+                shared_asset_changed=true
+              elif [[ "$file" == "index.html" ]]; then
                 urls+=("https://pnlapp.co/")
-              else
-                urls+=("https://pnlapp.co/${relative_path%/index.html}/")
+              elif [[ "$file" == */index.html ]]; then
+                urls+=("https://pnlapp.co/${file%/index.html}/")
               fi
-            done < <(find website -path website/blog -prune -o -name index.html -print)
+            done
+
+            if [ "$shared_asset_changed" = true ]; then
+              urls=()
+              while IFS= read -r file; do
+                relative_path="${file#website/}"
+                if [ "$relative_path" = "index.html" ]; then
+                  urls+=("https://pnlapp.co/")
+                else
+                  urls+=("https://pnlapp.co/${relative_path%/index.html}/")
+                fi
+              done < <(find website -path website/blog -prune -o -name index.html -print)
+            fi
           fi
 
           if [ "${#urls[@]}" -eq 0 ]; then
