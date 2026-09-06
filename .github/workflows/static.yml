@@ -77,6 +77,20 @@ jobs:
           cp pnl-blog/dist/sitemap-index.xml website/blog/sitemap-index.xml
           sed -i 's#https://pnlapp.co/sitemap-#https://pnlapp.co/blog/sitemap-#g' website/blog/sitemap-index.xml
 
+      - name: Publish legacy URL redirects
+        # GitHub Pages has no server-side redirect rules. Publish standards-based
+        # canonical/meta-refresh documents so old CMS URLs consolidate into the
+        # clean, current blog URLs instead of competing as 404s or duplicates.
+        run: |
+          while IFS=$'\t' read -r old_path new_path; do
+            [[ -z "$old_path" || "$old_path" == \#* ]] && continue
+            output_dir="website${old_path}"
+            mkdir -p "$output_dir"
+            cat > "$output_dir/index.html" <<EOF
+          <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex,follow"><link rel="canonical" href="https://pnlapp.co${new_path}"><meta http-equiv="refresh" content="0; url=https://pnlapp.co${new_path}"><script>location.replace('https://pnlapp.co${new_path}')</script><title>Page moved | PnL App</title></head><body><p>This page has moved. <a href="${new_path}">Continue to PnL App</a>.</p></body></html>
+          EOF
+          done < website/legacy-redirects.tsv
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
