@@ -24,33 +24,12 @@
     href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
   />
 
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VLSDP1DHQ8"></script>
   <script>
-    (function () {
-      const APP_STORE_URL =
-        "https://apps.apple.com/us/app/pnl-app/id6756570340";
-
-      const PLAY_STORE_URL =
-        "https://play.google.com/store/apps/details?id=co.pnlapp";
-
-      const ua =
-        navigator.userAgent ||
-        navigator.vendor ||
-        window.opera ||
-        "";
-
-      const isAndroid = /android/i.test(ua);
-
-      const isIOS =
-        /iPad|iPhone|iPod/.test(ua) ||
-        (navigator.platform === "MacIntel" &&
-          navigator.maxTouchPoints > 1);
-
-      if (isAndroid) {
-        window.location.replace(PLAY_STORE_URL);
-      } else if (isIOS) {
-        window.location.replace(APP_STORE_URL);
-      }
-    })();
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VLSDP1DHQ8');
   </script>
 
   <style>
@@ -396,6 +375,7 @@
 
           <a
             class="store-button"
+            data-store="apple_app_store"
             href="https://apps.apple.com/us/app/pnl-app/id6756570340"
           >
             Apple App Store ↗
@@ -403,6 +383,7 @@
 
           <a
             class="store-button"
+            data-store="google_play"
             href="https://play.google.com/store/apps/details?id=co.pnlapp"
           >
             Google Play ↗
@@ -421,5 +402,72 @@
 
   </main>
 
+  <script>
+    (function () {
+      const links = Array.from(document.querySelectorAll('.store-button[data-store]'));
+      let navigating = false;
+
+      // A store visit is measured here, not a completed app installation.
+      function sendStoreEvent(link, method, navigate) {
+        const params = {
+          send_to: 'G-VLSDP1DHQ8',
+          store: link.dataset.store,
+          link_url: link.href,
+          navigation_method: method
+        };
+        const eventName = method === 'automatic' ? 'app_store_redirect' : 'app_store_click';
+
+        if (!navigate) {
+          gtag('event', eventName, params);
+          return;
+        }
+        if (navigating) return;
+        navigating = true;
+
+        let finished = false;
+        let timer;
+        function finish() {
+          if (finished) return;
+          finished = true;
+          clearTimeout(timer);
+          if (method === 'automatic') {
+            window.location.replace(link.href);
+          } else {
+            window.location.assign(link.href);
+          }
+        }
+
+        // Keep downloads working even when Analytics is blocked or unavailable.
+        timer = setTimeout(finish, 1500);
+        params.event_callback = finish;
+        params.event_timeout = 1200;
+        try {
+          gtag('event', eventName, params);
+        } catch (_) {
+          finish();
+        }
+      }
+
+      links.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+          if (event.defaultPrevented) return;
+          if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+            sendStoreEvent(link, 'manual', false);
+            return;
+          }
+          event.preventDefault();
+          sendStoreEvent(link, 'manual', true);
+        });
+      });
+
+      const ua = navigator.userAgent || navigator.vendor || window.opera || '';
+      const isAndroid = /android/i.test(ua);
+      const isIOS = /iPad|iPhone|iPod/.test(ua) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      const store = isAndroid ? 'google_play' : isIOS ? 'apple_app_store' : null;
+      const automaticLink = links.find(function (link) { return link.dataset.store === store; });
+      if (automaticLink) sendStoreEvent(automaticLink, 'automatic', true);
+    })();
+  </script>
 </body>
 </html>
