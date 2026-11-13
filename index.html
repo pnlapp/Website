@@ -134,7 +134,7 @@
 
   /* ---------- NAV ---------- */
   .nav{
-    position:fixed;top:0;left:0;right:0;z-index:1000;
+    position:fixed;top:30px;left:0;right:0;z-index:1000;
     display:flex;align-items:center;justify-content:space-between;
     padding:16px 32px;
     background:rgba(248,246,240,.72);
@@ -142,6 +142,19 @@
     -webkit-backdrop-filter:saturate(150%) blur(14px);
     border-bottom:1px solid transparent;transition:border-color .3s,background .3s;
   }
+
+  /* ---------- FEATURED IN TICKER ---------- */
+  .featured-ticker{
+    position:fixed;top:0;left:0;right:0;z-index:1001;height:30px;
+    display:flex;align-items:center;overflow:hidden;white-space:nowrap;
+    background:var(--ink-block);color:var(--cream);
+    border-bottom:1px solid rgba(255,255,255,.14);
+  }
+  .featured-ticker__track{display:flex;width:max-content;animation:featured-scroll 28s linear infinite;will-change:transform}
+  .featured-ticker__item{display:inline-flex;align-items:center;gap:13px;padding:0 26px;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:500;letter-spacing:.13em;text-transform:uppercase}
+  .featured-ticker__item::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--lime);flex:0 0 auto}
+  .featured-ticker__item strong{color:var(--lime);font-weight:500}
+  @keyframes featured-scroll{to{transform:translateX(-33.333%)}}
   .nav.scrolled{border-bottom-color:var(--line-soft)}
   .nav__logo img{height:26px;width:auto;display:block}
   .nav__links{display:flex;gap:30px;align-items:center}
@@ -169,7 +182,7 @@
   .nav__burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
   .nav__burger.open span:nth-child(2){opacity:0}
   .nav__burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-  .nav__mobile{display:none;flex-direction:column;position:fixed;top:0;left:0;right:0;height:100vh;height:100dvh;z-index:1001;background:var(--cream);padding:96px 24px calc(40px + env(safe-area-inset-bottom,0px));overflow-y:auto;box-sizing:border-box}
+  .nav__mobile{display:none;flex-direction:column;position:fixed;top:30px;left:0;right:0;height:calc(100vh - 30px);height:calc(100dvh - 30px);z-index:1001;background:var(--cream);padding:96px 24px calc(40px + env(safe-area-inset-bottom,0px));overflow-y:auto;box-sizing:border-box}
   .nav__mobile.open{display:flex}
   .nav__mobile a{font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--ink);padding:16px 0;border-bottom:1px solid var(--line-soft);flex:0 0 auto}
   .nav__mobile__cta{display:flex;flex-direction:column;gap:10px;margin-top:24px;flex:0 0 auto}
@@ -189,7 +202,7 @@
   @media(max-width:720px){.nav__more{display:none}}
 
   /* ---------- HERO ---------- */
-  .hero{padding:150px 0 60px;position:relative}
+  .hero{padding:180px 0 60px;position:relative}
   .hero__grid{display:grid;grid-template-columns:1.35fr .9fr;gap:56px;align-items:end}
   .hero__eyebrow{margin-bottom:30px}
   .hero h1{
@@ -468,7 +481,7 @@
   }
   @media(max-width:720px){
     .wrap{padding:0 20px}
-    .nav{padding:14px 20px}
+    .nav{top:30px;padding:14px 20px}
     .nav__links{display:none}
     .nav__cta .btn:not(.btn--fill){display:none}
     .nav__burger{display:flex}
@@ -476,7 +489,7 @@
     html.os-ios #navPlay{display:none}
     html.os-android #navPlay{display:inline-flex}
     html.os-android #navApp{display:none}
-    .hero{padding:120px 0 40px}
+    .hero{padding:150px 0 40px}
     .sec{padding:78px 0}
     .sec__head{grid-template-columns:1fr;gap:16px;margin-bottom:38px}
     .stats__grid{grid-template-columns:1fr 1fr}
@@ -504,6 +517,20 @@
 </style>
 </head>
 <body>
+
+<div class="featured-ticker" aria-label="PnL App has been featured in UAE Times, The Guardian, and Business Insider">
+  <div class="featured-ticker__track" aria-hidden="true">
+    <span class="featured-ticker__item">Featured in <strong>UAE Times</strong></span>
+    <span class="featured-ticker__item">Featured in <strong>The Guardian</strong></span>
+    <span class="featured-ticker__item">Featured in <strong>Business Insider</strong></span>
+    <span class="featured-ticker__item">Featured in <strong>UAE Times</strong></span>
+    <span class="featured-ticker__item">Featured in <strong>The Guardian</strong></span>
+    <span class="featured-ticker__item">Featured in <strong>Business Insider</strong></span>
+    <span class="featured-ticker__item">Featured in <strong>UAE Times</strong></span>
+    <span class="featured-ticker__item">Featured in <strong>The Guardian</strong></span>
+    <span class="featured-ticker__item">Featured in <strong>Business Insider</strong></span>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav class="nav" id="nav">
@@ -830,11 +857,16 @@
       <div>
         <div class="eyebrow" style="margin-bottom:22px"><span class="num">07</span> Press</div>
         <h2>Our founder, <span class="u">featured</span> in</h2>
-        <div class="press__count"><b>6&times;</b> Minwoo Lim quoted across The Guardian &amp; Business Insider</div>
+        <div class="press__count"><b>7&times;</b> Minwoo Lim featured in UAE Times, The Guardian &amp; Business Insider</div>
       </div>
       <p class="sec__lead">A commodity trader with a neuroscience degree from King's College London, PnL's founder Minwoo Lim has been quoted on the Gen-Z mindset gap, the discipline behind serious trading clubs, and why psychology — not signals — decides who lasts.</p>
     </div>
     <div class="press__list reveal">
+      <a class="press__item" href="https://uaetimes.ae/minwoo-lim-bridging-investment-psychology-ai-and-the-future-of-financial-decision-making/" target="_blank" rel="noopener">
+        <div class="press__src">UAE Times</div>
+        <div class="press__q">Minwoo Lim on investment psychology, PnL App, AI, and the future of financial decision-making in the Arab region.</div>
+        <div class="press__go">Read <span class="arr">↗</span></div>
+      </a>
       <a class="press__item" href="https://www.theguardian.com/business/2026/may/02/gen-z-investors-crypto-boom" target="_blank" rel="noopener">
         <div class="press__src">The Guardian</div>
         <div class="press__q">Most Gen-Z traders aren't profitable because they underestimate human behavior — Minwoo Lim on the strategy, discipline and psychology behind lasting in the markets.</div>
