@@ -335,7 +335,6 @@
   .marq__track{display:inline-flex;gap:0;animation:scroll 34s linear infinite;will-change:transform}
   .marq span{font-size:26px;font-weight:500;letter-spacing:-.02em;padding:0 26px;display:inline-flex;align-items:center;gap:26px}
   .marq span::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--lime)}
-  .marq em{font-style:normal;color:var(--ink-faint)}
   @keyframes scroll{to{transform:translateX(-50%)}}
 
   /* ---------- ARCHETYPES ---------- */
@@ -777,6 +776,11 @@
   white-space: nowrap;
 }
 
+.paper-findings__finding {
+  display: block;
+  margin-bottom: 4px;
+}
+
 .paper-findings__delta {
   display: block;
   width: fit-content;
@@ -1108,8 +1112,8 @@
 <!-- MARQUEE -->
 <div class="marq" aria-hidden="true">
   <div class="marq__track">
-    <span>Control your mind <em>·</em></span><span>Stop unconscious mistakes <em>·</em></span><span>Mindful trading <em>·</em></span><span>Grow together <em>·</em></span>
-    <span>Control your mind <em>·</em></span><span>Stop unconscious mistakes <em>·</em></span><span>Mindful trading <em>·</em></span><span>Grow together <em>·</em></span>
+    <span>Control your mind</span><span>Stop unconscious mistakes</span><span>Mindful trading</span><span>Grow together</span>
+    <span>Control your mind</span><span>Stop unconscious mistakes</span><span>Mindful trading</span><span>Grow together</span>
   </div>
 </div>
 
@@ -1180,9 +1184,9 @@
     <div class="sec__head">
       <div>
         <div class="eyebrow">PnL App working paper</div>
-        <h2 id="paper-title">What <span class="u">7,236 trades</span> reveal about trading habits.</h2>
+        <h2 id="paper-title"><span class="u">Stronger trading habits</span> over time.</h2>
       </div>
-      <p class="sec__lead paper-findings__intro">We analyzed anonymized PnL App journal records to see how traders set take-profit targets, reviewed their rules, and kept journaling over time.</p>
+      <p class="sec__lead paper-findings__intro">PnL App journal records show how traders became more consistent about planning exits and reviewing their rules, and who was more likely to stick with journaling.</p>
     </div>
     <dl class="paper-findings__sample" aria-label="Full study sample">
       <div><dt>Journaled trades</dt><dd>7,236</dd></div>
@@ -1192,28 +1196,28 @@
       <table aria-describedby="paper-limitations">
         <caption>Working paper findings</caption>
         <thead>
-          <tr><th scope="col">Behavior</th><th scope="col">Who was compared</th><th scope="col">What we observed</th></tr>
+          <tr><th scope="col">Behavior</th><th scope="col">Who was compared</th><th scope="col">Progress in the journal</th></tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row">Take-profit targets</th>
+            <th scope="row">Profit targets</th>
             <td>129 traders with 10+ trades each. First five trades vs. last five.</td>
-            <td><strong class="paper-findings__value">52% to 62%</strong> of trades had a written target.<span class="paper-findings__delta">+10 percentage points</span></td>
+            <td><span class="paper-findings__finding">Traders wrote down profit targets more often.</span><strong class="paper-findings__value">52% to 62%</strong> of trades<span class="paper-findings__delta">+10 percentage points</span></td>
           </tr>
           <tr>
             <th scope="row">Rule reviews</th>
             <td>58 traders who journaled for 30 days or longer.</td>
-            <td><strong class="paper-findings__value">45% to 61%</strong> completed rule reviews.<span class="paper-findings__delta">+16 percentage points</span></td>
+            <td><span class="paper-findings__finding">Traders completed rule reviews more often.</span><strong class="paper-findings__value">45% to 61%</strong> completion<span class="paper-findings__delta">+16 percentage points</span></td>
           </tr>
           <tr>
-            <th scope="row">Morning check-in</th>
-            <td>27 check-in users vs. 1,217 non-users.</td>
-            <td><strong class="paper-findings__value">48.1% vs. 5.4%</strong> journaled for 30+ days (13 of 27 vs. 66 of 1,217).</td>
+            <th scope="row">Morning Check In</th>
+            <td>27 traders who used it vs. 1,217 who did not.</td>
+            <td><span class="paper-findings__finding">Morning Check In users were more likely to journal for at least 30 days.</span><strong class="paper-findings__value">48.1% vs. 5.4%</strong> (13 of 27 vs. 66 of 1,217)<span class="paper-findings__delta">Nearly 9× as likely</span></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p class="paper-findings__note" id="paper-limitations">The working paper is observational. The groups may differ in how motivated they were to journal or check in. A controlled experiment would help isolate the effect of these habits.</p>
+    <p class="paper-findings__note" id="paper-limitations">These findings come from an observational analysis of the cohorts shown. Users chose whether to journal or use Morning Check In.</p>
   </div>
 </section>
 
