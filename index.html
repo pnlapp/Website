@@ -218,26 +218,6 @@
   .hero__actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
   .hero__note{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink-faint);margin-top:18px;letter-spacing:.03em}
 
-  /* hero mirror card (signature) */
-  .mirror{
-    background:var(--ink-block);border-radius:var(--r);padding:28px;color:var(--cream);
-    position:relative;overflow:hidden;box-shadow:0 30px 60px -30px rgba(20,20,20,.4);
-  }
-  .mirror__tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);display:flex;justify-content:space-between;margin-bottom:22px}
-  .mirror__tag b{color:var(--lime);font-weight:500}
-  .mirror__row{display:flex;gap:12px;align-items:baseline;padding:14px 0;border-top:1px solid rgba(255,255,255,.1)}
-  .mirror__k{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-faint);width:64px;flex:0 0 64px;letter-spacing:.05em}
-  .mirror__v{font-size:15px;color:#EDEBE3}
-  .mirror__v .red{color:#FF6B5E}
-  .mirror__reveal{
-    margin-top:20px;padding:18px;border-radius:14px;
-    background:rgba(198,255,0,.1);border:1px solid rgba(198,255,0,.28);
-  }
-  .mirror__reveal .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--lime);display:flex;align-items:center;gap:8px;margin-bottom:9px}
-  .mirror__reveal .lbl::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--lime);animation:pulse 1.8s infinite}
-  .mirror__reveal p{font-size:14.5px;line-height:1.5;color:#F4F3EC}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-
   /* ---------- STATS ---------- */
   .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:64px}
   .stats__grid{display:grid;grid-template-columns:repeat(4,1fr)}
@@ -515,6 +495,376 @@
     .reveal{opacity:1;transform:none}
   }
 </style>
+<style>
+/* Homepage market replay and working-paper findings */
+.hero {
+  background-image: radial-gradient(ellipse at 84% 28%, #c6ff0014, transparent 49%);
+}
+
+.hero__grid {
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(26px, 4vw, 52px);
+}
+
+.hero h1 {
+  font-size: clamp(38px, 5.5vw, 78px);
+  text-wrap: balance;
+}
+
+.hero__research {
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-decoration-color: var(--ink-faint);
+  text-underline-offset: .25em;
+}
+
+.hero__research:hover {
+  color: var(--ink);
+  text-decoration-color: var(--ink);
+}
+
+.market-replay {
+  --market-border: #f8f6f029;
+  --market-muted: #bdb9ae;
+  overflow: hidden;
+  color: var(--cream);
+  background: var(--ink-block);
+  border: 1px solid var(--ink-block);
+  border-radius: var(--r);
+  box-shadow: 0 28px 55px -32px #14141499;
+}
+
+.market-replay__header,
+.market-replay__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+}
+
+.market-replay__header {
+  border-bottom: 1px solid var(--market-border);
+}
+
+.market-replay__heading {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.market-replay__demo,
+.market-replay__stats dt,
+.market-replay__note strong {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.market-replay__demo {
+  color: var(--market-muted);
+  text-align: right;
+}
+
+.market-replay__toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 18px 0;
+}
+
+.market-replay [hidden] {
+  display: none;
+}
+
+.market-replay__periods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.market-replay__toolbar button {
+  min-height: 36px;
+  padding: 5px 9px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: var(--market-muted);
+  background: transparent;
+  font: 500 .8125rem 'JetBrains Mono', ui-monospace, monospace;
+  cursor: pointer;
+}
+
+.market-replay__toolbar button:hover {
+  color: var(--cream);
+  border-color: var(--market-border);
+}
+
+.market-replay__toolbar button[aria-pressed='true'] {
+  color: var(--lime);
+  background: #c6ff0017;
+  border-color: #c6ff0052;
+}
+
+.market-replay__toolbar button:focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 2px;
+}
+
+.market-replay__plot {
+  display: block;
+  width: 100%;
+  height: clamp(175px, 21vw, 245px);
+}
+
+.market-replay__stats {
+  display: grid;
+  grid-template-columns: .85fr 1fr 1fr;
+  border-top: 1px solid var(--market-border);
+  border-bottom: 1px solid var(--market-border);
+}
+
+.market-replay__stats > div {
+  padding: 12px 14px;
+}
+
+.market-replay__stats > div + div {
+  border-left: 1px solid var(--market-border);
+}
+
+.market-replay__stats dt {
+  color: var(--market-muted);
+}
+
+.market-replay__stats dd {
+  margin-top: 4px;
+  font-variant-numeric: tabular-nums;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.market-replay__loss {
+  color: #ff8d81;
+}
+
+.market-replay__footer {
+  display: block;
+  padding-block: 14px 16px;
+}
+
+.market-replay__note {
+  padding-left: 12px;
+  border-left: 2px solid var(--lime);
+  color: #e4e1d6;
+  font-size: .9375rem;
+  line-height: 1.45;
+}
+
+.market-replay__note strong {
+  display: block;
+  color: var(--lime);
+  margin-bottom: 4px;
+}
+
+.paper-findings {
+  scroll-margin-top: 96px;
+}
+
+.paper-findings__intro {
+  margin-top: 14px;
+}
+
+.paper-findings .eyebrow {
+  margin-bottom: 14px;
+}
+
+.paper-findings__sample {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--line);
+  border-radius: var(--r) var(--r) 0 0;
+  background: var(--paper);
+}
+
+.paper-findings__sample > div {
+  padding: clamp(16px, 3.3vw, 34px);
+}
+
+.paper-findings__sample > div + div {
+  border-left: 1px solid var(--line-soft);
+}
+
+.paper-findings__sample dt {
+  color: var(--ink-soft);
+  font-size: 1rem;
+}
+
+.paper-findings__sample dd {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  letter-spacing: -.04em;
+  line-height: 1.2;
+}
+
+.paper-findings__scroll {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-top: 0;
+  border-radius: 0 0 var(--r) var(--r);
+  background: var(--paper);
+  scrollbar-color: var(--ink-faint) var(--cream);
+}
+
+.paper-findings__scroll:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.paper-findings table {
+  width: 100%;
+  min-width: 665px;
+  text-align: left;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.paper-findings caption {
+  caption-side: top;
+  text-align: left;
+  padding: 12px clamp(16px, 3.3vw, 34px);
+  background: var(--ink-block);
+  color: var(--lime);
+  font: 500 .875rem 'JetBrains Mono', ui-monospace, monospace;
+}
+
+.paper-findings th,
+.paper-findings td {
+  padding: 15px clamp(12px, 2.8vw, 30px);
+  vertical-align: top;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.paper-findings th:first-child {
+  padding-left: clamp(16px, 3.3vw, 34px);
+}
+
+.paper-findings thead th {
+  background: var(--cream);
+  color: var(--ink-soft);
+  font: 500 .875rem 'JetBrains Mono', ui-monospace, monospace;
+}
+
+.paper-findings tbody th {
+  width: 24%;
+  font-weight: 600;
+}
+
+.paper-findings tbody td:nth-child(2) {
+  width: 30%;
+  color: var(--ink-soft);
+}
+
+.paper-findings tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+.paper-findings__value {
+  display: inline-block;
+  font: 700 1rem 'JetBrains Mono', ui-monospace, monospace;
+  white-space: nowrap;
+}
+
+.paper-findings__delta {
+  display: block;
+  width: fit-content;
+  margin-top: 5px;
+  padding: 1px 6px;
+  color: var(--lime-ink);
+  background: var(--lime);
+  font: 500 .8125rem 'JetBrains Mono', ui-monospace, monospace;
+  white-space: nowrap;
+}
+
+.paper-findings__note {
+  margin-top: 15px;
+  color: var(--ink-soft);
+  font-size: 1rem;
+}
+
+@media (max-width: 960px) {
+  .hero__grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .hero h1 {
+    max-width: 16ch;
+    font-size: clamp(38px, 8vw, 72px);
+  }
+
+  .market-replay {
+    width: 100%;
+    max-width: 650px;
+  }
+}
+
+@media (721px <= width <= 960px) {
+  .nav {
+    padding-inline: 20px;
+  }
+
+  .nav__links {
+    gap: 13px;
+  }
+
+  .nav__cta > a {
+    padding-inline: 12px;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero {
+    padding-top: 130px;
+  }
+
+  .hero__eyebrow {
+    margin-bottom: 18px;
+  }
+
+  .market-replay__stats > div {
+    padding-inline: 10px;
+  }
+
+  .paper-findings table {
+    min-width: 0;
+    table-layout: fixed;
+    font-size: .9375rem;
+  }
+
+  .paper-findings thead th:first-child {
+    width: 25%;
+  }
+
+  .paper-findings thead th:nth-child(2) {
+    width: 32%;
+  }
+
+  .paper-findings th,
+  .paper-findings td,
+  .paper-findings th:first-child {
+    padding: 12px 8px;
+    overflow-wrap: anywhere;
+  }
+
+  .paper-findings__value,
+  .paper-findings__delta {
+    white-space: normal;
+  }
+}
+</style>
 </head>
 <body>
 
@@ -539,6 +889,7 @@
     <a href="#ethos">Ethos</a>
     <a href="#system">System</a>
     <a href="#pnlee">Pnlee</a>
+    <a href="#research">Research</a>
     <a href="#press">Press</a>
     <a href="#team">Team</a>
     <a href="/blog/">Blog</a>
@@ -554,6 +905,7 @@
   <a href="#ethos">Ethos</a>
   <a href="#system">System</a>
   <a href="#pnlee">Pnlee</a>
+  <a href="#research">Research</a>
   <a href="#press">Press</a>
   <a href="#team">Team</a>
   <a href="/blog/">Blog</a>
@@ -577,20 +929,34 @@
           <a href="https://apps.apple.com/app/id6756570340" class="btn btn--fill">Download on App Store</a>
           <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="btn">Get it on Google Play</a>
         </div>
-        <p class="hero__note">/ Your PnL tells the result. Pnlee tells the reason.</p>
+        <p class="hero__note"><a class="hero__research" href="#research">Read the trading habits research</a></p>
       </div>
 
-      <!-- signature: the mirror -->
-      <div class="mirror reveal" id="mirror">
-        <div class="mirror__tag"><span>Trade #0412 · XAUUSD</span><b>PNLEE READING…</b></div>
-        <div class="mirror__row"><div class="mirror__k">RESULT</div><div class="mirror__v"><span class="red">−$420</span> · loss closed</div></div>
-        <div class="mirror__row"><div class="mirror__k">SIZE</div><div class="mirror__v">1.8× your average</div></div>
-        <div class="mirror__row"><div class="mirror__k">TIMING</div><div class="mirror__v">18 min after last loss</div></div>
-        <div class="mirror__reveal">
-          <div class="lbl">Pattern found — recovery trading</div>
-          <p>This isn't a market problem first. You increased size within 18 minutes of a loss. That's not a setup — that's your pain looking for a way out.</p>
+      <figure class="market-replay" aria-labelledby="market-replay-title">
+        <div class="market-replay__header">
+          <h2 class="market-replay__heading" id="market-replay-title">XAUUSD · Trade replay</h2>
+          <span class="market-replay__demo">Simulated</span>
         </div>
-      </div>
+        <div class="market-replay__toolbar" hidden>
+          <div class="market-replay__periods" role="group" aria-label="Candlestick interval">
+            <button type="button" data-period="1" aria-pressed="true">15m</button>
+            <button type="button" data-period="4" aria-pressed="false">1h</button>
+            <button type="button" data-period="16" aria-pressed="false">4h</button>
+          </div>
+          <button type="button" data-playback>Replay</button>
+        </div>
+        <canvas class="market-replay__plot" role="img" aria-label="Simulated candlestick chart ending at the example trade close">
+          Example price movement leading up to a closed trade.
+        </canvas>
+        <dl class="market-replay__stats">
+          <div><dt>Closed P&amp;L</dt><dd class="market-replay__loss">−$420</dd></div>
+          <div><dt>Position size</dt><dd>1.8× average</dd></div>
+          <div><dt>Since last loss</dt><dd>18 min</dd></div>
+        </dl>
+        <div class="market-replay__footer">
+          <p class="market-replay__note"><strong>Pnlee · Recovery trading</strong> You sized up 18 minutes after a loss. Check whether the entry met your rules.</p>
+        </div>
+      </figure>
     </div>
   </div>
 
@@ -806,6 +1172,48 @@
         <p>Insights become if-then rules you own: “If I lose two in a row, I stop.” Pnlee remembers them — and flags the moment you break one.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="sec paper-findings" id="research" aria-labelledby="paper-title">
+  <div class="wrap">
+    <div class="sec__head">
+      <div>
+        <div class="eyebrow">PnL App working paper</div>
+        <h2 id="paper-title">What <span class="u">7,236 trades</span> reveal about trading habits.</h2>
+      </div>
+      <p class="sec__lead paper-findings__intro">We analyzed anonymized PnL App journal records to see how traders set take-profit targets, reviewed their rules, and kept journaling over time.</p>
+    </div>
+    <dl class="paper-findings__sample" aria-label="Full study sample">
+      <div><dt>Journaled trades</dt><dd>7,236</dd></div>
+      <div><dt>Traders in the dataset</dt><dd>1,450</dd></div>
+    </dl>
+    <div class="paper-findings__scroll" role="region" aria-label="Working paper findings table" tabindex="0">
+      <table aria-describedby="paper-limitations">
+        <caption>Working paper findings</caption>
+        <thead>
+          <tr><th scope="col">Behavior</th><th scope="col">Who was compared</th><th scope="col">What we observed</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Take-profit targets</th>
+            <td>129 traders with 10+ trades each. First five trades vs. last five.</td>
+            <td><strong class="paper-findings__value">52% to 62%</strong> of trades had a written target.<span class="paper-findings__delta">+10 percentage points</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Rule reviews</th>
+            <td>58 traders who journaled for 30 days or longer.</td>
+            <td><strong class="paper-findings__value">45% to 61%</strong> completed rule reviews.<span class="paper-findings__delta">+16 percentage points</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Morning check-in</th>
+            <td>27 check-in users vs. 1,217 non-users.</td>
+            <td><strong class="paper-findings__value">48.1% vs. 5.4%</strong> journaled for 30+ days (13 of 27 vs. 66 of 1,217).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="paper-findings__note" id="paper-limitations">The working paper is observational. The groups may differ in how motivated they were to journal or check in. A controlled experiment would help isolate the effect of these habits.</p>
   </div>
 </section>
 
@@ -1195,6 +1603,194 @@
       setTimeout(()=>{ if(!status.classList.contains('err'))setStatus(DEFAULT_MSG,null); },6000);
     }
   });
+</script>
+<script>
+(() => {
+  const replay = document.querySelector('.market-replay');
+  const canvas = replay.querySelector('canvas');
+  const context = canvas.getContext('2d');
+  if (!context) return;
+
+  const toolbar = replay.querySelector('.market-replay__toolbar');
+  const playback = replay.querySelector('[data-playback]');
+  const periods = [...replay.querySelectorAll('[data-period]')];
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const brand = getComputedStyle(replay);
+  const lime = brand.getPropertyValue('--lime').trim();
+  const muted = brand.getPropertyValue('--market-muted').trim();
+  const anchors = [89, 94, 88, 96, 101, 95, 103, 108, 102, 110, 114, 104, 108, 99, 96, 101, 93];
+  const range = 256;
+  const source = Array.from({length: range}, (_, index) => {
+    const position = index / (range - 1) * (anchors.length - 1);
+    const start = Math.min(Math.floor(position), anchors.length - 2);
+    return anchors[start] + (anchors[start + 1] - anchors[start]) * (position - start)
+      + Math.sin(index * .71) * .92 + Math.sin(index * 2.3) * .46;
+  });
+
+  const ticks = source.map((close, index) => {
+    const open = source[index - 1] ?? close - .8;
+    return {
+      open, close,
+      high: Math.max(open, close) + .35 + Math.abs(Math.sin(index)) * .8,
+      low: Math.min(open, close) - .35 - Math.abs(Math.cos(index)) * .8
+    };
+  });
+
+  const duration = 3600;
+  let candles = [];
+  let progress = 1;
+  let playing = false;
+  let started = 0;
+  let frame = 0;
+
+  function selectPeriod(selected) {
+    const step = Number(selected.dataset.period);
+    const visibleTicks = ticks.slice(-Math.min(range, step * 36));
+    candles = [];
+    for (let index = 0; index < visibleTicks.length; index += step) {
+      const group = visibleTicks.slice(index, index + step);
+      candles.push({
+        open: group[0].open,
+        close: group.at(-1).close,
+        high: Math.max(...group.map(tick => tick.high)),
+        low: Math.min(...group.map(tick => tick.low))
+      });
+    }
+    periods.forEach(button => button.setAttribute('aria-pressed', String(button === selected)));
+    canvas.setAttribute('aria-label', `Simulated ${selected.textContent.trim()} candlestick chart ending at the example trade close`);
+  }
+
+  function draw() {
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    if (!width || !height) return;
+
+    const scale = Math.min(window.devicePixelRatio || 1, 2);
+    const pixelWidth = Math.round(width * scale);
+    const pixelHeight = Math.round(height * scale);
+    if (canvas.width !== pixelWidth || canvas.height !== pixelHeight) {
+      canvas.width = pixelWidth;
+      canvas.height = pixelHeight;
+    }
+    context.setTransform(scale, 0, 0, scale, 0, 0);
+    context.clearRect(0, 0, width, height);
+
+    const left = 18;
+    const top = 15;
+    const right = width - 20;
+    const bottom = height - 30;
+    const highest = Math.max(...candles.map(candle => candle.high)) + 1;
+    const lowest = Math.min(...candles.map(candle => candle.low)) - 1;
+    const priceY = value => bottom - (value - lowest) / (highest - lowest) * (bottom - top);
+    const spacing = (right - left) / candles.length;
+    const bodyWidth = Math.min(14, Math.max(3, spacing * .53));
+
+    context.lineWidth = 1;
+    context.strokeStyle = '#f8f6f022';
+    context.beginPath();
+    for (let row = 0; row <= 4; row++) {
+      const y = Math.round(top + (bottom - top) * row / 4) + .5;
+      context.moveTo(left, y);
+      context.lineTo(right, y);
+    }
+    for (let column = 0; column <= 6; column++) {
+      const x = Math.round(left + (right - left) * column / 6) + .5;
+      context.moveTo(x, top);
+      context.lineTo(x, bottom);
+    }
+    context.stroke();
+
+    const count = Math.max(1, Math.ceil(progress * candles.length));
+    const visibleCandles = candles.slice(0, count);
+    visibleCandles.forEach((candle, index) => {
+      const x = left + spacing * (index + .5);
+      const up = candle.close >= candle.open;
+      const color = up ? lime : '#aaa69b';
+      const openY = priceY(candle.open);
+      const closeY = priceY(candle.close);
+      context.strokeStyle = color;
+      context.fillStyle = color;
+      context.beginPath();
+      context.moveTo(x, priceY(candle.high));
+      context.lineTo(x, priceY(candle.low));
+      context.stroke();
+      context.fillRect(x - bodyWidth / 2, Math.min(openY, closeY), bodyWidth, Math.max(1.5, Math.abs(closeY - openY)));
+    });
+
+    const latestX = left + spacing * (count - .5);
+    const latestY = priceY(visibleCandles.at(-1).close);
+    context.setLineDash([3, 4]);
+    context.strokeStyle = '#c6ff0070';
+    context.beginPath();
+    context.moveTo(left, latestY);
+    context.lineTo(right, latestY);
+    context.stroke();
+    context.setLineDash([]);
+    context.fillStyle = lime;
+    context.beginPath();
+    context.arc(latestX, latestY, 3, 0, Math.PI * 2);
+    context.fill();
+
+    context.font = '12px monospace';
+    context.fillStyle = muted;
+    context.textAlign = 'left';
+    context.fillText('Earlier', left, height - 9);
+    context.textAlign = 'right';
+    context.fillText('Trade close', right, height - 9);
+  }
+
+  function setPlaying(next) {
+    playing = next;
+    cancelAnimationFrame(frame);
+    if (playing) {
+      started = performance.now() - progress * duration;
+      frame = requestAnimationFrame(advance);
+    }
+    playback.textContent = playing ? 'Pause' : progress === 1 ? 'Replay' : 'Resume';
+  }
+
+  function advance(now) {
+    progress = Math.min(1, Math.max(0, (now - started) / duration));
+    draw();
+    if (progress === 1) setPlaying(false);
+    else frame = requestAnimationFrame(advance);
+  }
+
+  function startReplay() {
+    progress = reducedMotion.matches ? 1 : 0;
+    draw();
+    setPlaying(!reducedMotion.matches);
+  }
+
+  periods.forEach(button => button.addEventListener('click', () => {
+    if (button.getAttribute('aria-pressed') === 'true') return;
+    selectPeriod(button);
+    startReplay();
+  }));
+
+  playback.addEventListener('click', () => {
+    if (progress === 1) startReplay();
+    else setPlaying(!playing);
+  });
+
+  reducedMotion.addEventListener('change', () => {
+    playback.hidden = reducedMotion.matches;
+    if (reducedMotion.matches) startReplay();
+  });
+
+  selectPeriod(periods[0]);
+  toolbar.hidden = false;
+  playback.hidden = reducedMotion.matches;
+  draw();
+  new ResizeObserver(draw).observe(canvas);
+
+  const observer = new IntersectionObserver(([entry]) => {
+    if (!entry.isIntersecting) return;
+    observer.disconnect();
+    startReplay();
+  }, {threshold: .25});
+  observer.observe(canvas);
+})();
 </script>
 </body>
 </html>
