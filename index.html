@@ -169,7 +169,7 @@ button{font:inherit;color:inherit}
 .hero{position:relative;isolation:isolate;overflow:hidden;min-height:min(960px,100vh);display:flex;flex-direction:column}
 .hero__media{position:absolute;inset:0;z-index:-2;background:#0d0e12}
 .hero__media video,.hero__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 50%}
-.hero__media video{opacity:0;transition:opacity .6s}.hero__media video.on{opacity:1}
+.hero__media video{opacity:0}.hero__media video.on{opacity:1;transition:opacity .6s}.hero__media video.top{z-index:1;transition:none}
 .hero__shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(11,11,10,.86) 0%,rgba(11,11,10,.4) 44%,rgba(11,11,10,0) 72%),linear-gradient(180deg,rgba(11,11,10,.4) 0%,rgba(11,11,10,0) 22%,rgba(11,11,10,0) 60%,var(--bg) 100%)}
 .hero__in{flex:1;display:flex;align-items:center;position:relative;width:100%;padding-top:120px;padding-bottom:36px}
 .hero__copy{display:flex;flex-direction:column;gap:22px;max-width:760px}
@@ -469,7 +469,7 @@ button{font:inherit;color:inherit}
 <header class="hero">
   <div class="hero__media" aria-hidden="true">
     <img src="/assets/lock-in/candles.jpg" alt="" />
-    <div id="heroVideo" data-clips="/assets/home/hero-mirror.mp4,/assets/lock-in/hero-1.mp4,/assets/lock-in/hero-2.mp4,/assets/lock-in/hero-3.mp4" data-names="Charts → Mirror|Charts → Discipline|Discipline → Journal|Journal → Charts">
+    <div id="heroVideo" data-clips="/assets/home/hero-lock.mp4,/assets/home/hero-lock-rev.mp4,/assets/home/hero-mirror.mp4,/assets/home/hero-mirror-rev.mp4" data-names="Charts → Discipline|Discipline → Charts|Charts → Mirror|Mirror → Charts">
       <video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video>
     </div>
   </div>
@@ -1026,13 +1026,18 @@ button{font:inherit;color:inherit}
     if(reduce||small){box.remove();return;}
     const clips=box.dataset.clips.split(','),names=box.dataset.names.split('|');
     const vids=[...box.querySelectorAll('video')];let i=0,front=0;
-    const show=()=>{const v=vids[front],next=vids[1-front];v.classList.add('on');next.classList.remove('on');
-      label.textContent=names[i];next.src=clips[(i+1)%clips.length];next.load();};
+    // Each clip starts on the frame the previous one ended on. The incoming video is laid over the
+    // outgoing one, and the outgoing one is only cleared and reloaded once it is fully covered.
+    const preload=()=>{const n=vids[1-front];n.src=clips[(i+1)%clips.length];n.load();};
+    const swap=()=>{const old=vids[front];i=(i+1)%clips.length;front=1-front;const v=vids[front];
+      const go=()=>{v.classList.add('on','top');label.textContent=names[i];
+        setTimeout(()=>{old.classList.remove('on','top');v.classList.remove('top');preload();},450);};
+      v.addEventListener('playing',go,{once:true});v.currentTime=0;v.play().catch(()=>{});};
     vids.forEach(v=>{
-      v.addEventListener('ended',()=>{i=(i+1)%clips.length;front=1-front;vids[front].currentTime=0;vids[front].play().catch(()=>{});show();});
+      v.addEventListener('ended',()=>{if(v===vids[front]) setTimeout(swap,900);});
       v.addEventListener('error',()=>{box.remove();},{once:true});
     });
-    vids[0].src=clips[0];vids[0].addEventListener('playing',show,{once:true});vids[0].play().catch(()=>{});
+    vids[0].src=clips[0];vids[0].addEventListener('playing',()=>{vids[0].classList.add('on');label.textContent=names[0];preload();},{once:true});vids[0].play().catch(()=>{});
   })();
 
   // Reveal on scroll, count-up, and per-object loop clips. No library needed.
