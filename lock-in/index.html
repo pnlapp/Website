@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lock in. Literally. | PnL App Discipline Mode</title>
+<meta name="description" content="PnL App locks your apps during the time windows you set, so the trading rules you wrote this morning still hold this afternoon. Free 3-day trial on iOS and Android." />
+<link rel="canonical" href="https://pnlapp.co/lock-in/" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Lock in. Literally. | PnL App" />
+<meta property="og:description" content="A trading journal with Discipline Mode: your apps stay locked during the windows you set." />
+<meta property="og:url" content="https://pnlapp.co/lock-in/" />
+<meta property="og:image" content="https://pnlapp.co/assets/pnl-app-trading-journal-og.jpg" />
+<meta name="robots" content="noindex,follow" />
+<meta name="theme-color" content="#0B0B0A" />
+<link rel="icon" type="image/png" href="/assets/favicon.png" />
+<link rel="apple-touch-icon" href="/assets/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.cdnfonts.com/css/neue-montreal" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VLSDP1DHQ8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-VLSDP1DHQ8');
+</script>
+<style>
+/* Lock-in landing page: all dark, lime as the single accent, Neue Montreal + JetBrains Mono.
+   Layout idea: one cinematic scene (three glass objects) reused as crops in every section. */
+:root{
+  --bg:#0B0B0A; --panel:#111110;
+  --ink:#F8F6F0; --soft:#B7B4AA; --faint:#8F8C82;
+  --lime:#C6FF00; --lime-ink:#1B2200;
+  --line:rgba(248,246,240,.1); --line-2:rgba(248,246,240,.18);
+  --r:18px; --maxw:1240px; --ease:cubic-bezier(.22,.61,.36,1);
+  color-scheme:dark; font-synthesis:none;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:'Neue Montreal','Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,video{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:32px}
+.tagline{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--lime)}
+.h2{font-size:clamp(34px,4.4vw,60px);line-height:1;font-weight:500;letter-spacing:-.04em;text-wrap:balance}
+.lede{color:var(--soft);font-size:14.5px;line-height:1.55;max-width:52ch}
+.sec{padding-block:130px}
+.head{display:flex;flex-direction:column;gap:18px;margin-bottom:52px}
+
+/* crop of the shared scene: the object sits at 70% / 52% of the image */
+.crop{position:relative;overflow:hidden}
+.crop img,.crop video{position:absolute;left:50%;top:50%;height:var(--z,200%);width:auto;max-width:none;transform:translate(-70%,var(--y,-52%))}
+.crop video{opacity:0;transition:opacity .8s}
+.crop video.on{opacity:1}
+.marks::before,.marks::after{content:"+";position:absolute;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);line-height:1;z-index:2}
+.marks::before{left:14px;bottom:12px}.marks::after{right:14px;top:12px}
+.js [data-rise]{opacity:0;translate:0 26px;transition:opacity 1.1s var(--ease),translate 1.1s var(--ease);transition-delay:var(--d,0s)}
+.js [data-rise].in{opacity:1;translate:0 0}
+.js .crop[data-loop]{opacity:0;scale:.84;filter:blur(16px);transition:opacity 1.5s var(--ease),scale 1.8s var(--ease),filter 1.5s var(--ease);transition-delay:calc(var(--d,0s) + .15s)}
+.js .crop[data-loop].in{opacity:1;scale:1;filter:blur(0)}
+.float{animation:float 7s ease-in-out infinite alternate}
+@keyframes float{from{translate:0 5px}to{translate:0 -7px}}
+.note{position:absolute;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;color:var(--soft);text-transform:uppercase;z-index:2}
+
+/* buttons */
+.pill{display:inline-flex;align-items:center;gap:12px;height:48px;padding:0 22px 0 6px;border-radius:100px;background:var(--lime);color:var(--lime-ink);font-size:14.5px;font-weight:500;transition:transform .3s var(--ease),background .3s}
+.pill i{width:36px;height:36px;border-radius:50%;background:var(--lime-ink);display:grid;place-items:center}
+.pill i svg{width:14px;height:14px;stroke:var(--lime);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pill:hover{transform:translateY(-2px);background:#d4ff3d}
+.ghost{display:inline-flex;align-items:center;height:48px;padding:0 22px;border-radius:100px;border:1px solid var(--line-2);background:rgba(11,11,10,.35);font-size:14.5px;transition:border-color .3s,background .3s}
+.ghost:hover{border-color:var(--ink);background:rgba(248,246,240,.08)}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 32px;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+.nav.scrolled{background:rgba(11,11,10,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:var(--line)}
+.nav__logo img{height:24px;width:auto}
+.nav__links{display:flex;gap:30px}
+.nav__links a{font-size:14px;color:#dedbd1;transition:color .2s}
+.nav__links a:hover{color:var(--lime)}
+.nav__cta .ghost{height:40px;padding:0 18px;font-size:13.5px}
+
+/* 1. HERO */
+.hero{position:relative;isolation:isolate;overflow:hidden;min-height:min(940px,100vh);display:flex;flex-direction:column}
+.hero__media{position:absolute;inset:0;z-index:-2;background:#0d0e12}
+.hero__media video,.hero__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 50%}
+.hero__media video{opacity:0;transition:opacity .6s}
+.hero__media video.on{opacity:1}
+.hero__shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(11,11,10,.82) 0%,rgba(11,11,10,.35) 42%,rgba(11,11,10,0) 70%),linear-gradient(180deg,rgba(11,11,10,.35) 0%,rgba(11,11,10,0) 22%,rgba(11,11,10,0) 62%,var(--bg) 100%)}
+.hero__in{flex:1;display:flex;align-items:center;position:relative;width:100%;padding-top:120px;padding-bottom:40px}
+.hero__copy{display:flex;flex-direction:column;gap:26px;max-width:620px}
+.h1{font-size:clamp(58px,8.6vw,128px);line-height:.92;font-weight:500;letter-spacing:-.055em}
+.h1 em{font-style:normal;color:var(--lime)}
+.hero__sub{color:#dedbd1;font-size:15px;line-height:1.55;max-width:34ch}
+.hero__cta{display:flex;flex-wrap:wrap;gap:10px}
+.trust{display:flex;align-items:center;gap:12px;color:var(--soft);font-size:12.5px}
+.trust b{font-weight:500;font-size:24px;letter-spacing:-.03em;color:var(--ink)}
+.trust span{max-width:16ch;line-height:1.3}
+.widgets{position:absolute;right:32px;top:130px;display:flex;flex-direction:column;align-items:flex-end;gap:14px}
+.widget{width:150px;border-radius:16px;padding:14px;background:rgba(11,11,10,.42);border:1px solid var(--line-2);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);will-change:transform}
+.widget h4{font-size:12.5px;font-weight:500;line-height:1.2;display:flex;justify-content:space-between;gap:8px}
+.widget h4 small{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;color:var(--soft);font-weight:400}
+.widget svg{display:block;width:100%;height:44px;margin:12px 0 8px}
+.widget b{display:block;text-align:center;font-weight:500;font-size:22px;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.widget b small{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--soft);letter-spacing:.06em;margin-left:3px}
+.switch{position:absolute;right:32px;bottom:44px;display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--soft);border:1px solid var(--line);border-radius:100px;padding:6px 12px;background:rgba(11,11,10,.4)}
+.switch i{width:6px;height:6px;border-radius:50%;background:var(--lime)}
+.hero__foot{position:relative;padding-bottom:28px;display:flex;flex-direction:column;gap:22px}
+.hero__foot>.wrap{width:100%}
+.marq{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+.marq__track{display:flex;gap:54px;width:max-content;animation:marq 40s linear infinite}
+.marq__track span{display:inline-flex;align-items:center;gap:10px;font-size:17px;font-weight:500;letter-spacing:-.01em;white-space:nowrap;color:#dedbd1}
+.marq__track svg{width:16px;height:16px;stroke:var(--lime);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+@keyframes marq{to{transform:translateX(-50%)}}
+.chips{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.chip{border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:rgba(17,17,16,.6);display:flex;flex-direction:column;gap:3px;transition:border-color .3s}
+.chip:hover{border-color:var(--lime)}
+.chip small{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--soft)}
+.chip b{font-weight:500;font-size:13.5px}
+
+/* 3. FEATURE ROW */
+.feat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.feat__col{padding:56px 40px 60px;display:flex;flex-direction:column;gap:10px}
+.feat__col+.feat__col{border-left:1px solid var(--line)}
+.feat__obj{width:150px;height:150px;margin-bottom:18px;-webkit-mask-image:radial-gradient(closest-side,#000 52%,transparent 100%);mask-image:radial-gradient(closest-side,#000 52%,transparent 100%)}
+.feat__col h3{font-size:21px;font-weight:500;letter-spacing:-.025em}
+.feat__col h3 b{color:var(--lime);font-weight:500}
+.feat__col p{color:var(--soft);font-size:13.5px;line-height:1.55;max-width:34ch}
+
+/* 4. BENTO */
+.bento{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.card{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:border-color .4s,transform .4s var(--ease)}
+.card:hover{border-color:var(--line-2)}
+.card__txt{position:relative;z-index:2;padding:24px 26px;display:flex;flex-direction:column;gap:8px}
+.card__txt h3{font-size:20px;font-weight:500;letter-spacing:-.025em;display:flex;justify-content:space-between;gap:12px}
+.card__txt h3 svg{width:14px;height:14px;stroke:var(--soft);fill:none;stroke-width:1.6;flex:0 0 auto;margin-top:5px}
+.card__txt p{color:var(--soft);font-size:13.5px;line-height:1.55;max-width:36ch}
+.big{min-height:560px;display:flex;flex-direction:column}
+.big .card__txt h3{font-size:32px;letter-spacing:-.04em}
+.big__vis{flex:1;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1fr);align-items:center;gap:8px;padding:0 26px 40px}
+.big__obj{height:300px;-webkit-mask-image:radial-gradient(closest-side,#000 55%,transparent 100%);mask-image:radial-gradient(closest-side,#000 55%,transparent 100%)}
+.read{display:flex;flex-direction:column;gap:10px}
+.read small{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.18em;color:var(--soft)}
+.read svg{width:100%;height:auto}
+.read div{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--soft);font-variant-numeric:tabular-nums}
+.side{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:minmax(0,.8fr) minmax(0,1.2fr);gap:14px}
+.side .wide{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center}
+.side .wide .crop{height:100%;min-height:200px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 40%);mask-image:linear-gradient(90deg,transparent,#000 40%)}
+.small{display:flex;flex-direction:column}
+.small .crop{flex:1;min-height:180px;-webkit-mask-image:linear-gradient(180deg,transparent,#000 35%);mask-image:linear-gradient(180deg,transparent,#000 35%)}
+
+/* 5. TIMELINE */
+.day__band{position:relative;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background-color:#0e0f12;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='520' fill='none' stroke='%23F8F6F0' stroke-opacity='.07'%3E%3Cpath d='M-20 90c120-60 210 40 330 10s200-110 330-70 180 90 280 40'/%3E%3Cpath d='M-20 170c140-50 220 60 350 20s190-90 310-50 190 70 280 30'/%3E%3Cpath d='M-20 260c110-70 240 50 360 0s210-60 320-10 150 60 260 10'/%3E%3Cpath d='M-20 350c150-40 230 70 370 30s180-100 300-60 170 80 270 40'/%3E%3Cpath d='M-20 440c130-60 250 30 380-10s200-70 310-30 140 50 250 20'/%3E%3Cellipse cx='610' cy='150' rx='70' ry='44'/%3E%3Cellipse cx='610' cy='150' rx='38' ry='22'/%3E%3Cellipse cx='200' cy='380' rx='56' ry='30'/%3E%3C/svg%3E");background-size:900px 520px}
+.steps{display:flex;align-items:flex-end;gap:16px;min-height:380px;padding-block:70px}
+.step{flex:1 1 0;min-width:0;background:none;border:0;text-align:left;cursor:pointer;padding:0;display:flex;flex-direction:column;gap:10px}
+.step:nth-child(1){padding-bottom:110px}.step:nth-child(2){padding-bottom:70px}.step:nth-child(3){padding-bottom:20px}.step:nth-child(4){padding-bottom:0}.step:nth-child(5){padding-bottom:60px}
+.step small{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--soft);display:flex;align-items:center;gap:8px}
+.step small::before{content:"";width:6px;height:6px;border-radius:50%;border:1px solid var(--soft)}
+.step b{font-weight:500;font-size:clamp(30px,3.8vw,54px);letter-spacing:-.045em;line-height:1;color:#8F8C82;transition:color .5s,font-size .6s var(--ease);white-space:nowrap}
+.step:hover b{color:var(--soft)}
+.step.on{flex:1.5 1 0}
+.step.on b{color:var(--lime);font-size:clamp(44px,5.6vw,80px)}
+.step.on small{color:var(--lime)}.step.on small::before{background:var(--lime);border-color:var(--lime)}
+.day__foot{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding-block:28px}
+.day__foot small{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--lime);margin-bottom:8px;text-transform:uppercase}
+.day__foot p{color:#dedbd1;font-size:14.5px;line-height:1.55;max-width:50ch;min-height:3.1em}
+.arrows{display:flex;gap:8px}
+.arrows button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);background:none;cursor:pointer;display:grid;place-items:center;transition:border-color .3s,background .3s}
+.arrows button:hover{border-color:var(--lime);background:rgba(198,255,0,.08)}
+.arrows svg{width:14px;height:14px;stroke:var(--ink);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* 6. RULES GRID */
+.rules__top{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.rules__top .head{margin-bottom:0}
+.rules__hint{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);border:1px solid var(--line);border-radius:10px;padding:10px 14px;letter-spacing:.04em}
+.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.rule{padding:6px;display:flex;flex-direction:column}
+.rule:hover{transform:translateY(-4px)}
+.rule:hover .tile img,.rule:hover .tile video{filter:brightness(1.25)}
+.rule--wide{grid-column:span 2;flex-direction:row}
+.rule--wide .tile{flex:1 1 50%;height:auto;min-height:300px}
+.rule--wide .rule__txt{flex:1 1 50%;justify-content:center;padding:26px 30px}
+.tile{position:relative;height:190px;border-radius:13px;overflow:hidden;background-color:#0f1118;background-image:radial-gradient(rgba(248,246,240,.09) 1px,transparent 1px);background-size:14px 14px;border:1px solid var(--line)}
+.tile img,.card .crop img,.card .crop video{transition:filter .8s,scale 1.4s var(--ease),opacity .8s}
+.card:hover .crop img,.card:hover .crop video{scale:1.05}
+.tile .note:nth-of-type(1){left:14px;top:12px}.tile .note:nth-of-type(2){right:34px;top:12px}
+.tile__num{position:absolute;inset:0;display:grid;grid-auto-flow:column;place-content:center;align-items:baseline;font-weight:500;font-size:74px;letter-spacing:-.06em;color:var(--ink);font-variant-numeric:tabular-nums}
+.tile__num small{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--lime);margin-left:10px}
+.rule__txt{padding:16px 14px 16px;display:flex;flex-direction:column;gap:8px}
+.rule__txt h3{font-size:19px;font-weight:500;letter-spacing:-.025em;line-height:1.15}
+.rule--wide h3{font-size:34px;letter-spacing:-.04em;line-height:1.05}
+.rule__txt p{color:var(--soft);font-size:13.5px;line-height:1.5}
+
+/* 7. STATEMENT */
+.state{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-top:1px solid var(--line);align-items:stretch}
+.state__l{display:flex;flex-direction:column;justify-content:center;gap:26px;padding:70px 60px 70px 0}
+.state__l>span{font-size:19px;color:#dedbd1}
+.state__q{font-size:clamp(30px,3.6vw,48px);line-height:1.05;font-weight:500;letter-spacing:-.04em;text-wrap:balance}
+.state__q mark{background:none;color:var(--lime)}
+.state__by{font-size:13px;color:var(--soft);line-height:1.5}
+.state__by b{display:block;color:var(--ink);font-weight:500}
+.state__img{min-height:520px;--z:150%}
+
+/* 8. DISCIPLINE PANEL */
+.disc{position:relative;isolation:isolate;overflow:hidden;min-height:640px;display:flex;align-items:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.disc__bg{position:absolute;inset:0;z-index:-2}
+.disc__bg img{width:100%;height:100%;object-fit:cover;object-position:70% 50%;transform:scaleX(-1)}
+.disc__tex{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(11,11,10,.1) 30%,rgba(11,11,10,.75) 100%),linear-gradient(180deg,var(--bg) 0%,rgba(11,11,10,0) 18%,rgba(11,11,10,0) 82%,var(--bg) 100%)}
+.disc__in{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;width:100%}
+.disc__copy{align-self:flex-end;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--soft)}
+.spec{width:min(100%,400px);border-radius:20px;padding:26px;background:rgba(17,17,16,.55);border:1px solid var(--line-2);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.spec h3{font-size:28px;font-weight:500;letter-spacing:-.035em;margin-bottom:6px}
+.spec>p{color:var(--soft);font-size:13.5px;line-height:1.5;margin-bottom:16px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:13px 0;border-top:1px solid var(--line);font-size:14px}
+.row span:last-child{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-variant-numeric:tabular-nums;white-space:nowrap;padding:5px 10px;border-radius:100px;border:1px solid var(--line-2);color:#dedbd1}
+.row span.lock{background:var(--lime);border-color:var(--lime);color:var(--lime-ink)}
+.spec small{display:block;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.08em;color:var(--soft);margin-top:14px}
+
+/* 9. CTA */
+.cta{position:relative;isolation:isolate;overflow:hidden;min-height:620px;display:grid;place-items:center;padding:100px 24px}
+.cta__bg{position:absolute;inset:0;z-index:-2}
+.cta__bg img{width:190%;max-width:none;height:100%;object-fit:cover;object-position:0 60%;filter:saturate(.7) brightness(.8)}
+.cta__shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,var(--bg) 0%,rgba(11,11,10,.2) 25%,rgba(11,11,10,.3) 75%,var(--bg) 100%)}
+.cta__card{width:min(100%,760px);display:grid;grid-template-columns:auto minmax(0,1fr);gap:34px;align-items:center;padding:36px 40px;border-radius:20px;background:rgba(17,17,16,.5);border:1px solid var(--line-2);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.cta__ico{width:112px;height:112px;border-radius:50%;-webkit-mask-image:radial-gradient(closest-side,#000 55%,transparent 100%);mask-image:radial-gradient(closest-side,#000 55%,transparent 100%);--z:230%;--y:-45%}
+.cta__card h2{font-size:clamp(28px,3.4vw,40px);font-weight:500;letter-spacing:-.04em;line-height:1.05;margin:10px 0 10px}
+.cta__card p{color:#dedbd1;font-size:14px;line-height:1.5;margin-bottom:20px;max-width:46ch}
+
+/* 10. FOOTER */
+.foot{border-top:1px solid var(--line);padding-top:70px;overflow:hidden}
+.foot__top{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:40px;padding-bottom:50px}
+.foot__logo img{height:26px;width:auto;margin-bottom:18px}
+.foot__tag{color:var(--soft);font-size:14px;line-height:1.5;max-width:32ch}
+.foot__col h5{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-bottom:16px;font-weight:500}
+.foot__col a{display:block;color:#dedbd1;font-size:14px;padding:5px 0;transition:color .2s}
+.foot__col a:hover{color:var(--lime)}
+.foot__bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:24px;border-top:1px solid var(--line)}
+.foot__bot p{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);letter-spacing:.02em;max-width:56ch;line-height:1.5}
+.word{font-weight:700;font-size:clamp(170px,44vw,680px);line-height:1;letter-spacing:-.07em;text-align:center;white-space:nowrap;margin-top:6px;margin-bottom:-.1em;user-select:none}
+.word i{font-style:normal;color:var(--lime)}
+
+@media(max-width:1000px){
+  .widgets{display:none}
+  .bento,.state{grid-template-columns:minmax(0,1fr)}
+  .state__l{padding:60px 0 40px}
+  .rules{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .foot__top{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:720px){
+  .wrap{padding-inline:20px}
+  .sec{padding-block:84px}
+  .nav{padding:14px 20px}
+  .nav__links{display:none}
+  .hero{min-height:0}
+  .hero__media video{display:none}
+  .hero__media img{object-position:72% 40%;height:62%}
+  .hero__shade{background:linear-gradient(180deg,rgba(11,11,10,.45) 0%,rgba(11,11,10,.05) 22%,rgba(11,11,10,.7) 48%,var(--bg) 62%)}
+  .hero__in{padding-top:340px;padding-bottom:30px;align-items:flex-end}
+  .switch{display:none}
+  .chips{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .chips .chip:last-child{grid-column:1/-1}
+  .feat{grid-template-columns:minmax(0,1fr)}
+  .feat__col{padding:40px 20px}
+  .feat__col+.feat__col{border-left:0;border-top:1px solid var(--line)}
+  .big{min-height:0}
+  .big__vis{grid-template-columns:minmax(0,1fr)}
+  .big__obj{height:230px}
+  .side{grid-template-columns:minmax(0,1fr);grid-template-rows:none}
+  .side .wide{grid-template-columns:minmax(0,1fr)}
+  .steps{flex-direction:column;align-items:flex-start;min-height:0;gap:22px;padding-block:44px}
+  .step,.step.on{padding-bottom:0!important;flex:none}
+  .day__foot{flex-direction:column;align-items:flex-start}
+  .rules{grid-template-columns:minmax(0,1fr)}
+  .rule--wide{grid-column:auto;flex-direction:column}
+  .rule--wide .tile{min-height:220px;flex:none}
+  .rule--wide .rule__txt{padding:18px 14px}
+  .rule--wide h3{font-size:26px}
+  .state__img{min-height:340px}
+  .disc{min-height:0;padding-block:280px 40px}
+  .disc__bg img{height:320px;object-position:70% 45%}
+  .disc__tex{background:linear-gradient(180deg,var(--bg) 0%,rgba(11,11,10,0) 12%,rgba(11,11,10,.2) 40%,var(--bg) 70%)}
+  .disc__in{flex-direction:column;align-items:stretch}
+  .disc__copy{display:none}
+  .spec{width:100%}
+  .cta{min-height:0;padding:90px 20px}
+  .cta__card{grid-template-columns:minmax(0,1fr);padding:28px 24px;gap:14px}
+  .cta__ico{width:84px;height:84px}
+  .foot__top{grid-template-columns:minmax(0,1fr);gap:30px}
+}
+@media(prefers-reduced-motion:reduce){
+  .marq__track,.float{animation:none}
+  .js [data-rise],.js .crop[data-loop]{opacity:1;translate:none;scale:1;filter:none}
+  *{transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="/" class="nav__logo" aria-label="PnL App home"><img src="/assets/logo-white.png" alt="PnL App" /></a>
+  <div class="nav__links">
+    <a href="#features">Features</a>
+    <a href="#day">Your day</a>
+    <a href="#rules">Rules</a>
+    <a href="#discipline">Discipline Mode</a>
+  </div>
+  <div class="nav__cta"><a href="#start" class="ghost">Get the app</a></div>
+</nav>
+
+<main>
+
+<!-- 1. HERO -->
+<header class="hero">
+  <div class="hero__media" aria-hidden="true">
+    <img src="/assets/lock-in/candles.jpg" alt="" />
+    <!-- Three 6s clips played back to back as one 18s loop -->
+    <div id="heroVideo" data-clips="/assets/lock-in/hero-1.mp4,/assets/lock-in/hero-2.mp4,/assets/lock-in/hero-3.mp4" data-names="Candlesticks,Padlock,Journal">
+      <video muted playsinline preload="auto"></video>
+      <video muted playsinline preload="auto"></video>
+    </div>
+  </div>
+  <div class="hero__shade" aria-hidden="true"></div>
+
+  <div class="wrap hero__in">
+    <div class="hero__copy">
+      <h1 class="h1">Lock in.<br /><em>Literally.</em></h1>
+      <p class="hero__sub">PnL App locks your apps during the time windows you set, so the rules you wrote this morning still hold this afternoon.</p>
+      <div class="hero__cta">
+        <a href="https://apps.apple.com/app/id6756570340" class="pill"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></i>Download on the App Store</a>
+        <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="ghost">Google Play</a>
+      </div>
+      <div class="trust"><b>3 days</b><span>free on Pro+AI, on iOS and Android</span></div>
+    </div>
+
+    <div class="widgets" id="widgets" aria-hidden="true">
+      <div class="widget" data-drift="12">
+        <h4>Discipline<br />Mode <small>EXAMPLE</small></h4>
+        <svg viewBox="0 0 120 44"><g stroke="#F8F6F0" stroke-opacity=".35" stroke-width="1.4" stroke-linecap="round"><path d="M12 38l3-9M22 33l2-9M33 29l2-9M45 27l1-9M57 26v-9M69 27l-1-9M81 29l-2-9M92 33l-2-9M102 38l-3-9"/></g><path d="M57 26v-13" stroke="#C6FF00" stroke-width="2.4" stroke-linecap="round"/></svg>
+        <b>14:00<small>UNLOCK</small></b>
+      </div>
+      <div class="widget" data-drift="-8">
+        <h4>Check-in<br />streak <small>EXAMPLE</small></h4>
+        <svg viewBox="0 0 120 44"><path d="M4 30c18 0 22-14 40-14s20 16 36 16 20-10 36-12" fill="none" stroke="#F8F6F0" stroke-opacity=".5" stroke-width="1.4"/><circle cx="80" cy="32" r="3.5" fill="#C6FF00"/></svg>
+        <b>12<small>DAYS</small></b>
+      </div>
+    </div>
+    <div class="switch" aria-hidden="true"><i></i><span id="clipName">Candlesticks</span></div>
+  </div>
+
+  <!-- 2. MARQUEE + CHIPS -->
+  <div class="hero__foot">
+    <div class="marq" aria-hidden="true">
+      <div class="marq__track">
+        <span><svg viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M9 9h6M9 13h6"/></svg>Trade journal</span>
+        <span><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V7.5a4 4 0 0 1 8 0V11"/></svg>Discipline Mode</span>
+        <span><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>Check-ins</span>
+        <span><svg viewBox="0 0 24 24"><path d="M6 9.5a6 6 0 0 1 12 0c0 5.5 2 6.5 2 6.5H4s2-1 2-6.5"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>AI alerts</span>
+        <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>Exit time</span>
+        <span><svg viewBox="0 0 24 24"><path d="M4 18l5-6 4 3 7-9"/></svg>Trading psychology</span>
+        <span><svg viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M9 9h6M9 13h6"/></svg>Trade journal</span>
+        <span><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V7.5a4 4 0 0 1 8 0V11"/></svg>Discipline Mode</span>
+        <span><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>Check-ins</span>
+        <span><svg viewBox="0 0 24 24"><path d="M6 9.5a6 6 0 0 1 12 0c0 5.5 2 6.5 2 6.5H4s2-1 2-6.5"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>AI alerts</span>
+        <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>Exit time</span>
+        <span><svg viewBox="0 0 24 24"><path d="M4 18l5-6 4 3 7-9"/></svg>Trading psychology</span>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="chips">
+        <a class="chip" href="#features"><small>Record</small><b>Trade journal</b></a>
+        <a class="chip" href="#discipline"><small>Protect</small><b>Discipline Mode</b></a>
+        <a class="chip" href="#features"><small>Before you trade</small><b>Check-ins</b></a>
+        <a class="chip" href="#features"><small>While you trade</small><b>AI alerts</b></a>
+        <a class="chip" href="#day"><small>After you trade</small><b>Review</b></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- 3. FEATURE ROW -->
+<section id="features" style="padding-top:110px">
+  <div class="wrap">
+  <div class="feat">
+    <div class="feat__col" data-rise>
+      <div class="feat__obj crop float" style="--z:185%;--y:-43%" data-loop="/assets/lock-in/loop-journal.mp4"><img src="/assets/lock-in/journal.jpg" alt="" loading="lazy" /></div>
+      <h3><b>1</b> journal for every trade</h3>
+      <p>Log the entry, the exit and the reason. Patterns show up faster once they are written down.</p>
+    </div>
+    <div class="feat__col" data-rise>
+      <div class="feat__obj crop float" style="--z:320%;--y:-48%" data-loop="/assets/lock-in/loop-lock.mp4"><img src="/assets/lock-in/lock.jpg" alt="" loading="lazy" /></div>
+      <h3><b>0</b> apps open in a locked window</h3>
+      <p>Pick your time windows. Inside them there is nothing to open, so there is nothing to resist.</p>
+    </div>
+    <div class="feat__col" data-rise>
+      <div class="feat__obj crop float" style="--z:290%;--y:-47%" data-loop="/assets/lock-in/loop-candles.mp4"><img src="/assets/lock-in/candles.jpg" alt="" loading="lazy" /></div>
+      <h3><b>3</b> days free to try it</h3>
+      <p>The trial runs on the Pro+AI plan and starts in the mobile app, on iOS or Android.</p>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- 4. BENTO -->
+<section class="sec wrap">
+  <div class="bento">
+    <article class="card big" data-rise>
+      <div class="card__txt">
+        <h3>Your P&amp;L, next to your notes <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 11L11 3M5 3h6v6"/></svg></h3>
+        <p>See the number and the reason on the same screen, so you can tell a bad trade from a bad day.</p>
+      </div>
+      <div class="big__vis">
+        <div class="big__obj crop float" style="--z:215%;--y:-46%" data-loop="/assets/lock-in/loop-candles.mp4"><img src="/assets/lock-in/candles.jpg" alt="" loading="lazy" /></div>
+        <div class="read">
+          <small>ILLUSTRATIVE DAY</small>
+          <svg viewBox="0 0 300 110" role="img" aria-label="Illustrative intraday P and L curve">
+            <path d="M0 22H300M0 88H300" stroke="#F8F6F0" stroke-opacity=".14"/>
+            <path id="liLine" d="M0 76c30-4 44-34 78-38s40 26 70 22 44-40 78-44 48 10 74 4" fill="none" stroke="#C6FF00" stroke-width="2"/>
+            <circle cx="148" cy="60" r="4" fill="#0B0B0A" stroke="#F8F6F0" stroke-width="1.6"/>
+          </svg>
+          <div><span>09:30</span><span>16:00</span></div>
+        </div>
+      </div>
+      <span class="note" style="left:26px;bottom:20px">+ note: traded tired</span>
+    </article>
+
+    <div class="side">
+      <article class="card wide" data-rise>
+        <div class="card__txt">
+          <h3>Check-ins</h3>
+          <p>A short check before you trade. Tired, tilted or fine: write it down first.</p>
+        </div>
+        <div class="crop" style="--z:225%;--y:-47%" data-loop="/assets/lock-in/loop-shield.mp4"><img src="/assets/lock-in/shield.jpg" alt="" loading="lazy" /></div>
+        <span class="note" style="right:16px;bottom:14px">Before the open</span>
+      </article>
+      <article class="card small" data-rise>
+        <div class="card__txt">
+          <h3>Discipline Mode <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 11L11 3M5 3h6v6"/></svg></h3>
+          <p>Your apps stay locked during the windows you set.</p>
+        </div>
+        <div class="crop" style="--z:210%;--y:-46%" data-loop="/assets/lock-in/loop-lock.mp4"><img src="/assets/lock-in/lock.jpg" alt="" loading="lazy" /></div>
+        <span class="note" style="left:16px;bottom:14px">Locked</span>
+      </article>
+      <article class="card small" data-rise>
+        <div class="card__txt">
+          <h3>Exit time <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 11L11 3M5 3h6v6"/></svg></h3>
+          <p>When you got out matters as much as where. It is logged with every trade.</p>
+        </div>
+        <div class="crop" style="--z:210%;--y:-46%" data-loop="/assets/lock-in/loop-hourglass.mp4"><img src="/assets/lock-in/hourglass.jpg" alt="" loading="lazy" /></div>
+        <span class="note" style="left:16px;bottom:14px">Example: 11:24 exit</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 5. TIMELINE -->
+<section id="day" style="padding-bottom:130px">
+  <div class="wrap head" data-rise>
+    <h2 class="h2">One trading day</h2>
+    <p class="lede">Five moments. The app is built around the one in the middle.</p>
+  </div>
+  <div class="day__band">
+    <div class="wrap steps" id="steps">
+      <button class="step" data-t="Before the open" data-d="Write today's rules while the market is closed and you are thinking clearly. These are the rules the lock will keep."><small>01</small><b>Plan</b></button>
+      <button class="step" data-t="Pre-trade" data-d="A short check-in before the first order. Tired, tilted or fine: say how you are actually doing, and let it shape the day."><small>02</small><b>Check in</b></button>
+      <button class="step on" data-t="Discipline Mode" data-d="Discipline Mode holds the windows you set. Outside your trading hours the apps are locked, so the plan survives the afternoon."><small>03</small><b>Lock</b></button>
+      <button class="step" data-t="After each trade" data-d="Entry, exit, exit time and the reason you left. A minute of logging now is the data you review later."><small>04</small><b>Log</b></button>
+      <button class="step" data-t="After the close" data-d="Read the day back when nothing is moving. The journal shows what you did; your notes show why."><small>05</small><b>Review</b></button>
+    </div>
+  </div>
+  <div class="wrap day__foot">
+    <div aria-live="polite"><small id="stepT">Discipline Mode</small><p id="stepD">Discipline Mode holds the windows you set. Outside your trading hours the apps are locked, so the plan survives the afternoon.</p></div>
+    <div class="arrows">
+      <button id="prev" aria-label="Previous moment"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+      <button id="next" aria-label="Next moment"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- 6. RULES GRID -->
+<section class="wrap" id="rules" style="padding-bottom:130px">
+  <div class="rules__top">
+    <div class="head" data-rise>
+      <div class="tagline">:: Example rules ::</div>
+      <h2 class="h2">Rules you already know.<br />Finally enforced.</h2>
+      <p class="lede">Examples of what traders write in their plan. Yours will be your own.</p>
+    </div>
+    <div class="rules__hint">5 examples &middot; write your own in the app</div>
+  </div>
+  <div class="rules">
+    <article class="card rule rule--wide" data-rise>
+      <div class="tile crop marks" style="--z:150%;--y:-48%" data-loop="/assets/lock-in/loop-lock.mp4"><span class="note">Time</span><span class="note">Discipline Mode</span><img src="/assets/lock-in/lock.jpg" alt="" loading="lazy" /></div>
+      <div class="rule__txt">
+        <div class="tagline">Time rule</div>
+        <h3>Done by lunch. Locked until tomorrow.</h3>
+        <p>Set a window that ends when your edge does. The lock makes the rule true whether or not you feel like keeping it.</p>
+      </div>
+    </article>
+    <article class="card rule" data-rise>
+      <div class="tile crop marks" style="--z:185%;--y:-46%" data-loop="/assets/lock-in/loop-stop.mp4"><span class="note">After losses</span><span class="note">Stop</span><img src="/assets/lock-in/stop.jpg" alt="" loading="lazy" /></div>
+      <div class="rule__txt"><div class="tagline">Loss rule</div><h3>No trades after two losses.</h3></div>
+    </article>
+    <article class="card rule" data-rise>
+      <div class="tile crop marks" style="--z:185%;--y:-44%" data-loop="/assets/lock-in/loop-journal.mp4"><span class="note">Process</span><span class="note">Journal</span><img src="/assets/lock-in/journal.jpg" alt="" loading="lazy" /></div>
+      <div class="rule__txt"><div class="tagline">Process rule</div><h3>Journal before the next entry.</h3></div>
+    </article>
+    <article class="card rule" data-rise>
+      <div class="tile crop marks" style="--z:185%;--y:-48%" data-loop="/assets/lock-in/loop-bell.mp4"><span class="note">Impulse</span><span class="note">AI alert</span><img src="/assets/lock-in/bell.jpg" alt="" loading="lazy" /></div>
+      <div class="rule__txt"><div class="tagline">Impulse rule</div><h3>No &ldquo;one last trade.&rdquo;</h3></div>
+    </article>
+    <article class="card rule" data-rise>
+      <div class="tile crop marks" style="--z:185%;--y:-46%" data-loop="/assets/lock-in/loop-compass.mp4"><span class="note">State</span><span class="note">Check-in</span><img src="/assets/lock-in/compass.jpg" alt="" loading="lazy" /></div>
+      <div class="rule__txt"><div class="tagline">State rule</div><h3>Check in first. Trade second.</h3></div>
+    </article>
+  </div>
+</section>
+
+<!-- 7. STATEMENT -->
+<section class="wrap">
+  <div class="state">
+    <div class="state__l" data-rise>
+      <span>The idea,</span>
+      <p class="state__q">&ldquo;You don't need more willpower. You need <mark>fewer open doors.</mark>&rdquo;</p>
+      <div class="state__by"><b>PnL App</b>Why Discipline Mode exists</div>
+    </div>
+    <div class="state__img crop" data-loop="/assets/lock-in/loop-key.mp4"><img src="/assets/lock-in/key.jpg" alt="A glass key floating above a glowing pedestal in a misty valley" loading="lazy" /></div>
+  </div>
+</section>
+
+<!-- 8. DISCIPLINE PANEL -->
+<section class="disc" id="discipline">
+  <div class="disc__bg" aria-hidden="true"><img src="/assets/lock-in/lock.jpg" alt="" loading="lazy" /></div>
+  <div class="disc__tex" aria-hidden="true"></div>
+  <div class="wrap disc__in">
+    <div class="disc__copy">DISCIPLINE MODE &#9472;&#9472;</div>
+    <div class="spec" data-rise>
+      <h3>Today's windows</h3>
+      <p>You set the hours while you are thinking clearly. The lock keeps them.</p>
+      <div class="row"><span>Before the open</span><span class="lock">Locked until 09:30</span></div>
+      <div class="row"><span>Trading window</span><span>Open 09:30 to 11:30</span></div>
+      <div class="row"><span>Midday</span><span class="lock">Locked 11:30 to 14:00</span></div>
+      <div class="row"><span>Afternoon window</span><span>Open 14:00 to 16:00</span></div>
+      <div class="row"><span>After the close</span><span class="lock">Locked from 16:00</span></div>
+      <small>Example schedule &middot; you choose your own windows</small>
+    </div>
+  </div>
+</section>
+
+<!-- 9. CTA -->
+<section class="cta" id="start">
+  <div class="cta__bg" aria-hidden="true"><img src="/assets/lock-in/candles.jpg" alt="" loading="lazy" /></div>
+  <div class="cta__shade" aria-hidden="true"></div>
+  <div class="cta__card" data-rise>
+    <div class="cta__ico crop" aria-hidden="true" data-loop="/assets/lock-in/loop-lock.mp4"><img src="/assets/lock-in/lock.jpg" alt="" loading="lazy" /></div>
+    <div>
+      <div class="tagline">:: Free for 3 days ::</div>
+      <h2>Start locked in tomorrow</h2>
+      <p>The trial is on the Pro+AI plan and starts in the mobile app. Download it, set your first window, and see how tomorrow goes.</p>
+      <div class="hero__cta">
+        <a href="https://apps.apple.com/app/id6756570340" class="pill"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></i>App Store</a>
+        <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en" class="ghost">Google Play</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- 10. FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div>
+        <div class="foot__logo"><img src="/assets/logo-white.png" alt="PnL App" /></div>
+        <p class="foot__tag">Trading psychology, engineered. Built to make discipline your default.</p>
+      </div>
+      <div class="foot__col">
+        <h5>Product</h5>
+        <a href="https://apps.apple.com/app/id6756570340">iOS App</a>
+        <a href="https://play.google.com/store/apps/details?id=co.pnlapp&hl=en">Android App</a>
+        <a href="/quiz">Trading Psychology Quiz</a>
+        <a href="/blog/">Blog</a>
+      </div>
+      <div class="foot__col">
+        <h5>Company</h5>
+        <a href="/#ethos">About</a>
+        <a href="/#team">Team</a>
+        <a href="/termsandconditions">Terms &amp; Conditions</a>
+        <a href="/privacypolicy">Privacy Policy</a>
+        <a href="/request-delete-account">Delete Account</a>
+      </div>
+      <div class="foot__col">
+        <h5>Follow</h5>
+        <a href="https://instagram.com/pnlapp">Instagram</a>
+        <a href="https://x.com/pnlapp_official">X / Twitter</a>
+        <a href="https://www.linkedin.com/company/108309261/">LinkedIn</a>
+        <a href="https://www.reddit.com/r/thetradingcommunity/">Reddit</a>
+        <a href="https://t.me/pnlappofficial">Telegram</a>
+      </div>
+    </div>
+    <div class="foot__bot">
+      <p>&copy; 2026 Breiterman LLC — Dubai, UAE. All rights reserved.</p>
+      <p>PnL App does not provide financial advice. It helps you understand your trading behavior.</p>
+    </div>
+  </div>
+  <div class="word" aria-hidden="true">pnl<i>.</i></div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script>
+  const nav=document.getElementById('nav');
+  const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>12);
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const small=window.matchMedia('(max-width: 720px)').matches;
+
+  // Hero: two stacked videos. The next clip loads behind the current one, so the swap never flashes.
+  // Phones and reduced-motion keep the still image.
+  (function(){
+    const box=document.getElementById('heroVideo'),label=document.getElementById('clipName');
+    if(!box) return;
+    if(reduce||small){box.remove();return;}
+    const clips=box.dataset.clips.split(','),names=box.dataset.names.split(',');
+    const vids=[...box.querySelectorAll('video')];let i=0,front=0;
+    const show=()=>{
+      const v=vids[front],next=vids[1-front];
+      v.classList.add('on');next.classList.remove('on');
+      label.textContent=names[i]+' \u2192 '+names[(i+1)%names.length];
+      next.src=clips[(i+1)%clips.length];next.load();
+    };
+    vids.forEach(v=>{
+      v.addEventListener('ended',()=>{i=(i+1)%clips.length;front=1-front;vids[front].currentTime=0;vids[front].play().catch(()=>{});show();});
+      v.addEventListener('error',()=>{box.remove();},{once:true});
+    });
+    vids[0].src=clips[0];
+    vids[0].addEventListener('playing',show,{once:true});
+    vids[0].play().catch(()=>{});
+  })();
+
+  // Reveal on scroll: sections rise in, objects materialise out of blur. Works without any library.
+  // Each object then plays its own loop clip while it is on screen.
+  (function(){
+    if(reduce||!('IntersectionObserver' in window)) return;
+    document.documentElement.classList.add('js');
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{rootMargin:'0px 0px -12% 0px',threshold:.08});
+    document.querySelectorAll('[data-rise],.crop[data-loop]').forEach(el=>{
+      const sibs=[...el.parentElement.children].filter(c=>c.matches('[data-rise]'));
+      const k=sibs.indexOf(el);if(k>0) el.style.setProperty('--d',(k*.12)+'s');
+      io.observe(el);
+    });
+    if(small) return;
+    const vio=new IntersectionObserver(es=>es.forEach(e=>{
+      const box=e.target;let v=box.querySelector('video');
+      if(e.isIntersecting){
+        if(!v){
+          v=document.createElement('video');v.muted=true;v.loop=true;v.playsInline=true;v.preload='auto';v.setAttribute('aria-hidden','true');
+          v.addEventListener('playing',()=>v.classList.add('on'),{once:true});
+          v.addEventListener('error',()=>v.remove(),{once:true});
+          v.src=box.dataset.loop;box.appendChild(v);
+        }
+        v.play().catch(()=>{});
+      }else if(v){v.pause();}
+    }),{threshold:.35});
+    document.querySelectorAll('.crop[data-loop]').forEach(el=>vio.observe(el));
+  })();
+
+  // Timeline: steps light up one by one as the band scrolls past. Clicking a moment or an arrow takes over.
+  (function(){
+    const steps=[...document.querySelectorAll('#steps .step')];
+    const band=document.querySelector('.day__band');
+    const t=document.getElementById('stepT'),d=document.getElementById('stepD');
+    let cur=steps.findIndex(s=>s.classList.contains('on')),manual=false;
+    const set=n=>{n=(n+steps.length)%steps.length;if(n===cur&&steps[n].getAttribute('aria-pressed')) return;cur=n;steps.forEach((s,k)=>{s.classList.toggle('on',k===cur);s.setAttribute('aria-pressed',k===cur);});t.textContent=steps[cur].dataset.t;d.textContent=steps[cur].dataset.d;};
+    steps.forEach((s,k)=>s.addEventListener('click',()=>{manual=true;set(k);}));
+    document.getElementById('prev').addEventListener('click',()=>{manual=true;set(cur-1);});
+    document.getElementById('next').addEventListener('click',()=>{manual=true;set(cur+1);});
+    set(cur);
+    if(reduce) return;
+    window.addEventListener('scroll',()=>{
+      if(manual) return;
+      const r=band.getBoundingClientRect(),vh=window.innerHeight;
+      if(r.bottom<0||r.top>vh) return;
+      const p=Math.min(.999,Math.max(0,(vh*.85-r.top)/(vh*.6+r.height*.4)));
+      set(Math.floor(p*steps.length));
+    },{passive:true});
+  })();
+
+  // Motion: smooth scroll, rise-in on enter, widget drift. Everything is visible without it.
+  window.addEventListener('load',()=>{
+    if(reduce||!window.gsap) return;
+    if(window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+    if(window.Lenis&&!small){
+      const lenis=new Lenis({duration:1.1});
+      if(window.ScrollTrigger) lenis.on('scroll',ScrollTrigger.update);
+      gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);
+      document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+        const el=document.querySelector(a.getAttribute('href'));if(el){e.preventDefault();lenis.scrollTo(el,{offset:-70});}
+      }));
+    }
+    if(window.ScrollTrigger){
+      const line=document.getElementById('liLine');
+      if(line){const len=line.getTotalLength();gsap.fromTo(line,{strokeDasharray:len,strokeDashoffset:len},{strokeDashoffset:0,duration:1.2,ease:'power2.out',scrollTrigger:{trigger:line,start:'top 88%',once:true}});}
+    }
+    if(window.ScrollTrigger){
+      gsap.to('.hero__media',{yPercent:10,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+      gsap.fromTo('.disc__bg',{scale:1.08},{scale:1,ease:'none',scrollTrigger:{trigger:'.disc',start:'top bottom',end:'bottom top',scrub:true}});
+    }
+    gsap.from('.hero__copy > *',{y:24,opacity:0,duration:1.1,ease:'power3.out',stagger:.1});
+    const cards=gsap.utils.toArray('#widgets .widget');
+    gsap.from(cards,{y:20,opacity:0,duration:1,ease:'power2.out',stagger:.15,delay:.3});
+    document.querySelector('.hero').addEventListener('mousemove',e=>{
+      const x=e.clientX/window.innerWidth-.5,y=e.clientY/window.innerHeight-.5;
+      cards.forEach(c=>{const k=+c.dataset.drift;gsap.to(c,{x:x*k*2,y:y*k,duration:1.2,ease:'power2.out'});});
+    });
+  });
+</script>
+</body>
+</html>
