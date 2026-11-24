@@ -498,7 +498,6 @@ button{font:inherit;color:inherit}
         <div><small>Pnlee · Recovery trading</small><p>You sized up 18 minutes after a loss. Check whether the entry met your rules.</p></div>
       </div>
     </div>
-    <div class="switch" aria-hidden="true"><i></i><span id="clipName">Charts → Mirror</span></div>
   </div>
   <div class="hero__foot">
     <div class="marq" aria-label="Featured in UAE Times, The Guardian and Business Insider">
@@ -1021,7 +1020,7 @@ button{font:inherit;color:inherit}
 
   // Hero: two stacked videos, so the next clip is ready before the swap. Phones keep the still image.
   (function(){
-    const box=document.getElementById('heroVideo'),label=document.getElementById('clipName');
+    const box=document.getElementById('heroVideo'),label=document.getElementById('clipName')||{};
     if(!box) return;
     if(reduce||small){box.remove();return;}
     const clips=box.dataset.clips.split(','),names=box.dataset.names.split('|');
