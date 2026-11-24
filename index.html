@@ -169,7 +169,7 @@ button{font:inherit;color:inherit}
 .hero{position:relative;isolation:isolate;overflow:hidden;min-height:min(960px,100vh);display:flex;flex-direction:column}
 .hero__media{position:absolute;inset:0;z-index:-2;background:#0d0e12}
 .hero__media video,.hero__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 50%}
-.hero__media video{opacity:0}.hero__media video.on{opacity:1;transition:opacity .6s}.hero__media video.top{z-index:1;transition:none}
+.hero__media video{opacity:0}.hero__media video.on{opacity:1;transition:opacity .6s}.hero__media video.top{z-index:1;transition:opacity .3s linear}
 .hero__shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(11,11,10,.86) 0%,rgba(11,11,10,.4) 44%,rgba(11,11,10,0) 72%),linear-gradient(180deg,rgba(11,11,10,.4) 0%,rgba(11,11,10,0) 22%,rgba(11,11,10,0) 60%,var(--bg) 100%)}
 .hero__in{flex:1;display:flex;align-items:center;position:relative;width:100%;padding-top:120px;padding-bottom:36px}
 .hero__copy{display:flex;flex-direction:column;gap:22px;max-width:760px}
@@ -1028,14 +1028,18 @@ button{font:inherit;color:inherit}
     // Each clip starts on the frame the previous one ended on. The incoming video is laid over the
     // outgoing one, and the outgoing one is only cleared and reloaded once it is fully covered.
     const preload=()=>{const n=vids[1-front];n.src=clips[(i+1)%clips.length];n.load();};
-    const swap=()=>{const old=vids[front];i=(i+1)%clips.length;front=1-front;const v=vids[front];
-      const go=()=>{v.classList.add('on','top');label.textContent=names[i];
-        setTimeout(()=>{old.classList.remove('on','top');v.classList.remove('top');preload();},450);};
+    let busy=false;
+    const swap=()=>{if(busy) return;busy=true;const old=vids[front];i=(i+1)%clips.length;front=1-front;const v=vids[front];
+      const go=()=>{v.classList.add('top');void v.offsetWidth;v.classList.add('on');
+        setTimeout(()=>{old.classList.remove('on','top');v.classList.remove('top');preload();busy=false;},420);};
       v.addEventListener('playing',go,{once:true});v.currentTime=0;v.play().catch(()=>{});};
+    // Start the next clip just before the current one runs out, so the motion never stops.
+    const tick=()=>{const v=vids[front];if(v.duration&&v.duration-v.currentTime<.3) swap();requestAnimationFrame(tick);};
     vids.forEach(v=>{
-      v.addEventListener('ended',()=>{if(v===vids[front]) setTimeout(swap,900);});
+      v.addEventListener('ended',()=>{if(v===vids[front]) swap();});
       v.addEventListener('error',()=>{box.remove();},{once:true});
     });
+    requestAnimationFrame(tick);
     vids[0].src=clips[0];vids[0].addEventListener('playing',()=>{vids[0].classList.add('on');label.textContent=names[0];preload();},{once:true});vids[0].play().catch(()=>{});
   })();
 
