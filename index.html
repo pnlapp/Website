@@ -171,7 +171,8 @@ button{font:inherit;color:inherit}
 .hero__media video,.hero__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 50%}
 .hero__media .hl{position:absolute;inset:0;opacity:0}.hero__media .hl.on{opacity:1}
 .hero__media video{opacity:0}.hero__media video.on{opacity:1;transition:opacity .6s}
-.hero__media canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.hero__media .hm{z-index:1;opacity:0;transition:opacity .5s ease}.hero__media .hm.on{opacity:1;transition:opacity .35s ease}
+.hero__media canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
 .hero__shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(11,11,10,.86) 0%,rgba(11,11,10,.4) 44%,rgba(11,11,10,0) 72%),linear-gradient(180deg,rgba(11,11,10,.4) 0%,rgba(11,11,10,0) 22%,rgba(11,11,10,0) 60%,var(--bg) 100%)}
 .hero__in{flex:1;display:flex;align-items:center;position:relative;width:100%;padding-top:120px;padding-bottom:36px}
 .hero__copy{display:flex;flex-direction:column;gap:22px;max-width:760px}
@@ -472,9 +473,9 @@ button{font:inherit;color:inherit}
 <header class="hero">
   <div class="hero__media" aria-hidden="true">
     <div id="heroStage">
-      <div class="hl on" data-loop="/assets/lock-in/loop-candles.mp4"><img src="/assets/lock-in/candles.jpg" alt="" /></div>
-      <div class="hl" data-loop="/assets/lock-in/loop-lock.mp4"><img src="/assets/lock-in/lock.jpg" alt="" /></div>
-      <div class="hl" data-loop="/assets/home/loop-mirror.mp4"><img src="/assets/home/mirror.jpg" alt="" /></div>
+      <div class="hl on" data-idle="/assets/home/hero-idle-candles.mp4" data-out="/assets/home/hero-lock.mp4"><img src="/assets/lock-in/candles.jpg" alt="" /></div>
+      <div class="hl" data-idle="/assets/home/hero-idle-lock.mp4" data-out="/assets/home/hero-lock-mirror.mp4"><img src="/assets/home/lock-clean.jpg" alt="" /></div>
+      <div class="hl" data-idle="/assets/home/hero-idle-mirror.mp4" data-out="/assets/home/hero-mirror-rev.mp4"><img src="/assets/home/mirror.jpg" alt="" /></div>
       <canvas></canvas>
     </div>
   </div>
@@ -1023,38 +1024,47 @@ button{font:inherit;color:inherit}
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const small=window.matchMedia('(max-width: 720px)').matches;
 
-  // Hero: three scenes (candles, lock, mirror) stacked as looping layers. Moving the pointer over the
-  // hero starts a reveal of the next scene that spreads out from where the pointer is.
+  // Hero: three scenes (candles, lock, mirror). Resting the pointer on the hero makes the object
+  // dissolve into a cloud and reform as the next one, with a puff of mist where the pointer is.
+  // A quick sweep instead wipes the next scene in along the pointer's path.
   (function(){
     const stage=document.getElementById('heroStage');
     if(!stage) return;
     const hero=stage.closest('.hero'),cv=stage.querySelector('canvas'),ctx=cv.getContext('2d');
-    const layers=[...stage.querySelectorAll('.hl')];
+    const layers=[...stage.querySelectorAll('.hl')],N=layers.length;
     const useVideo=!reduce&&!small;
-    const vids=layers.map(l=>{
+    const mk=(src,loop)=>{const v=document.createElement('video');v.muted=true;v.loop=loop;v.playsInline=true;v.preload='auto';v.src=src;return v;};
+    const idle=layers.map(l=>{
       if(!useVideo) return null;
-      const v=document.createElement('video');
-      v.muted=true;v.loop=true;v.playsInline=true;v.preload='auto';v.src=l.dataset.loop;
+      const v=mk(l.dataset.idle,true);
       v.addEventListener('playing',()=>v.classList.add('on'),{once:true});
       v.addEventListener('error',()=>v.remove(),{once:true});
       l.appendChild(v);return v;
     });
-    const play=on=>vids.forEach(v=>{if(v&&v.isConnected){on?v.play().catch(()=>{}):v.pause();}});
+    // The cloud morph out of each scene, loaded only once that scene is showing.
+    const morphs=[];
+    const morph=i=>{
+      if(!useVideo) return null;
+      if(!morphs[i]){const v=mk(layers[i].dataset.out,false);v.className='hm';v.addEventListener('error',()=>v.remove(),{once:true});stage.insertBefore(v,cv);morphs[i]=v;}
+      return morphs[i];
+    };
+    const play=on=>idle.forEach(v=>{if(v&&v.isConnected){on?v.play().catch(()=>{}):v.pause();}});
     if('IntersectionObserver' in window) new IntersectionObserver(es=>play(es[0].isIntersecting)).observe(hero); else play(true);
-    const source=i=>{const v=vids[i];return v&&v.isConnected&&v.readyState>=2?v:layers[i].querySelector('img');};
+    if(useVideo) setTimeout(()=>morph(0),1200);
+    const source=i=>{const v=idle[i];return v&&v.isConnected&&v.readyState>=2?v:layers[i].querySelector('img');};
 
-    // The reveal mask is computed at low resolution and scaled up, which keeps its edge soft.
-    const MW=176;let MH=99,mask=document.createElement('canvas'),rim=document.createElement('canvas'),mctx,rctx,mimg,rimg,noise;
-    let cw=0,ch=0;
+    // Masks are computed at low resolution and scaled up, which keeps their edges soft.
+    const MW=176;let MH=99,mask=document.createElement('canvas'),rim=document.createElement('canvas'),fog=document.createElement('canvas');
+    let mctx,rctx,fctx,mimg,rimg,fimg,noise,cw=0,ch=0;
     const size=()=>{
       const r=cv.getBoundingClientRect(),d=Math.min(window.devicePixelRatio||1,1.5);
       cw=cv.width=Math.max(2,Math.round(r.width*d));ch=cv.height=Math.max(2,Math.round(r.height*d));
       MH=Math.max(2,Math.round(MW*ch/cw));
-      mask.width=rim.width=MW;mask.height=rim.height=MH;
-      mctx=mask.getContext('2d');rctx=rim.getContext('2d');
-      mimg=mctx.createImageData(MW,MH);rimg=rctx.createImageData(MW,MH);
+      [mask,rim,fog].forEach(c=>{c.width=MW;c.height=MH;});
+      mctx=mask.getContext('2d');rctx=rim.getContext('2d');fctx=fog.getContext('2d');
+      mimg=mctx.createImageData(MW,MH);rimg=rctx.createImageData(MW,MH);fimg=fctx.createImageData(MW,MH);
       noise=new Float32Array(MW*MH);
-      // Two octaves of smooth noise, so the edge drifts like mist instead of forming a clean circle.
+      // Two octaves of smooth noise, so edges drift like mist instead of forming clean circles.
       const oct=cs=>{
         const gw=Math.ceil(MW/cs)+2,gh=Math.ceil(MH/cs)+2,g=new Float32Array(gw*gh).map(()=>Math.random());
         return (x,y)=>{
@@ -1067,11 +1077,14 @@ button{font:inherit;color:inherit}
       for(let y=0;y<MH;y++)for(let x=0;x<MW;x++) noise[y*MW+x]=n1(x,y)*.65+n2(x,y)*.35;
     };
     size();window.addEventListener('resize',size);
-
-    let cur=0,next=1,active=false,seeds=[],idleAt=0,raf=0;
     const diag=()=>Math.hypot(MW,MH);
-    const frame=now=>{
-      raf=0;if(!active) return;
+    const toMask=(cx,cy)=>{const r=cv.getBoundingClientRect();return {x:Math.min(Math.max((cx-r.left)/(r.width||1),0),1)*MW,y:Math.min(Math.max((cy-r.top)/(r.height||1),0),1)*MH};};
+
+    let cur=0,busy=false,idleAt=0,mode=null,next=1,seeds=[],puff=null,raf=0;
+    const finish=to=>{cur=to;busy=false;idleAt=performance.now();morph(cur);};
+
+    // Sweep: the next scene spreads out from each point of the pointer's path.
+    const drawWipe=now=>{
       const D=diag(),edge=D*.09,amp=D*.2,m=mimg.data,q=rimg.data;let min=1;
       const R=seeds.map(s=>{const p=(now-s.t)/1700;return D*(.05+1.25*Math.pow(Math.max(p,0),1.7));});
       for(let y=0,k=0;y<MH;y++)for(let x=0;x<MW;x++,k++){
@@ -1079,50 +1092,103 @@ button{font:inherit;color:inherit}
         for(let j=0;j<seeds.length;j++){const dx=x-seeds[j].x,dy=y-seeds[j].y,v=R[j]-Math.sqrt(dx*dx+dy*dy);if(v>best) best=v;}
         let a=(best+(noise[k]-.5)*amp)/edge+.5;a=a<0?0:a>1?1:a;
         if(a<min) min=a;
-        const o=k*4;m[o+3]=a*255;
-        q[o]=190;q[o+1]=225;q[o+2]=255;q[o+3]=a*(1-a)*4*95;
+        const o=k*4;m[o+3]=a*255;q[o]=190;q[o+1]=225;q[o+2]=255;q[o+3]=a*(1-a)*4*95;
       }
       mctx.putImageData(mimg,0,0);rctx.putImageData(rimg,0,0);
       const src=source(next),sw=src.videoWidth||src.naturalWidth,sh=src.videoHeight||src.naturalHeight;
-      ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,cw,ch);
       if(sw&&sh){
         // Same framing as object-fit: cover with the layer's object-position.
         const pos=getComputedStyle(layers[next].querySelector('img')).objectPosition.split(' ').map(parseFloat);
         const s=Math.max(cw/sw,ch/sh),dw=sw*s,dh=sh*s;
+        ctx.globalCompositeOperation='source-over';
         ctx.drawImage(src,(cw-dw)*(pos[0]||0)/100,(ch-dh)*(pos[1]||0)/100,dw,dh);
         ctx.globalCompositeOperation='destination-in';ctx.drawImage(mask,0,0,cw,ch);
         ctx.globalCompositeOperation='lighter';ctx.drawImage(rim,0,0,cw,ch);
       }
-      if(min>=1){
-        layers[cur].classList.remove('on');layers[next].classList.add('on');
-        cur=next;next=(cur+1)%layers.length;active=false;seeds=[];idleAt=now;
-        requestAnimationFrame(()=>{ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,cw,ch);});
-        return;
-      }
-      raf=requestAnimationFrame(frame);
+      if(min<1) return true;
+      layers[cur].classList.remove('on');layers[next].classList.add('on');
+      mode=null;seeds=[];finish(next);
+      return false;
     };
-    const seed=(cx,cy)=>{
-      const r=cv.getBoundingClientRect();if(!r.width||!r.height) return;
-      const x=Math.min(Math.max((cx-r.left)/r.width,0),1)*MW,y=Math.min(Math.max((cy-r.top)/r.height,0),1)*MH,now=performance.now();
-      if(!active){
-        if(now-idleAt<700) return;
-        active=true;seeds=[{x,y,t:now}];
-      }else{
-        // Sweeping across adds more starting points, so the change follows the pointer's path.
-        const l=seeds[seeds.length-1];
-        if(seeds.length<8&&Math.hypot(x-l.x,y-l.y)>diag()*.1) seeds.push({x,y,t:now});
+    // Poof: a soft cloud of light billows out from the pointer and fades while the object morphs.
+    const drawPuff=now=>{
+      const p=(now-puff.t)/1500;if(p>=1){puff=null;return false;}
+      const D=diag(),e=1-Math.pow(1-p,3),R=D*(.03+.26*e),edge=D*.08,amp=D*.22,fade=Math.pow(1-p,1.6)*.42,f=fimg.data;
+      for(let y=0,k=0;y<MH;y++)for(let x=0;x<MW;x++,k++){
+        const d=Math.hypot(x-puff.x,y-puff.y);
+        let a=(R-d+(noise[k]-.5)*amp)/edge+.5;a=a<0?0:a>1?1:a;
+        const o=k*4;f[o]=205;f[o+1]=228;f[o+2]=255;f[o+3]=a*fade*(.55+.45*noise[k])*255;
       }
-      if(!raf) raf=requestAnimationFrame(frame);
+      fctx.putImageData(fimg,0,0);
+      ctx.globalCompositeOperation='lighter';ctx.drawImage(fog,0,0,cw,ch);
+      return true;
     };
-    hero.addEventListener('pointermove',e=>seed(e.clientX,e.clientY),{passive:true});
-    hero.addEventListener('pointerdown',e=>seed(e.clientX,e.clientY),{passive:true});
+    const frame=now=>{
+      raf=0;ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,cw,ch);
+      let more=false;
+      if(mode==='wipe') more=drawWipe(now);
+      if(puff) more=drawPuff(now)||more;
+      if(more) raf=requestAnimationFrame(frame);
+      else{ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,cw,ch);}
+    };
+    const kick=()=>{if(!raf) raf=requestAnimationFrame(frame);};
+
+    const ready=()=>!busy&&performance.now()-idleAt>600;
+    const wipe=pts=>{
+      if(!ready()) return;
+      busy=true;mode='wipe';next=(cur+1)%N;const now=performance.now();
+      seeds=pts.slice(0,8).map(([cx,cy])=>({...toMask(cx,cy),t:now}));kick();
+    };
+    const addSeed=(cx,cy)=>{
+      const s=toMask(cx,cy),l=seeds[seeds.length-1];
+      if(seeds.length<8&&Math.hypot(s.x-l.x,s.y-l.y)>diag()*.1){seeds.push({...s,t:performance.now()});kick();}
+    };
+    const poof=(cx,cy)=>{
+      if(!ready()) return;
+      const m=morph(cur);
+      // Until the morph clip can play (and on phones, which show stills), change with the wipe instead.
+      if(!m||!m.isConnected||m.readyState<3){wipe([[cx,cy]]);return;}
+      busy=true;const from=cur,to=(cur+1)%N;
+      puff={...toMask(cx,cy),t:performance.now()};kick();
+      const nv=idle[to];if(nv&&nv.isConnected){nv.currentTime=0;nv.play().catch(()=>{});}
+      m.currentTime=0;
+      m.play().then(()=>{
+        m.classList.add('on');
+        const watch=()=>{
+          if(m.ended||(m.duration&&m.currentTime>=m.duration-.55)){
+            // The morph ends on the next scene's resting frame; swap underneath it, then fade it out.
+            layers[from].classList.remove('on');layers[to].classList.add('on');m.classList.remove('on');
+            setTimeout(()=>{m.pause();finish(to);},500);
+            return;
+          }
+          requestAnimationFrame(watch);
+        };
+        requestAnimationFrame(watch);
+      }).catch(()=>{busy=false;});
+    };
+
+    let path=[],rest=0;
+    hero.addEventListener('pointermove',e=>{
+      if(e.pointerType==='touch') return;
+      const now=performance.now();path.push({x:e.clientX,y:e.clientY,t:now});
+      while(path.length&&now-path[0].t>320) path.shift();
+      if(mode==='wipe') addSeed(e.clientX,e.clientY);
+      else{
+        let d=0;for(let k=1;k<path.length;k++) d+=Math.hypot(path[k].x-path[k-1].x,path[k].y-path[k-1].y);
+        if(d>cv.getBoundingClientRect().width*.28) wipe(path.filter((_,k)=>k%3===0).map(p=>[p.x,p.y]).slice(-6));
+      }
+      // Resting the pointer in one place for a moment makes the object poof into the next one.
+      clearTimeout(rest);rest=setTimeout(()=>poof(e.clientX,e.clientY),280);
+    },{passive:true});
+    hero.addEventListener('pointerleave',()=>{clearTimeout(rest);path=[];});
+    hero.addEventListener('pointerdown',e=>poof(e.clientX,e.clientY),{passive:true});
     // Devices without a hovering pointer still get the change, starting from the object.
     if(!reduce&&window.matchMedia('(hover: none)').matches){
       setInterval(()=>{
         const r=cv.getBoundingClientRect();
         if(document.hidden||r.bottom<0||r.top>innerHeight) return;
-        seed(r.left+r.width*.7,r.top+r.height*.45);
-      },5200);
+        poof(r.left+r.width*.7,r.top+r.height*.45);
+      },5600);
     }
   })();
 
