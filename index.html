@@ -169,7 +169,9 @@ button{font:inherit;color:inherit}
 .hero{position:relative;isolation:isolate;overflow:hidden;min-height:min(960px,100vh);display:flex;flex-direction:column}
 .hero__media{position:absolute;inset:0;z-index:-2;background:#0d0e12}
 .hero__media video,.hero__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 50%}
-.hero__media video{opacity:0}.hero__media video.on{opacity:1;transition:opacity .6s}.hero__media video.top{z-index:1;transition:opacity .5s ease-in-out}
+.hero__media .hl{position:absolute;inset:0;opacity:0}.hero__media .hl.on{opacity:1}
+.hero__media video{opacity:0}.hero__media video.on{opacity:1;transition:opacity .6s}
+.hero__media canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
 .hero__shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(11,11,10,.86) 0%,rgba(11,11,10,.4) 44%,rgba(11,11,10,0) 72%),linear-gradient(180deg,rgba(11,11,10,.4) 0%,rgba(11,11,10,0) 22%,rgba(11,11,10,0) 60%,var(--bg) 100%)}
 .hero__in{flex:1;display:flex;align-items:center;position:relative;width:100%;padding-top:120px;padding-bottom:36px}
 .hero__copy{display:flex;flex-direction:column;gap:22px;max-width:760px}
@@ -408,6 +410,7 @@ button{font:inherit;color:inherit}
   .hero{min-height:0}
   .hero__media video{display:none}
   .hero__media img{object-position:72% 40%;height:56%}
+  .hero__media canvas{height:56%}
   .hero__shade{background:linear-gradient(180deg,rgba(11,11,10,.45) 0%,rgba(11,11,10,.05) 20%,rgba(11,11,10,.75) 44%,var(--bg) 56%)}
   .hero__in{padding-top:320px;padding-bottom:26px;align-items:flex-end}
   .switch{display:none}
@@ -468,9 +471,11 @@ button{font:inherit;color:inherit}
 <!-- 1 HERO -->
 <header class="hero">
   <div class="hero__media" aria-hidden="true">
-    <img src="/assets/lock-in/candles.jpg" alt="" />
-    <div id="heroVideo" data-clips="/assets/home/hero-lock.mp4,/assets/home/hero-lock-mirror.mp4,/assets/home/hero-mirror-rev.mp4" data-names="Charts → Discipline|Discipline → Mirror|Mirror → Charts">
-      <video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video>
+    <div id="heroStage">
+      <div class="hl on" data-loop="/assets/lock-in/loop-candles.mp4"><img src="/assets/lock-in/candles.jpg" alt="" /></div>
+      <div class="hl" data-loop="/assets/lock-in/loop-lock.mp4"><img src="/assets/lock-in/lock.jpg" alt="" /></div>
+      <div class="hl" data-loop="/assets/home/loop-mirror.mp4"><img src="/assets/home/mirror.jpg" alt="" /></div>
+      <canvas></canvas>
     </div>
   </div>
   <div class="hero__shade" aria-hidden="true"></div>
@@ -1018,29 +1023,107 @@ button{font:inherit;color:inherit}
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const small=window.matchMedia('(max-width: 720px)').matches;
 
-  // Hero: two stacked videos, so the next clip is ready before the swap. Phones keep the still image.
+  // Hero: three scenes (candles, lock, mirror) stacked as looping layers. Moving the pointer over the
+  // hero starts a reveal of the next scene that spreads out from where the pointer is.
   (function(){
-    const box=document.getElementById('heroVideo'),label=document.getElementById('clipName')||{};
-    if(!box) return;
-    if(reduce||small){box.remove();return;}
-    const clips=box.dataset.clips.split(','),names=box.dataset.names.split('|');
-    const vids=[...box.querySelectorAll('video')];let i=0,front=0;
-    // Each clip starts on the frame the previous one ended on. The incoming video is laid over the
-    // outgoing one, and the outgoing one is only cleared and reloaded once it is fully covered.
-    const preload=()=>{const n=vids[1-front];n.src=clips[(i+1)%clips.length];n.load();};
-    let busy=false;
-    const swap=()=>{if(busy) return;busy=true;const old=vids[front];i=(i+1)%clips.length;front=1-front;const v=vids[front];
-      const go=()=>{v.classList.add('top');void v.offsetWidth;v.classList.add('on');
-        setTimeout(()=>{old.classList.remove('on','top');v.classList.remove('top');preload();busy=false;},620);};
-      v.addEventListener('playing',go,{once:true});v.currentTime=0;v.play().catch(()=>{});};
-    // Start the next clip just before the current one runs out, so the motion never stops.
-    const tick=()=>{const v=vids[front];if(v.duration&&v.duration-v.currentTime<.55) swap();requestAnimationFrame(tick);};
-    vids.forEach(v=>{
-      v.addEventListener('ended',()=>{if(v===vids[front]) swap();});
-      v.addEventListener('error',()=>{box.remove();},{once:true});
+    const stage=document.getElementById('heroStage');
+    if(!stage) return;
+    const hero=stage.closest('.hero'),cv=stage.querySelector('canvas'),ctx=cv.getContext('2d');
+    const layers=[...stage.querySelectorAll('.hl')];
+    const useVideo=!reduce&&!small;
+    const vids=layers.map(l=>{
+      if(!useVideo) return null;
+      const v=document.createElement('video');
+      v.muted=true;v.loop=true;v.playsInline=true;v.preload='auto';v.src=l.dataset.loop;
+      v.addEventListener('playing',()=>v.classList.add('on'),{once:true});
+      v.addEventListener('error',()=>v.remove(),{once:true});
+      l.appendChild(v);return v;
     });
-    requestAnimationFrame(tick);
-    vids[0].src=clips[0];vids[0].addEventListener('playing',()=>{vids[0].classList.add('on');label.textContent=names[0];preload();},{once:true});vids[0].play().catch(()=>{});
+    const play=on=>vids.forEach(v=>{if(v&&v.isConnected){on?v.play().catch(()=>{}):v.pause();}});
+    if('IntersectionObserver' in window) new IntersectionObserver(es=>play(es[0].isIntersecting)).observe(hero); else play(true);
+    const source=i=>{const v=vids[i];return v&&v.isConnected&&v.readyState>=2?v:layers[i].querySelector('img');};
+
+    // The reveal mask is computed at low resolution and scaled up, which keeps its edge soft.
+    const MW=176;let MH=99,mask=document.createElement('canvas'),rim=document.createElement('canvas'),mctx,rctx,mimg,rimg,noise;
+    let cw=0,ch=0;
+    const size=()=>{
+      const r=cv.getBoundingClientRect(),d=Math.min(window.devicePixelRatio||1,1.5);
+      cw=cv.width=Math.max(2,Math.round(r.width*d));ch=cv.height=Math.max(2,Math.round(r.height*d));
+      MH=Math.max(2,Math.round(MW*ch/cw));
+      mask.width=rim.width=MW;mask.height=rim.height=MH;
+      mctx=mask.getContext('2d');rctx=rim.getContext('2d');
+      mimg=mctx.createImageData(MW,MH);rimg=rctx.createImageData(MW,MH);
+      noise=new Float32Array(MW*MH);
+      // Two octaves of smooth noise, so the edge drifts like mist instead of forming a clean circle.
+      const oct=cs=>{
+        const gw=Math.ceil(MW/cs)+2,gh=Math.ceil(MH/cs)+2,g=new Float32Array(gw*gh).map(()=>Math.random());
+        return (x,y)=>{
+          const fx=x/cs,fy=y/cs,x0=fx|0,y0=fy|0;let tx=fx-x0,ty=fy-y0;tx=tx*tx*(3-2*tx);ty=ty*ty*(3-2*ty);
+          const a=g[y0*gw+x0],b=g[y0*gw+x0+1],c=g[(y0+1)*gw+x0],e=g[(y0+1)*gw+x0+1];
+          return a+(b-a)*tx+(c-a)*ty+(a-b-c+e)*tx*ty;
+        };
+      };
+      const n1=oct(30),n2=oct(11);
+      for(let y=0;y<MH;y++)for(let x=0;x<MW;x++) noise[y*MW+x]=n1(x,y)*.65+n2(x,y)*.35;
+    };
+    size();window.addEventListener('resize',size);
+
+    let cur=0,next=1,active=false,seeds=[],idleAt=0,raf=0;
+    const diag=()=>Math.hypot(MW,MH);
+    const frame=now=>{
+      raf=0;if(!active) return;
+      const D=diag(),edge=D*.09,amp=D*.2,m=mimg.data,q=rimg.data;let min=1;
+      const R=seeds.map(s=>{const p=(now-s.t)/1700;return D*(.05+1.25*Math.pow(Math.max(p,0),1.7));});
+      for(let y=0,k=0;y<MH;y++)for(let x=0;x<MW;x++,k++){
+        let best=-1e9;
+        for(let j=0;j<seeds.length;j++){const dx=x-seeds[j].x,dy=y-seeds[j].y,v=R[j]-Math.sqrt(dx*dx+dy*dy);if(v>best) best=v;}
+        let a=(best+(noise[k]-.5)*amp)/edge+.5;a=a<0?0:a>1?1:a;
+        if(a<min) min=a;
+        const o=k*4;m[o+3]=a*255;
+        q[o]=190;q[o+1]=225;q[o+2]=255;q[o+3]=a*(1-a)*4*95;
+      }
+      mctx.putImageData(mimg,0,0);rctx.putImageData(rimg,0,0);
+      const src=source(next),sw=src.videoWidth||src.naturalWidth,sh=src.videoHeight||src.naturalHeight;
+      ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,cw,ch);
+      if(sw&&sh){
+        // Same framing as object-fit: cover with the layer's object-position.
+        const pos=getComputedStyle(layers[next].querySelector('img')).objectPosition.split(' ').map(parseFloat);
+        const s=Math.max(cw/sw,ch/sh),dw=sw*s,dh=sh*s;
+        ctx.drawImage(src,(cw-dw)*(pos[0]||0)/100,(ch-dh)*(pos[1]||0)/100,dw,dh);
+        ctx.globalCompositeOperation='destination-in';ctx.drawImage(mask,0,0,cw,ch);
+        ctx.globalCompositeOperation='lighter';ctx.drawImage(rim,0,0,cw,ch);
+      }
+      if(min>=1){
+        layers[cur].classList.remove('on');layers[next].classList.add('on');
+        cur=next;next=(cur+1)%layers.length;active=false;seeds=[];idleAt=now;
+        requestAnimationFrame(()=>{ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,cw,ch);});
+        return;
+      }
+      raf=requestAnimationFrame(frame);
+    };
+    const seed=(cx,cy)=>{
+      const r=cv.getBoundingClientRect();if(!r.width||!r.height) return;
+      const x=Math.min(Math.max((cx-r.left)/r.width,0),1)*MW,y=Math.min(Math.max((cy-r.top)/r.height,0),1)*MH,now=performance.now();
+      if(!active){
+        if(now-idleAt<700) return;
+        active=true;seeds=[{x,y,t:now}];
+      }else{
+        // Sweeping across adds more starting points, so the change follows the pointer's path.
+        const l=seeds[seeds.length-1];
+        if(seeds.length<8&&Math.hypot(x-l.x,y-l.y)>diag()*.1) seeds.push({x,y,t:now});
+      }
+      if(!raf) raf=requestAnimationFrame(frame);
+    };
+    hero.addEventListener('pointermove',e=>seed(e.clientX,e.clientY),{passive:true});
+    hero.addEventListener('pointerdown',e=>seed(e.clientX,e.clientY),{passive:true});
+    // Devices without a hovering pointer still get the change, starting from the object.
+    if(!reduce&&window.matchMedia('(hover: none)').matches){
+      setInterval(()=>{
+        const r=cv.getBoundingClientRect();
+        if(document.hidden||r.bottom<0||r.top>innerHeight) return;
+        seed(r.left+r.width*.7,r.top+r.height*.45);
+      },5200);
+    }
   })();
 
   // Reveal on scroll, count-up, and per-object loop clips. No library needed.
